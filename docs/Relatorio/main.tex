@@ -1,0 +1,82 @@
+\documentclass[12pt,a4paper,titlepage]{article}
+\usepackage[utf8]{inputenc} % para poder colocar acentos e caracteres especiais
+\usepackage[portuguese]{babel}
+\usepackage{graphicx} % Permite inserir e manipular imagens
+\usepackage{fancyhdr} % 
+\usepackage{caption}
+\usepackage{geometry} % Permite definir facilmente margens e o layout da página
+\usepackage{setspace} % Permite alterar o espaçamento entre linhas
+\usepackage{titlesec} % Permite personalizar os títulos de secções e subseções
+\usepackage[hidelinks]{hyperref} % Ativa links clicáveis no PDF
+\usepackage{multicol} % coloca isto no preâmbulo
+
+% Page setup
+\geometry{margin=2.5cm}
+\setstretch{1.5}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\thepage}
+\lhead{Escola Superior de Tecnologia e Gestão}
+
+% Title formatting
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\begin{document}
+
+% Title Page
+\begin{titlepage}
+    \centering
+    \includegraphics[width=15cm]{imagens/estg_logo.png}\par\vspace{0.9cm} % 
+    \scshape % Small caps for the institution name
+    
+    \rule{\textwidth}{1pt}\vspace{0.4cm} % Horizontal line
+    {\Huge \bfseries Machine Learning \par}
+    {Trabalho Prático - Avaliação Contínua \par}
+    \vspace{0.4cm}\rule{\textwidth}{1pt}\par
+    \vspace{2cm}
+    
+    \Large Mestrado em Engenharia Informática \par
+    \vspace{4cm}
+
+    \normalsize
+    %\textbf{Grupo 22} \par
+    Hugo Guimarães – 8220337 \par
+    Diogo Pereira – 8200594 \par
+    \vfill
+
+    \large \today
+\end{titlepage}
+
+
+% Indice
+\tableofcontents
+\newpage
+
+% Lista de Figuras
+\renewcommand{\listfigurename}{Índice de Figuras}
+\listoffigures
+\newpage
+
+% Lista de Tabelas
+%\renewcommand{\listtablename}{Índice de Tabelas}
+%\listoftables
+%\addcontentsline{toc}{section}{Índice de Tabelas}
+%\newpage
+
+
+
+% Introdução
+\include{seccoes/introducao}
+
+\newpage
+
+% Definição do Problema
+% \include{seccoes/definicao_do_problema}
+
+% Conclusion
+\section{Conclusão} \label{conclusao}
+
+
+
+\end{document}
