@@ -1,0 +1,2 @@
+FakeNewsNet: https://www.kaggle.com/datasets/mdepak/fakenewsnet/data
+AG News: https://www.kaggle.com/datasets/amananandrai/ag-news-classification-dataset
