@@ -1,8 +1,10 @@
 import pandas as pd
 import numpy as np
+from common
+
 
 def main():
-    file_path = '00-Datasets/AGNEWS/train.csv'
+    file_path = 'Datasets/AGNEWS/train.csv'
     df = read_csv(file_path)
     
 
