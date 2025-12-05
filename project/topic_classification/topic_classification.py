@@ -1,10 +1,11 @@
 import pandas as pd
 import numpy as np
-from common
+from common.tools import read_csv
 
 
-def main():
-    file_path = 'Datasets/AGNEWS/train.csv'
+
+def topic_classification():
+    file_path = 'datasets/AGNEWS/train.csv'
     df = read_csv(file_path)
     
 
@@ -15,7 +16,3 @@ def main():
 
 
 
-        
-
-if __name__ == "__main__":
-    main()
