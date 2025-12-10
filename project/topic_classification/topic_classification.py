@@ -14,12 +14,17 @@ def topic_classification():
     df['data'] = df['Title'] + ' ' + df['Description']
     df = df.drop(columns=['Title', 'Description'])
 
-    print(df['data'][0])
-    
-    df = preprocessing(df)
 
-    print(df['data'][0])
+    df_test = read_csv(file_path)
+    df_test['data'] = df_test['Title'] + ' ' + df_test['Description']
+    df_test = df_test.drop(columns=['Title', 'Description'])
+    df_test = df_test.iloc[[0]].copy()
 
+    print(df_test['data'][0])
+
+    df_test = preprocessing(df_test)
+
+    print(df_test['data'][0])
 
 
     
