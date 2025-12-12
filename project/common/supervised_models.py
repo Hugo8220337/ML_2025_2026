@@ -9,9 +9,8 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 
 def train_linear_regression(
-    df,
-    target_column,
-    feature_columns,
+    X,
+    y,
     test_size=0.2,
     random_state=42,
     fit_intercept=True,
@@ -20,20 +19,6 @@ def train_linear_regression(
     positive=False
 ):
     
-    
-    if target_column not in df.columns:
-        print(f"Error: Target '{target_column}' not found in DataFrame.")
-        return None
-    
-    for col in feature_columns:
-        if col not in df.columns:
-            print(f"Error: Feature '{col}' not found in DataFrame.")
-            return None
-
-    
-    X = df[feature_columns]
-    y = df[target_column]
-
     
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=test_size, random_state=random_state
@@ -68,9 +53,8 @@ def train_linear_regression(
     }
 
 def train_logistic_regression(
-    df,
-    target_column,
-    feature_columns,
+    X,
+    y,
     test_size=0.2,
     split_random_state=42,
     penalty='l2',
@@ -90,20 +74,6 @@ def train_logistic_regression(
     l1_ratio=None
 ):
     
-    
-    if target_column not in df.columns:
-        print(f"Error: Target '{target_column}' not found in DataFrame.")
-        return None
-    
-    for col in feature_columns:
-        if col not in df.columns:
-            print(f"Error: Feature '{col}' not found in DataFrame.")
-            return None
-
-    
-    X = df[feature_columns]
-    y = df[target_column]
-
     
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=test_size, random_state=split_random_state
@@ -154,9 +124,8 @@ def train_logistic_regression(
     }
 
 def train_neural_network(
-    df,
-    target_column,
-    feature_columns,
+    X,
+    y,
     test_size=0.2,
     split_random_state=42,
     hidden_layer_sizes=(100,),
@@ -183,20 +152,6 @@ def train_neural_network(
     n_iter_no_change=10,
     max_fun=15000
 ):
-
-    
-    if target_column not in df.columns:
-        print(f"Error: Target '{target_column}' not found in DataFrame.")
-        return None
-    
-    for col in feature_columns:
-        if col not in df.columns:
-            print(f"Error: Feature '{col}' not found in DataFrame.")
-            return None
-
-    
-    X = df[feature_columns]
-    y = df[target_column]
 
     
     X_train, X_test, y_train, y_test = train_test_split(
@@ -256,9 +211,8 @@ def train_neural_network(
     }
 
 def train_decision_tree(
-    df,
-    target_column,
-    feature_columns,
+    X,
+    y,
     test_size=0.2,
     split_random_state=42,
     criterion='gini',
@@ -276,20 +230,6 @@ def train_decision_tree(
 ):
 
     
-    
-    if target_column not in df.columns:
-        print(f"Error: Target '{target_column}' not found in DataFrame.")
-        return None
-    
-    for col in feature_columns:
-        if col not in df.columns:
-            print(f"Error: Feature '{col}' not found in DataFrame.")
-            return None
-
-    
-    X = df[feature_columns]
-    y = df[target_column]
-
     
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=test_size, random_state=split_random_state
@@ -333,14 +273,12 @@ def train_decision_tree(
             "Confusion Matrix": conf_matrix,
             "Classification Report": class_report
         },
-        "test_data": {"y_test": y_test, "predictions": predictions},
-        "feature_importances": dict(zip(feature_columns, model.feature_importances_))
+        "test_data": {"y_test": y_test, "predictions": predictions}
     }
 
 def train_random_forest(
-    df,
-    target_column,
-    feature_columns,
+    X,
+    y,
     test_size=0.2,
     split_random_state=42,
     n_estimators=100,
@@ -364,20 +302,6 @@ def train_random_forest(
 ):
 
     
-    
-    if target_column not in df.columns:
-        print(f"Error: Target '{target_column}' not found in DataFrame.")
-        return None
-    
-    for col in feature_columns:
-        if col not in df.columns:
-            print(f"Error: Feature '{col}' not found in DataFrame.")
-            return None
-
-    
-    X = df[feature_columns]
-    y = df[target_column]
-
     
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=test_size, random_state=split_random_state
@@ -427,15 +351,13 @@ def train_random_forest(
             "Confusion Matrix": conf_matrix,
             "Classification Report": class_report
         },
-        "test_data": {"y_test": y_test, "predictions": predictions},
-        "feature_importances": dict(zip(feature_columns, model.feature_importances_))
+        "test_data": {"y_test": y_test, "predictions": predictions}
     }
 
 
 def train_knn(
-    df,
-    target_column,
-    feature_columns,
+    X,
+    y,
     test_size=0.2,
     split_random_state=42,
     n_neighbors=5,
@@ -448,20 +370,6 @@ def train_knn(
     n_jobs=None
 ):
     
-    
-    if target_column not in df.columns:
-        print(f"Error: Target '{target_column}' not found in DataFrame.")
-        return None
-    
-    for col in feature_columns:
-        if col not in df.columns:
-            print(f"Error: Feature '{col}' not found in DataFrame.")
-            return None
-
-    
-    X = df[feature_columns]
-    y = df[target_column]
-
     
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=test_size, random_state=split_random_state
@@ -506,9 +414,8 @@ def train_knn(
 
 
 def train_svm(
-    df,
-    target_column,
-    feature_columns,
+    X,
+    y,
     test_size=0.2,
     split_random_state=42,
     C=1.0,
@@ -528,20 +435,6 @@ def train_svm(
     random_state=None
 ):
     
-    
-    if target_column not in df.columns:
-        print(f"Error: Target '{target_column}' not found in DataFrame.")
-        return None
-    
-    for col in feature_columns:
-        if col not in df.columns:
-            print(f"Error: Feature '{col}' not found in DataFrame.")
-            return None
-
-    
-    X = df[feature_columns]
-    y = df[target_column]
-
     
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=test_size, random_state=split_random_state

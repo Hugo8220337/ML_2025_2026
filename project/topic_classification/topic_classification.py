@@ -1,12 +1,12 @@
+import json
 import pandas as pd
 import numpy as np
 from common.tools import read_csv
-from common.supervised_models import train_neural_network
-from common.nlp import preprocessing
+from common.supervised_models import train_linear_regression
+from common.nlp import preprocessing, tfidf_vectorize
 
 
-# Class Index,Title,Description
-
+_topics = {1: "World", 2: "Sports", 3: "Business", 4: "Sci/Tech"}
 
 def topic_classification():
     file_path = 'datasets/AGNEWS/train.csv'
@@ -15,16 +15,11 @@ def topic_classification():
     df = df.drop(columns=['Title', 'Description'])
 
 
-    df_test = read_csv(file_path)
-    df_test['data'] = df_test['Title'] + ' ' + df_test['Description']
-    df_test = df_test.drop(columns=['Title', 'Description'])
-    df_test = df_test.iloc[[0]].copy()
+    X, vectorizer = tfidf_vectorize(df, col_name='data')
 
-    print(df_test['data'][0])
-
-    df_test = preprocessing(df_test)
-
-    print(df_test['data'][0])
+    result = train_linear_regression(X, df['Class Index'])
+    
+    print(result)
 
 
     

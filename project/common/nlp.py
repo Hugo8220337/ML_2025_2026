@@ -5,6 +5,7 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords, wordnet
 from nltk.stem import WordNetLemmatizer
 from nltk import pos_tag
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 
 # nltk.download('punkt_tab')
@@ -46,3 +47,14 @@ def preprocessing(df):
 
 
     return df
+
+def tfidf_vectorize(df, col_name='data', max_features=5000):
+    corpus = df[col_name].apply(lambda x: ' '.join(x) if isinstance(x, list) else x)
+    
+    vectorizer = TfidfVectorizer(
+        max_features=max_features,
+        ngram_range=(1, 2)
+    )
+    tfidf_matrix = vectorizer.fit_transform(corpus)
+    
+    return tfidf_matrix, vectorizer
