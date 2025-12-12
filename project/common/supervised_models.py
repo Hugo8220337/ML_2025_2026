@@ -42,11 +42,14 @@ def train_linear_regression(
     mse = mean_squared_error(y_test, predictions)
     r2 = r2_score(y_test, predictions)
 
+    accuracy = accuracy_score(y_test, predictions.round())
+
     return {
         "model": model,
         "metrics": {
             "Mean Squared Error": mse,
-            "R2 Score": r2
+            "R2 Score": r2,
+            "Accuracy": accuracy
         },
         "coefficients": model.coef_,
         "intercept": model.intercept_
@@ -67,7 +70,6 @@ def train_logistic_regression(
     random_state=None,
     solver='lbfgs',
     max_iter=100,
-    multi_class='auto',
     verbose=0,
     warm_start=False,
     n_jobs=None,
@@ -91,7 +93,6 @@ def train_logistic_regression(
         random_state=random_state,
         solver=solver,
         max_iter=max_iter,
-        multi_class=multi_class,
         verbose=verbose,
         warm_start=warm_start,
         n_jobs=n_jobs,
