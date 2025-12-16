@@ -420,7 +420,7 @@ def train_svm(
     test_size=0.2,
     split_random_state=42,
     C=1.0,
-    kernel='rbf',
+    kernel='linear',
     degree=3,
     gamma='scale',
     coef0=0.0,

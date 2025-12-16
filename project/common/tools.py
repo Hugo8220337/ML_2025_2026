@@ -17,7 +17,7 @@ class load:
         self.speed = speed
         self.stop_event = threading.Event()
         self.animation_thread = None
-        self.spinner = itertools.cycle(['|', '/', '-', '\'])
+        self.spinner = itertools.cycle(['|', '/', '-', '\\'])
 
     def _animate(self):
         """The animation function that runs in a separate thread."""
