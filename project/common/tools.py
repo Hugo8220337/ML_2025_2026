@@ -2,6 +2,44 @@ import csv
 import json
 import os
 import pandas as pd
+import sys
+import time
+import threading
+import itertools
+
+
+class load:
+    """
+    A context manager for showing a loading animation in the console.
+    """
+    def __init__(self, text="Loading...", speed=0.1):
+        self.text = text
+        self.speed = speed
+        self.stop_event = threading.Event()
+        self.animation_thread = None
+        self.spinner = itertools.cycle(['|', '/', '-', '\'])
+
+    def _animate(self):
+        """The animation function that runs in a separate thread."""
+        while not self.stop_event.is_set():
+            sys.stdout.write(f'\r{self.text} {next(self.spinner)}')
+            sys.stdout.flush()
+            time.sleep(self.speed)
+        # Clear the line after the animation stops
+        sys.stdout.write('\r' + ' ' * (len(self.text) + 2) + '\r')
+        sys.stdout.flush()
+
+    def __enter__(self):
+        """Starts the loading animation."""
+        self.animation_thread = threading.Thread(target=self._animate)
+        self.animation_thread.start()
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        """Stops the loading animation."""
+        self.stop_event.set()
+        if self.animation_thread:
+            self.animation_thread.join()
 
 
 def csv_to_json(csv_file_path, json_file_path):
