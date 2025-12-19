@@ -49,6 +49,17 @@ def preprocessing(df):
     return df
 
 def tfidf_vectorize(df, col_name='data', max_features=5000):
+    """
+    Perform TF-IDF vectorization on the specified column of the DataFrame.
+    Serves as a feature extraction method for text data. 
+    Args:
+        df (pd.DataFrame): Input DataFrame containing the text data.
+        col_name (str): Name of the column to vectorize.
+        max_features (int): Maximum number of features for TF-IDF.
+    Returns:
+        tfidf_matrix (sparse matrix): TF-IDF feature matrix.
+        vectorizer (TfidfVectorizer): Fitted TF-IDF vectorizer instance.
+    """
     corpus = df[col_name].apply(lambda x: ' '.join(x) if isinstance(x, list) else x)
     
     vectorizer = TfidfVectorizer(
