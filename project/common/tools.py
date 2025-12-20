@@ -2,6 +2,7 @@ import csv
 import json
 import os
 import pandas as pd
+import numpy as np
 import sys
 import time
 import threading
@@ -81,3 +82,61 @@ def read_csv(csv_file_path):
     except Exception as e:
         print(f"An error occurred while reading the CSV: {e}")
         return None
+
+def export_model_results_csv(model_results, output_filename='model_comparison.csv'):
+    """
+    Exports results to CSV containing only the main metrics.
+    """
+    data_list = []
+
+    for model_name, data in model_results.items():
+        row = {'Model': model_name}
+        
+        # Process Metrics
+        if 'metrics' in data:
+            # Copy to avoid modifying the original dictionary
+            metrics = data['metrics'].copy()
+            
+            # REMOVE the Classification Report (as it's too much text and clutters the CSV)
+            if 'Classification Report' in metrics:
+                del metrics['Classification Report']
+            
+            # REMOVE the Confusion Matrix (as it contains line breaks and clutters the CSV)
+            if 'Confusion Matrix' in metrics:
+                metrics['Confusion Matrix'] = str(metrics['Confusion Matrix']).replace('\n', ' ')
+            
+            row.update(metrics)
+            
+        # NOTE: Code that added 'Intercept' and 'Coefficients' has been removed here.
+        
+        data_list.append(row)
+
+    # Create DataFrame
+    df = pd.DataFrame(data_list)
+    
+    # Define the ideal column order (Numeric metrics first)
+    preferred_order = [
+        'Model', 
+        'Accuracy', 
+        'Precision', 
+        'Recall', 
+        'F1 Score', 
+        'AUC', 
+        'Mean Squared Error', 
+        'R2 Score',
+        'Confusion Matrix'
+    ]
+    
+    # Reorder: Preferred columns first, remaining columns after
+    cols = [c for c in preferred_order if c in df.columns] + [c for c in df.columns if c not in preferred_order]
+    df = df[cols]
+    
+    # Sort rows by best result (F1 Score or Accuracy)
+    if 'F1 Score' in df.columns:
+        df = df.sort_values(by='F1 Score', ascending=False)
+    elif 'Accuracy' in df.columns:
+        df = df.sort_values(by='Accuracy', ascending=False)
+    
+    df.to_csv(output_filename, index=False, sep=',')
+    print(f"Results successfully exported to: {output_filename}")
+    return df
