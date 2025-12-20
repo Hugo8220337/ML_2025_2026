@@ -9,7 +9,7 @@ from common.nlp import tfidf_vectorize
 DATA_PATH = Path(__file__).resolve().parents[1] / "datasets" / "clickbait_data.csv"
 
 
-def train_setence_detectuin_linear_regression(X, y):
+def _train_setence_detectuin_linear_regression(X, y):
     with load("Train Linear Regression Model..."):
         linear_regression_results = train_linear_regression(X, y)
     print("Linear Regression model training complete.")
@@ -17,7 +17,7 @@ def train_setence_detectuin_linear_regression(X, y):
     
     return linear_regression_results
 
-def train_setence_detection_logistic_regression(X, y):
+def _train_setence_detection_logistic_regression(X, y):
     with load("Train Logistic Regression Model..."):
         logistic_regression_results = train_logistic_regression(X, y)
     print("Logistic Regression model training complete.")
@@ -25,7 +25,7 @@ def train_setence_detection_logistic_regression(X, y):
     
     return logistic_regression_results
 
-def train_setence_detection_svm(X, y):
+def _train_setence_detection_svm(X, y):
     with load("Train SVM Model..."):
         svm_results = train_svm(X, y)
     print("SVM model training complete.")
@@ -43,9 +43,9 @@ def setence_detection():
 
     X, vectorizer = tfidf_vectorize(df, col_name='headline')
 
-    linear_regression_results = train_setence_detectuin_linear_regression(X, dy)
-    logistic_regression_results = train_setence_detection_logistic_regression(X, dy)
-    svm_results = train_setence_detection_svm(X, dy)
+    linear_regression_results = _train_setence_detectuin_linear_regression(X, dy)
+    logistic_regression_results = _train_setence_detection_logistic_regression(X, dy)
+    svm_results = _train_setence_detection_svm(X, dy)
 
     all_results = {
         "Linear Regression": linear_regression_results,
