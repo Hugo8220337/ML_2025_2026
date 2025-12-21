@@ -22,7 +22,7 @@ def _train_consistency_logistic(X, y, class_weights_dict):
             max_iter=1000 # Increase iterations because the problem is difficult
         )
     print("Logistic Regression training complete.")
-    
+
     # Print F1 or Accuracy for debugging
     if results and 'metrics' in results:
         print(json.dumps(results['metrics'].get('F1 Score', 'N/A'), indent=4))
@@ -57,15 +57,6 @@ def semantic_consistency():
     if df['label'].isnull().any():
         df = df.dropna(subset=['label']) # Remove rows with unmapped labels
 
-    # Cannot use simple label encoding because there are few 'disagree' samples and the model might ignore them
-    # To handle class imbalance, we compute balanced class weights
-    class_weights = compute_class_weight(
-        class_weight='balanced',
-        classes=np.unique(df['label']),
-        y=df['label']
-    )
-    print("Pesos das classes:", class_weights)
-
     # Feature Engineering (Fuse Title + Body)
     # Important: The TF-IDF needs to see the words from both to find relationships
     df['combined_text'] = df['Headline'] + " " + df['articleBody']
@@ -77,6 +68,8 @@ def semantic_consistency():
     y = df['label']
 
     # Compute class weights for balancing
+    # Cannot use simple label encoding because there are few 'disagree' samples and the model might ignore them
+    # To handle class imbalance, we compute balanced class weights
     print("Computing class weights...")
     classes = np.unique(y)
     weights = compute_class_weight(class_weight='balanced', classes=classes, y=y)
