@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
-from sklearn.metrics import silhouette_score
+from .metrics import get_clustering_metrics
 
 
 
@@ -47,18 +47,13 @@ def train_kmeans(
     labels = model.labels_
     centroids = model.cluster_centers_
 
-    score = None
-    if 1 < n_clusters < len(X):
-        try:
-            score = silhouette_score(X, labels)
-        except Exception:
-            score = "Could not calculate silhouette score"
+    metrics = get_clustering_metrics(X, labels, model)
 
     return {
         "model": model,
         "labels": labels,
         "centroids": centroids,
-        "metrics": {"silhouette_score": score},
+        "metrics": metrics,
         "inertia": model.inertia_ 
     }
     

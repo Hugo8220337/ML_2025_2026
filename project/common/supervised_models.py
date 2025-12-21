@@ -1,16 +1,12 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression,LogisticRegression
-from sklearn.metrics import (
-    accuracy_score, confusion_matrix, classification_report, 
-    mean_squared_error, r2_score,
-    precision_score, recall_score, f1_score, roc_auc_score
-)
+from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.neural_network import MLPClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
+from .metrics import evaluate_model
 
 def train_linear_regression(
     X,
@@ -22,13 +18,10 @@ def train_linear_regression(
     n_jobs=None,
     positive=False
 ):
-    
-    
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=test_size, random_state=random_state
     )
 
-    
     model = LinearRegression(
         fit_intercept=fit_intercept,
         copy_X=copy_X,
@@ -36,25 +29,16 @@ def train_linear_regression(
         positive=positive
     )
 
-    
     model.fit(X_train, y_train)
-
-    
     predictions = model.predict(X_test)
 
     
-    mse = mean_squared_error(y_test, predictions)
-    r2 = r2_score(y_test, predictions)
-
-    accuracy = accuracy_score(y_test, predictions.round())
+    evaluation = evaluate_model(model, X_test, y_test)
+    metrics = evaluation['metrics']
 
     return {
         "model": model,
-        "metrics": {
-            "Mean Squared Error": mse,
-            "R2 Score": r2,
-            "Accuracy": accuracy
-        },
+        "metrics": metrics,
         "coefficients": model.coef_,
         "intercept": model.intercept_
     }
@@ -79,7 +63,6 @@ def train_logistic_regression(
     n_jobs=None,
     l1_ratio=None
 ):
-    
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=split_random_state)
     
     model = LogisticRegression(
@@ -89,44 +72,20 @@ def train_logistic_regression(
         n_jobs=n_jobs, l1_ratio=l1_ratio
     )
 
-    
     try:
         model.fit(X_train, y_train)
     except Exception as e:
         print(f"Error during training (check your parameters/solver compatibility): {e}")
         return None
 
-    
     predictions = model.predict(X_test)
 
     
-    # --- Metrics ---
-    accuracy = accuracy_score(y_test, predictions)
-    precision = precision_score(y_test, predictions, average='weighted', zero_division=0)
-    recall = recall_score(y_test, predictions, average='weighted', zero_division=0)
-    f1 = f1_score(y_test, predictions, average='weighted', zero_division=0)
-
-    # AUC Calculation
-    try:
-        probs = model.predict_proba(X_test)
-        if len(set(y_test)) > 2:
-            auc = roc_auc_score(y_test, probs, multi_class='ovr')
-        else:
-            auc = roc_auc_score(y_test, probs[:, 1])
-    except Exception:
-        auc = "N/A"
+    evaluation = evaluate_model(model, X_test, y_test)
 
     return {
         "model": model,
-        "metrics": {
-            "Accuracy": accuracy,
-            "Precision": precision,
-            "Recall": recall,
-            "F1 Score": f1,
-            "AUC": auc,
-            "Confusion Matrix": confusion_matrix(y_test, predictions),
-            "Classification Report": classification_report(y_test, predictions)
-        },
+        "metrics": evaluation['metrics'],
         "test_data": {"y_test": y_test, "predictions": predictions},
         "intercept": model.intercept_,
         "coefficients": model.coef_
@@ -161,8 +120,6 @@ def train_neural_network(
     n_iter_no_change=10,
     max_fun=15000
 ):
-
-    
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=split_random_state)
     
     model = MLPClassifier(
@@ -174,44 +131,20 @@ def train_neural_network(
         beta_2=beta_2, epsilon=epsilon, n_iter_no_change=n_iter_no_change, max_fun=max_fun
     )
 
-    
     try:
         model.fit(X_train, y_train)
     except Exception as e:
         print(f"Error during training: {e}")
         return None
 
-    
     predictions = model.predict(X_test)
 
     
-    # --- Metrics ---
-    accuracy = accuracy_score(y_test, predictions)
-    precision = precision_score(y_test, predictions, average='weighted', zero_division=0)
-    recall = recall_score(y_test, predictions, average='weighted', zero_division=0)
-    f1 = f1_score(y_test, predictions, average='weighted', zero_division=0)
-
-    # Calculate AUC
-    try:
-        probs = model.predict_proba(X_test)
-        if len(set(y_test)) > 2:
-            auc = roc_auc_score(y_test, probs, multi_class='ovr')
-        else:
-            auc = roc_auc_score(y_test, probs[:, 1])
-    except Exception:
-        auc = "N/A"
+    evaluation = evaluate_model(model, X_test, y_test)
 
     return {
         "model": model,
-        "metrics": {
-            "Accuracy": accuracy,
-            "Precision": precision,
-            "Recall": recall,
-            "F1 Score": f1,
-            "AUC": auc,
-            "Confusion Matrix": confusion_matrix(y_test, predictions),
-            "Classification Report": classification_report(y_test, predictions)
-        },
+        "metrics": evaluation['metrics'],
         "test_data": {"y_test": y_test, "predictions": predictions}
     }
 
@@ -233,7 +166,6 @@ def train_decision_tree(
     class_weight=None,
     ccp_alpha=0.0
 ):
-
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=split_random_state)
 
     model = DecisionTreeClassifier(
@@ -243,46 +175,20 @@ def train_decision_tree(
         min_impurity_decrease=min_impurity_decrease, class_weight=class_weight, ccp_alpha=ccp_alpha
     )
 
-    
     try:
         model.fit(X_train, y_train)
     except Exception as e:
         print(f"Error during training: {e}")
         return None
 
-    
     predictions = model.predict(X_test)
 
     
-    predictions = model.predict(X_test)
-
-    # --- Metrics ---
-    accuracy = accuracy_score(y_test, predictions)
-    precision = precision_score(y_test, predictions, average='weighted', zero_division=0)
-    recall = recall_score(y_test, predictions, average='weighted', zero_division=0)
-    f1 = f1_score(y_test, predictions, average='weighted', zero_division=0)
-
-    # Calculate AUC
-    try:
-        probs = model.predict_proba(X_test)
-        if len(set(y_test)) > 2:
-            auc = roc_auc_score(y_test, probs, multi_class='ovr')
-        else:
-            auc = roc_auc_score(y_test, probs[:, 1])
-    except Exception:
-        auc = "N/A"
+    evaluation = evaluate_model(model, X_test, y_test)
 
     return {
         "model": model,
-        "metrics": {
-            "Accuracy": accuracy,
-            "Precision": precision,
-            "Recall": recall,
-            "F1 Score": f1,
-            "AUC": auc,
-            "Confusion Matrix": confusion_matrix(y_test, predictions),
-            "Classification Report": classification_report(y_test, predictions)
-        },
+        "metrics": evaluation['metrics'],
         "test_data": {"y_test": y_test, "predictions": predictions}
     }
 
@@ -310,7 +216,6 @@ def train_random_forest(
     ccp_alpha=0.0,
     max_samples=None
 ):
-
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=split_random_state)
 
     model = RandomForestClassifier(
@@ -321,47 +226,22 @@ def train_random_forest(
         warm_start=warm_start, class_weight=class_weight, ccp_alpha=ccp_alpha, max_samples=max_samples
     )
 
-    
     try:
         model.fit(X_train, y_train)
     except Exception as e:
         print(f"Error during training: {e}")
         return None
 
-    
     predictions = model.predict(X_test)
 
     
-    # --- Metrics ---
-    accuracy = accuracy_score(y_test, predictions)
-    precision = precision_score(y_test, predictions, average='weighted', zero_division=0)
-    recall = recall_score(y_test, predictions, average='weighted', zero_division=0)
-    f1 = f1_score(y_test, predictions, average='weighted', zero_division=0)
-
-    # Calculate AUC
-    try:
-        probs = model.predict_proba(X_test)
-        if len(set(y_test)) > 2:
-            auc = roc_auc_score(y_test, probs, multi_class='ovr')
-        else:
-            auc = roc_auc_score(y_test, probs[:, 1])
-    except Exception:
-        auc = "N/A"
+    evaluation = evaluate_model(model, X_test, y_test)
 
     return {
         "model": model,
-        "metrics": {
-            "Accuracy": accuracy,
-            "Precision": precision,
-            "Recall": recall,
-            "F1 Score": f1,
-            "AUC": auc,
-            "Confusion Matrix": confusion_matrix(y_test, predictions),
-            "Classification Report": classification_report(y_test, predictions)
-        },
+        "metrics": evaluation['metrics'],
         "test_data": {"y_test": y_test, "predictions": predictions}
     }
-
 
 def train_knn(
     X,
@@ -377,7 +257,6 @@ def train_knn(
     metric_params=None,
     n_jobs=None
 ):
-    
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=split_random_state)
 
     model = KNeighborsClassifier(
@@ -391,40 +270,16 @@ def train_knn(
         print(f"Error during training: {e}")
         return None
 
-    
     predictions = model.predict(X_test)
 
-
-    # --- Metrics ---
-    accuracy = accuracy_score(y_test, predictions)
-    precision = precision_score(y_test, predictions, average='weighted', zero_division=0)
-    recall = recall_score(y_test, predictions, average='weighted', zero_division=0)
-    f1 = f1_score(y_test, predictions, average='weighted', zero_division=0)
-
-    # Calculate AUC
-    try:
-        probs = model.predict_proba(X_test)
-        if len(set(y_test)) > 2:
-            auc = roc_auc_score(y_test, probs, multi_class='ovr')
-        else:
-            auc = roc_auc_score(y_test, probs[:, 1])
-    except Exception:
-        auc = "N/A"
+    
+    evaluation = evaluate_model(model, X_test, y_test)
 
     return {
         "model": model,
-        "metrics": {
-            "Accuracy": accuracy,
-            "Precision": precision,
-            "Recall": recall,
-            "F1 Score": f1,
-            "AUC": auc,
-            "Confusion Matrix": confusion_matrix(y_test, predictions),
-            "Classification Report": classification_report(y_test, predictions)
-        },
+        "metrics": evaluation['metrics'],
         "test_data": {"y_test": y_test, "predictions": predictions}
     }
-
 
 def train_svm(
     X,
@@ -447,7 +302,6 @@ def train_svm(
     break_ties=False,
     random_state=None
 ):
-    
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=split_random_state)
 
     model = SVC(
@@ -457,47 +311,20 @@ def train_svm(
         break_ties=break_ties, random_state=random_state
     )
 
-    
     try:
         model.fit(X_train, y_train)
     except Exception as e:
         print(f"Error during training: {e}")
         return None
 
-    
     predictions = model.predict(X_test)
 
     
-    # --- Metrics ---
-    accuracy = accuracy_score(y_test, predictions)
-    precision = precision_score(y_test, predictions, average='weighted', zero_division=0)
-    recall = recall_score(y_test, predictions, average='weighted', zero_division=0)
-    f1 = f1_score(y_test, predictions, average='weighted', zero_division=0)
-
-    # Calculate AUC (if possible with SVM)
-    try:
-        if hasattr(model, "decision_function"):
-            y_scores = model.decision_function(X_test)
-            if len(set(y_test)) > 2:
-                 auc = roc_auc_score(y_test, model.predict_proba(X_test), multi_class='ovr')
-            else:
-                 auc = roc_auc_score(y_test, y_scores)
-        else:
-            auc = "N/A"
-    except Exception:
-        auc = "N/A"
+    evaluation = evaluate_model(model, X_test, y_test)
 
     return {
         "model": model,
-        "metrics": {
-            "Accuracy": accuracy,
-            "Precision": precision,
-            "Recall": recall,
-            "F1 Score": f1,
-            "AUC": auc,
-            "Confusion Matrix": confusion_matrix(y_test, predictions),
-            "Classification Report": classification_report(y_test, predictions)
-        },
+        "metrics": evaluation['metrics'],
         "intercept": model.intercept_ if hasattr(model, 'intercept_') else "N/A",
         "coefficients": model.coef_ if kernel == 'linear' else "N/A",
         "test_data": {"y_test": y_test, "predictions": predictions}

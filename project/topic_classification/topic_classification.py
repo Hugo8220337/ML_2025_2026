@@ -20,17 +20,17 @@ def topic_classification():
     with load("Training Linear Regression model..."):
         linear_regression_results = train_linear_regression(X, df['Class Index'])
     print("Linear Regression model training complete.")
-    print(json.dumps(linear_regression_results['metrics']['Accuracy'], indent=4))
+    print(json.dumps(linear_regression_results['metrics'], indent=4))
 
-    with load("Training Logistic Regression model..."):
-        logistic_regression_results = train_logistic_regression(X, df['Class Index'])
-    print("Logistic Regression model training complete.")
-    print(json.dumps(logistic_regression_results['metrics']['Accuracy'], indent=4))
+    # with load("Training Logistic Regression model..."):
+    #     logistic_regression_results = train_logistic_regression(X, df['Class Index'])
+    # print("Logistic Regression model training complete.")
+    # print(json.dumps(logistic_regression_results['metrics'], indent=4))
 
-    with load("Training SVM model..."):
-        svm_results = train_svm(X, df['Class Index'])
-    print("SVM model training complete.")
-    print(json.dumps(svm_results['metrics']['Accuracy'], indent=4))
+    # with load("Training SVM model..."):
+    #     svm_results = train_svm(X, df['Class Index'])
+    # print("SVM model training complete.")
+    # print(json.dumps(svm_results['metrics'], indent=4))
     
 
     
