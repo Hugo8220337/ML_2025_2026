@@ -8,15 +8,6 @@ from common.nlp import tfidf_vectorize
 # DATA_PATH = 'datasets/clickbait_data.csv'
 DATA_PATH = Path(__file__).resolve().parents[1] / "datasets" / "clickbait_data.csv"
 
-
-def _train_setence_detectuin_linear_regression(X, y):
-    with load("Train Linear Regression Model..."):
-        linear_regression_results = train_linear_regression(X, y)
-    print("Linear Regression model training complete.")
-    print(json.dumps(linear_regression_results['metrics']['Accuracy'], indent=4))
-    
-    return linear_regression_results
-
 def _train_setence_detection_logistic_regression(X, y):
     with load("Train Logistic Regression Model..."):
         logistic_regression_results = train_logistic_regression(X, y)
@@ -42,13 +33,10 @@ def setence_detection():
     dy = df["clickbait"]
 
     X, vectorizer = tfidf_vectorize(df, col_name='headline')
-
-    linear_regression_results = _train_setence_detectuin_linear_regression(X, dy)
     logistic_regression_results = _train_setence_detection_logistic_regression(X, dy)
     svm_results = _train_setence_detection_svm(X, dy)
 
     all_results = {
-        "Linear Regression": linear_regression_results,
         "Logistic Regression": logistic_regression_results,
         "SVM": svm_results
     }
