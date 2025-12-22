@@ -2,4 +2,4 @@ services:
   ml-app:
     build: .
     volumes:
-      - ./project:/app
+      - ./:/app
