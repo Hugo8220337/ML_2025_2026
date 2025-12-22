@@ -28,6 +28,7 @@ MODEL_BOUNDS = {
         (-4.0, 4.0),   # C (Regularization): 10^-4 to 10^4 (Log Scale)
         (0, 2),        # penalty: 0=l2, 1=none (assuming lbfgs solver)
         (-5.0, -1.0),  # tol: 10^-5 to 10^-1
+        (0, 3),        # 3: solver: 0=lbfgs, 1=liblinear, 2=saga
     ],
     'neural_network': [
         (10, 300),     # hidden_layer_size (neurons)
@@ -72,9 +73,11 @@ def decode_params(model_name, genes):
 
     elif model_name == 'logistic_regression':
         params['C'] = float(10 ** genes[0])
+        params['tol'] = float(10 ** genes[2])
         solver_map = {0: 'lbfgs', 1: 'liblinear', 2: 'saga'}
-        solver = solver_map[int(genes[2])]
+        solver = solver_map.get(int(genes[3]), 'lbfgs')
         params['solver'] = solver
+        
         raw_penalty = int(genes[1]) 
         
         if solver == 'lbfgs':
@@ -82,7 +85,7 @@ def decode_params(model_name, genes):
         elif solver == 'liblinear':
             params['penalty'] = 'l2' if raw_penalty == 0 else 'l1'
         elif solver == 'saga':
-            params['penalty'] = 'l2' if raw_penalty == 0 else 'l1' 
+            params['penalty'] = 'l2' if raw_penalty == 0 else 'l1'
 
     elif model_name == 'neural_network':
         params['hidden_layer_sizes'] = (int(genes[0]),)
@@ -190,6 +193,7 @@ def ems(X, y, models, target_metric='accuracy', report=False):
                 if result and 'metrics' in result:
                     return result['metrics'].get(target_metric, -float('inf'))
             except Exception as e:
+                print(f"Error training {model_name} with params {params}: {e}")
                 pass
             
             return -float('inf')
