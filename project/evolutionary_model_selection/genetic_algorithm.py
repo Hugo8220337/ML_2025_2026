@@ -1,11 +1,20 @@
 import numpy as np
 import random
 
-def initialize_population(size, bounds):
-    return np.array([
+def initialize_population(size, bounds, seeds=None):
+    population = np.array([
         [random.uniform(low, high) for low, high in bounds]
         for _ in range(size)
     ])
+
+    if seeds is not None:
+        for i, seed in enumerate(seeds):
+            if i < size:
+                if len(seed) == len(bounds):
+                    population[i] = seed
+
+                    
+    return population
 
 def tournament_selection(population, scores, tournament_size, maximize):
     pop_size = len(population)
@@ -74,6 +83,7 @@ def check_early_stopping(current_best, global_best, maximize, min_delta):
 def run_genetic_algorithm(
     fitness_function,
     gene_bounds,
+    seeds=None,
     population_size=50,
     generations=100,
     mutation_rate=0.2, 
@@ -86,7 +96,7 @@ def run_genetic_algorithm(
     elitism_count=3, 
     generation_report=None
 ):
-    population = initialize_population(population_size, gene_bounds)
+    population = initialize_population(population_size, gene_bounds, seeds=seeds)
     best_score = -float('inf') if maximize else float('inf')
     best_solution = None
     history = []

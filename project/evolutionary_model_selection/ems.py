@@ -25,7 +25,7 @@ MODEL_BOUNDS = {
         (0, 2),        # fit_intercept (0=False, 1=True) - mapped to int
     ],
     'logistic_regression': [
-        (-4.0, 4.0),   # C (Regularization): 10^-4 to 10^4 (Log Scale)
+        (-2.0, 2.0),   # C (Regularization): 10^-4 to 10^4 (Log Scale)
         (0, 2),        # penalty: 0=l2, 1=none (assuming lbfgs solver)
         (-5.0, -1.0),  # tol: 10^-5 to 10^-1
         (0, 3),        # 3: solver: 0=lbfgs, 1=liblinear, 2=saga
@@ -64,6 +64,41 @@ MODEL_BOUNDS = {
     ],
 }
 
+def get_default_genes(model_name):
+    defaults = {}
+    
+    if model_name == 'linear_regression':
+        # Default: fit_intercept=True (1)
+        defaults['genes'] = [1.0] 
+
+    elif model_name == 'logistic_regression':
+        # C=1.0, penalty='l2', tol=1e-4, solver='lbfgs'
+        # C (10^0 = 1), penalty (0=l2), tol (10^-4), solver (0=lbfgs)
+        defaults['genes'] = [0.0, 0.0, -4.0, 0.0]
+
+    elif model_name == 'neural_network':
+        # hidden=(100,), activation='relu', solver='adam', alpha=0.0001, lr_init=0.001
+        defaults['genes'] = [100.0, 0.0, 0.0, -4.0, -3.0]
+
+    elif model_name == 'decision_tree':
+        # max_depth=None, split=2, leaf=1, gini, best
+        # Note: GA Bound for depth is (2,100). We use 100.0 to approximate "None" (max depth).
+        defaults['genes'] = [100.0, 2.0, 1.0, 0.0, 0.0]
+
+    elif model_name == 'random_forest':
+        # n_estimators=100, max_depth=None, split=2, leaf=1, gini, max_features='sqrt'
+        defaults['genes'] = [100.0, 100.0, 2.0, 1.0, 0.0, 0.0]
+
+    elif model_name == 'knn':
+        # n_neighbors=5, weights='uniform', p=2
+        defaults['genes'] = [5.0, 0.0, 2.0]
+
+    elif model_name == 'svm':
+        # C=1.0, kernel='linear', gamma='scale'
+        # C(10^0), Kernel(0=linear), Gamma(Ignored for linear, but setting -2.0 placeholder)
+        defaults['genes'] = [0.0, 0.0, -2.0] 
+
+    return defaults.get('genes', [])
 
 def decode_params(model_name, genes):
     params = {}
@@ -167,74 +202,85 @@ def ems(X, y, models, target_metric='accuracy', report=False):
         train_func = function_registry.get(model_name)
         bounds = MODEL_BOUNDS.get(model_name, [])
 
-        if not bounds:
-            result = train_func(X, y)
-            if result:
-                score = result['metrics'].get(target_metric, -float('inf'))
+        print(f"   -> Evaluating default parameters for {model_name}...")
+        try:
+            default_result = train_func(X, y)
+            if default_result and 'metrics' in default_result:
+                default_score = default_result['metrics'].get(target_metric, -float('inf'))
+                print(f"   -> Default Score ({target_metric}): {default_score:.4f}")
                 
-                if score > best_global_score:
-                    best_global_score = score
-                    best_global_model = result['model']
+                if default_score > best_global_score:
+                    best_global_score = default_score
+                    best_global_model = default_result['model']
                     best_global_info = {
                         'model_name': model_name,
-                        'score': score,
+                        'score': default_score,
                         'params': 'default'
                     }
-            pass
+            else:
+                print("   -> Default training failed or returned no metrics.")
+                default_score = -float('inf')
+        except Exception as e:
+            print(f"   -> Error training defaults: {e}")
+            default_score = -float('inf')
 
-        def fitness_function(individual):
-            params = decode_params(model_name, individual)
-            
-            try:
-                if model_name in ['random_forest', 'knn', 'linear_regression', 'logistic_regression']:
-                     params['n_jobs'] = -1
+        if bounds:
+            def fitness_function(individual):
+                params = decode_params(model_name, individual)
                 
-                result = train_func(X, y, **params)
-                if result and 'metrics' in result:
-                    return result['metrics'].get(target_metric, -float('inf'))
-            except Exception as e:
-                print(f"Error training {model_name} with params {params}: {e}")
-                pass
-            
-            return -float('inf')
+                try:
+                    if model_name in ['random_forest', 'knn', 'linear_regression', 'logistic_regression']:
+                         params['n_jobs'] = -1
+                    
+                    result = train_func(X, y, **params)
+                    if result and 'metrics' in result:
+                        return result['metrics'].get(target_metric, -float('inf'))
+                except Exception as e:
+                    pass
+                
+                return -float('inf')
 
-        def generation_report(gen, score, genes):
-            readable_params = decode_params(model_name, genes)
-            param_str = str(readable_params).replace(",", ";") 
-            
-            with open(report_file, "a") as f:
-                f.write(f"{model_name},{gen},{score:.4f},{param_str}\n")
+            def generation_report(gen, score, genes):
+                readable_params = decode_params(model_name, genes)
+                param_str = str(readable_params).replace(",", ";") 
+                
+                if report:
+                    with open(report_file, "a") as f:
+                        f.write(f"{model_name},{gen},{score:.4f},{param_str}\n")
 
-        ga_result = run_genetic_algorithm(
-            fitness_function=fitness_function,
-            gene_bounds=bounds,
-            population_size=30,
-            generations=15,
-            mutation_rate=0.2,
-            elitism_count=3,
-            maximize=True,         
-            verbose=True,
-            generation_report=generation_report
-        )
+            seed_genes = get_default_genes(model_name)
+            seeds = [seed_genes] if seed_genes else None
 
-        if ga_result['best_score'] > best_global_score:
-            best_global_score = ga_result['best_score']
-            best_params = decode_params(model_name, ga_result['best_solution'])
-            
-            final_run = train_func(X, y, **best_params)
-            best_global_model = final_run['model']
-            
-            best_global_info = {
-                'model_name': model_name,
-                'score': best_global_score,
-                'params': best_params
-            }
+            ga_result = run_genetic_algorithm(
+                fitness_function=fitness_function,
+                gene_bounds=bounds,
+                seeds=seeds,
+                population_size=30,
+                generations=15,
+                mutation_rate=0.2,
+                elitism_count=3,
+                maximize=True,         
+                verbose=True,
+                generation_report=generation_report,
+            )
+
+            if ga_result['best_score'] > best_global_score:
+                best_global_score = ga_result['best_score']
+                best_params = decode_params(model_name, ga_result['best_solution'])
+                
+                final_run = train_func(X, y, **best_params)
+                best_global_model = final_run['model']
+                
+                best_global_info = {
+                    'model_name': model_name,
+                    'score': best_global_score,
+                    'params': best_params
+                }
 
     return {
         "model": best_global_model,
         "info": best_global_info
     }
-
 
 
 def options_validation(models):
