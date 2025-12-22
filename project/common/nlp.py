@@ -48,7 +48,7 @@ def preprocessing(df):
 
     return df
 
-def tfidf_vectorize(df, col_name='data', max_features=5000):
+def tfidf_vectorize(df, col_name='data', max_features=5000, lowercase=False, stop_words=None):
     """
     Perform TF-IDF vectorization on the specified column of the DataFrame.
     Serves as a feature extraction method for text data. 
@@ -56,6 +56,8 @@ def tfidf_vectorize(df, col_name='data', max_features=5000):
         df (pd.DataFrame): Input DataFrame containing the text data.
         col_name (str): Name of the column to vectorize.
         max_features (int): Maximum number of features for TF-IDF.
+        lowercase (bool): Whether to convert text to lowercase.
+        stop_words (list or str): Stop words to remove during vectorization.
     Returns:
         tfidf_matrix (sparse matrix): TF-IDF feature matrix.
         vectorizer (TfidfVectorizer): Fitted TF-IDF vectorizer instance.
@@ -64,7 +66,9 @@ def tfidf_vectorize(df, col_name='data', max_features=5000):
     
     vectorizer = TfidfVectorizer(
         max_features=max_features,
-        ngram_range=(1, 2)
+        ngram_range=(1, 2),
+        lowercase=lowercase,
+        stop_words=stop_words
     )
     tfidf_matrix = vectorizer.fit_transform(corpus)
     

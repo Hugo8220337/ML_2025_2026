@@ -64,7 +64,8 @@ def semantic_consistency():
     # Vectorization (may take a while due to the size of FNC-1)
     print("Vectorizing data (TF-IDF)...")
     # max_features limit the size to avoid running out of RAM
-    X, vectorizer = tfidf_vectorize(df, col_name='combined_text', max_features=5000)
+    # i do not use stop owrds removal because TfidfVectorizer stop words for english includes the 'not' word, which is important for stance detection
+    X, vectorizer = tfidf_vectorize(df, col_name='combined_text', max_features=5000, lowercase=True)
     y = df['label']
 
     # Compute class weights for balancing
