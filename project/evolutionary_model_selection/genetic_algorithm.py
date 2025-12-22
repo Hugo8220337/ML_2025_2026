@@ -66,9 +66,10 @@ def run_genetic_algorithm(
     crossover_rate=0.8,
     tournament_size=3,
     maximize=True,
-    verbose=True,  
+    verbose=False,  
     patience=10,       
-    min_delta=0.0001   
+    min_delta=0.0001,
+    generation_report=None
 ):
     population = initialize_population(population_size, gene_bounds)
     best_score = -float('inf') if maximize else float('inf')
@@ -81,6 +82,8 @@ def run_genetic_algorithm(
         
         current_best_idx = np.argmax(scores) if maximize else np.argmin(scores)
         current_best_score = scores[current_best_idx]
+        current_best_genes = population[current_best_idx]
+
         
         if check_early_stopping(current_best_score, best_score, maximize, min_delta):
             best_score = current_best_score
@@ -90,6 +93,9 @@ def run_genetic_algorithm(
             no_improvement_counter += 1
             
         history.append(best_score)
+
+        if generation_report:
+            generation_report(generation, current_best_score, current_best_genes)
         
         if verbose and generation % 5 == 0:
             print(f"Gen {generation}: Best = {best_score:.4f} (No Improv: {no_improvement_counter})")
