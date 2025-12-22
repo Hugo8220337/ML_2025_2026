@@ -1,6 +1,0 @@
-Model,Generation,Score,Parameters
-logistic_regression,0,0.8999,{'C': np.float64(1.6502281152712335)}
-logistic_regression,1,0.8999,{'C': np.float64(1.6502281152712335)}
-logistic_regression,2,0.8999,{'C': np.float64(1.6502281152712335)}
-logistic_regression,3,0.8999,{'C': np.float64(1.6502281152712335)}
-logistic_regression,4,0.8999,{'C': np.float64(1.6502281152712335)}
