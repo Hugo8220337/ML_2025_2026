@@ -11,9 +11,7 @@ _topics = {1: "World", 2: "Sports", 3: "Business", 4: "Sci/Tech"}
 
 
 def topic_classification():
-    df_train = read_csv('datasets/AGNEWS/train.csv')
-    df_test = read_csv('datasets/AGNEWS/test.csv')
-    df = pd.concat([df_train, df_test])
+    df = read_csv('datasets/AGNEWS/train.csv')
     df['data'] = df['Title'] + ' ' + df['Description']
     df = df.drop(columns=['Title', 'Description'])
 

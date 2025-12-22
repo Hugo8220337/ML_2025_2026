@@ -8,21 +8,21 @@ from nltk import pos_tag
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 
-# Verify and download necessary NLTK resources
+# Verify and download necessary NLTK resources (quietly)
 try:
     nltk.data.find('tokenizers/punkt_tab')
 except LookupError:
-    nltk.download('punkt_tab')
+    nltk.download('punkt_tab', quiet=True)
 
 try:
     nltk.data.find('corpora/wordnet')
 except LookupError:
-    nltk.download('wordnet')
+    nltk.download('wordnet', quiet=True)
 
 try:
     nltk.data.find('taggers/averaged_perceptron_tagger_eng')
 except LookupError:
-    nltk.download('averaged_perceptron_tagger_eng')
+    nltk.download('averaged_perceptron_tagger_eng', quiet=True)
 
 
 

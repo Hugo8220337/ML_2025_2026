@@ -92,7 +92,7 @@ def run_genetic_algorithm(
     maximize=True,
     verbose=False,  
     patience=10,       
-    min_delta=0.0001,
+    min_delta=0.00001,  # More sensitive to small improvements
     elitism_count=3, 
     generation_report=None
 ):
@@ -121,9 +121,9 @@ def run_genetic_algorithm(
         history.append(best_score)
 
         if generation_report:
-            generation_report(generation, current_best_score, current_best_genes)
+            generation_report(generation, scores, population)
         
-        if verbose and generation % 5 == 0:
+        if verbose:
             print(f"Gen {generation}: Best = {best_score:.4f} (No Improv: {no_improvement_counter})")
 
         if no_improvement_counter >= patience:

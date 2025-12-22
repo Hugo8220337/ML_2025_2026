@@ -1,9 +1,15 @@
 import os
+import sys
+import json
+import warnings
 from evolutionary_model_selection.genetic_algorithm import run_genetic_algorithm
 from common.supervised_models import *
 from common.unsupervised_models import *
 from common.deep_learning import *
 import datetime
+
+warnings.filterwarnings('ignore', category=UserWarning, module='sklearn')
+warnings.filterwarnings('ignore', category=FutureWarning, module='sklearn')
 
 
 function_registry = {
@@ -25,10 +31,10 @@ MODEL_BOUNDS = {
         (0, 2),        # fit_intercept (0=False, 1=True) - mapped to int
     ],
     'logistic_regression': [
-        (-2.0, 2.0),   # C (Regularization): 10^-4 to 10^4 (Log Scale)
-        (0, 2),        # penalty: 0=l2, 1=none (assuming lbfgs solver)
+        (-4.0, 4.0),   # C (Regularization): 10^-4 to 10^4 (Log Scale) - wider range
+        (0, 2),        # penalty: 0=l2, 1=l1 (for saga), 2=none
         (-5.0, -1.0),  # tol: 10^-5 to 10^-1
-        (0, 3),        # 3: solver: 0=lbfgs, 1=liblinear, 2=saga
+        (0, 2),        # solver: 0=lbfgs, 1=saga (removed deprecated liblinear)
     ],
     'neural_network': [
         (10, 300),     # hidden_layer_size (neurons)
@@ -109,18 +115,19 @@ def decode_params(model_name, genes):
     elif model_name == 'logistic_regression':
         params['C'] = float(10 ** genes[0])
         params['tol'] = float(10 ** genes[2])
-        solver_map = {0: 'lbfgs', 1: 'liblinear', 2: 'saga'}
+        solver_map = {0: 'lbfgs', 1: 'saga'}  
         solver = solver_map.get(int(genes[3]), 'lbfgs')
         params['solver'] = solver
         
-        raw_penalty = int(genes[1]) 
+        raw_penalty = int(genes[1])  # 0=l2, 1=l1, 2=none
         
         if solver == 'lbfgs':
-            params['penalty'] = 'l2' if raw_penalty == 0 else 'none'
-        elif solver == 'liblinear':
-            params['penalty'] = 'l2' if raw_penalty == 0 else 'l1'
+            # lbfgs only supports l2 or None
+            params['penalty'] = 'l2' if raw_penalty == 0 else None
         elif solver == 'saga':
-            params['penalty'] = 'l2' if raw_penalty == 0 else 'l1'
+            # saga supports l1, l2, elasticnet, or None
+            penalty_map = {0: 'l2', 1: 'l1', 2: None}
+            params['penalty'] = penalty_map.get(raw_penalty, 'l2')
 
     elif model_name == 'neural_network':
         params['hidden_layer_sizes'] = (int(genes[0]),)
@@ -191,10 +198,8 @@ def ems(X, y, models, target_metric='accuracy', report=False):
         if not os.path.exists(reports_dir):
             os.makedirs(reports_dir)
 
-        report_file = os.path.join(reports_dir, f"evolution_report_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.csv")
-
-        with open(report_file, "w") as f:
-            f.write("Model,Generation,Score,Parameters\n")
+        report_file = os.path.join(reports_dir, f"evolution_report_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.json")
+        report_data = []
 
     for model_name in models:
         print(f"Training {model_name}...")
@@ -225,28 +230,80 @@ def ems(X, y, models, target_metric='accuracy', report=False):
             default_score = -float('inf')
 
         if bounds:
+            failed_evaluations = [0]  # Use list to allow mutation in nested function
+            eval_counter = [0]  # Track evaluation progress
+            
+            # Subsample for faster fitness evaluation on large datasets
+            n_samples = X.shape[0]  # Works for both dense arrays and sparse matrices
+            max_fitness_samples = min(5000, int(n_samples * 0.1))  # 5% or max 3000 for speed
+            if n_samples > max_fitness_samples:
+                print(f"   -> Using {max_fitness_samples} samples for fitness evaluation (full: {n_samples})")
+                sys.stdout.flush()
+                from sklearn.model_selection import train_test_split
+                X_fitness, _, y_fitness, _ = train_test_split(
+                    X, y, train_size=max_fitness_samples, random_state=42, stratify=y
+                )
+            else:
+                X_fitness, y_fitness = X, y
+            
             def fitness_function(individual):
+                eval_counter[0] += 1
                 params = decode_params(model_name, individual)
                 
                 try:
                     if model_name in ['random_forest', 'knn', 'linear_regression', 'logistic_regression']:
-                         params['n_jobs'] = -1
+                        # params['n_jobs'] = -1
+                        pass
                     
-                    result = train_func(X, y, **params)
+                    # Use subsampled data for fitness evaluation
+                    result = train_func(X_fitness, y_fitness, **params)
                     if result and 'metrics' in result:
-                        return result['metrics'].get(target_metric, -float('inf'))
+                        score = result['metrics'].get(target_metric, -float('inf'))
+                        print(f"   [Eval {eval_counter[0]}] Score: {score:.4f}", end='\r')
+                        sys.stdout.flush()
+                        return score
                 except Exception as e:
-                    pass
+                    failed_evaluations[0] += 1
+                    if failed_evaluations[0] <= 3:  # Log first 3 failures
+                        print(f"   [DEBUG] Fitness eval failed for {model_name}: {e}")
                 
                 return -float('inf')
 
-            def generation_report(gen, score, genes):
-                readable_params = decode_params(model_name, genes)
-                param_str = str(readable_params).replace(",", ";") 
+            def generation_report(gen, scores, population):
+                # Find the best individual in this generation
+                best_idx = int(np.argmax(scores))
+                best_score = float(scores[best_idx])
+                best_genes = population[best_idx]
+                best_params = decode_params(model_name, best_genes)
+                
+                generation_data = {
+                    "model": model_name,
+                    "generation": gen,
+                    "stats": {
+                        "best_score": best_score,
+                        "avg_score": float(np.mean(scores[scores > -float('inf')])),  # Exclude failed evals
+                        "min_score": float(np.min(scores[scores > -float('inf')])) if np.any(scores > -float('inf')) else None,
+                        "max_score": float(np.max(scores)),
+                        "failed_evals": int(np.sum(scores == -float('inf')))
+                    },
+                    "best": {
+                        "index": best_idx,
+                        "score": best_score,
+                        "parameters": best_params
+                    },
+                    "individuals": []
+                }
+                
+                for i, (score, genes) in enumerate(zip(scores, population)):
+                    readable_params = decode_params(model_name, genes)
+                    generation_data["individuals"].append({
+                        "index": i,
+                        "score": float(score),
+                        "parameters": readable_params
+                    })
                 
                 if report:
-                    with open(report_file, "a") as f:
-                        f.write(f"{model_name},{gen},{score:.4f},{param_str}\n")
+                    report_data.append(generation_data)
 
             seed_genes = get_default_genes(model_name)
             seeds = [seed_genes] if seed_genes else None
@@ -255,10 +312,11 @@ def ems(X, y, models, target_metric='accuracy', report=False):
                 fitness_function=fitness_function,
                 gene_bounds=bounds,
                 seeds=seeds,
-                population_size=30,
-                generations=15,
-                mutation_rate=0.2,
-                elitism_count=3,
+                population_size=10,    # Keep reasonable to avoid slow runs
+                generations=25,        # Increased from 15, but not too high
+                mutation_rate=0.25,    # Slightly higher for more diversity
+                elitism_count=2,       # Reduced from 3 to allow more exploration
+                patience=12,           # Slightly higher patience
                 maximize=True,         
                 verbose=True,
                 generation_report=generation_report,
@@ -276,6 +334,10 @@ def ems(X, y, models, target_metric='accuracy', report=False):
                     'score': best_global_score,
                     'params': best_params
                 }
+
+    if report and report_data:
+        with open(report_file, "w") as f:
+            json.dump(report_data, f, indent=2)
 
     return {
         "model": best_global_model,
