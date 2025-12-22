@@ -1,3 +1,0 @@
-Model,accuracy,precision_weighted,recall_weighted,f1_weighted,auc,confusion_matrix
-SVM,0.9917,0.9917,0.9917,0.9917,,"[[3100, 27], [26, 3247]]"
-Logistic Regression,0.9891,0.9891,0.9891,0.9891,0.9986,"[[3092, 35], [35, 3238]]"

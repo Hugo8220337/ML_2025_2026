@@ -8,10 +8,21 @@ from nltk import pos_tag
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 
-# nltk.download('punkt_tab')
-# nltk.download('stopwords')
-# nltk.download('wordnet')
-# nltk.download('averaged_perceptron_tagger_eng')
+# Verify and download necessary NLTK resources
+try:
+    nltk.data.find('tokenizers/punkt_tab')
+except LookupError:
+    nltk.download('punkt_tab')
+
+try:
+    nltk.data.find('corpora/wordnet')
+except LookupError:
+    nltk.download('wordnet')
+
+try:
+    nltk.data.find('taggers/averaged_perceptron_tagger_eng')
+except LookupError:
+    nltk.download('averaged_perceptron_tagger_eng')
 
 
 
@@ -27,14 +38,17 @@ def get_wordnet_pos(nltk_tag):
     else:
         return wordnet.NOUN
 
-def preprocessing(df):
+def preprocessing(df, remove_stopwords=True):
     df = df.map(lambda x: x.lower() if isinstance(x, str) else x)
     df = df.replace(to_replace=r'[^\w\s]', value=' ', regex=True)
     df = df.replace(to_replace=r'\d', value='', regex=True)
     df = df.map(lambda x: word_tokenize(x) if isinstance(x, str) else x)
     
-    stop_words = set(stopwords.words('english'))
-    df = df.map(lambda x: [word for word in x if word not in stop_words] if isinstance(x, list) else x)
+    # Remove stopwords if specified (by default, it's True)
+    if remove_stopwords:
+        stop_words = set(stopwords.words('english'))
+        df = df.map(lambda x: [word for word in x if word not in stop_words] if isinstance(x, list) else x)
+
     wl = WordNetLemmatizer()
     
     def lemmatize_list(token_list):

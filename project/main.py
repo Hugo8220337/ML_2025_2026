@@ -4,5 +4,5 @@ import topic_classification.topic_classification as tc
 
 
 if __name__ == "__main__":
-    # semantic_consistency()
-    setence_detection()
+    semantic_consistency()
+    # setence_detection()
