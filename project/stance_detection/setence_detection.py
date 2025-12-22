@@ -12,7 +12,7 @@ def _train_setence_detection_logistic_regression(X, y):
     with load("Train Logistic Regression Model..."):
         logistic_regression_results = train_logistic_regression(X, y)
     print("Logistic Regression model training complete.")
-    print(json.dumps(logistic_regression_results['metrics']['Accuracy'], indent=4))
+    print(json.dumps(logistic_regression_results['metrics']['accuracy'], indent=4))
     
     return logistic_regression_results
 
@@ -20,7 +20,7 @@ def _train_setence_detection_svm(X, y):
     with load("Train SVM Model..."):
         svm_results = train_svm(X, y)
     print("SVM model training complete.")
-    print(json.dumps(svm_results['metrics']['Accuracy'], indent=4))
+    print(json.dumps(svm_results['metrics']['accuracy'], indent=4))
     
     return svm_results
 

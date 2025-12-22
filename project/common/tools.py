@@ -86,6 +86,7 @@ def read_csv(csv_file_path):
 def export_model_results_csv(model_results, output_filename='model_comparison.csv'):
     """
     Exports results to CSV containing only the main metrics.
+    Adapted to the new metrics.py structure (snake_case keys).
     """
     data_list = []
 
@@ -97,45 +98,52 @@ def export_model_results_csv(model_results, output_filename='model_comparison.cs
             # Copy to avoid modifying the original dictionary
             metrics = data['metrics'].copy()
             
-            # REMOVE the Classification Report (as it's too much text and clutters the CSV)
-            if 'Classification Report' in metrics:
+            # REMOVE the Classification Report 
+            # (Note: The new metrics.py doesn't seem to generate this anymore, 
+            # but we keep the check just in case it's added back later)
+            if 'classification_report' in metrics:
+                del metrics['classification_report']
+            elif 'Classification Report' in metrics:
                 del metrics['Classification Report']
             
-            # REMOVE the Confusion Matrix (as it contains line breaks and clutters the CSV)
-            if 'Confusion Matrix' in metrics:
-                metrics['Confusion Matrix'] = str(metrics['Confusion Matrix']).replace('\n', ' ')
+            # REMOVE/CLEAN the Confusion Matrix 
+            # The new metrics.py uses 'confusion_matrix' (lowercase)
+            if 'confusion_matrix' in metrics:
+                metrics['confusion_matrix'] = str(metrics['confusion_matrix']).replace('\n', ' ')
             
             row.update(metrics)
             
-        # NOTE: Code that added 'Intercept' and 'Coefficients' has been removed here.
-        
         data_list.append(row)
 
     # Create DataFrame
     df = pd.DataFrame(data_list)
     
-    # Define the ideal column order (Numeric metrics first)
+    # Define the ideal column order matching the NEW keys from metrics.py
     preferred_order = [
         'Model', 
-        'Accuracy', 
-        'Precision', 
-        'Recall', 
-        'F1 Score', 
-        'AUC', 
-        'Mean Squared Error', 
-        'R2 Score',
-        'Confusion Matrix'
+        'accuracy', 
+        'precision_weighted', 
+        'recall_weighted', 
+        'f1_weighted', 
+        'auc', 
+        'mse', 
+        'rmse',
+        'mae',
+        'r2',
+        'confusion_matrix'
     ]
     
     # Reorder: Preferred columns first, remaining columns after
     cols = [c for c in preferred_order if c in df.columns] + [c for c in df.columns if c not in preferred_order]
     df = df[cols]
     
-    # Sort rows by best result (F1 Score or Accuracy)
-    if 'F1 Score' in df.columns:
-        df = df.sort_values(by='F1 Score', ascending=False)
-    elif 'Accuracy' in df.columns:
-        df = df.sort_values(by='Accuracy', ascending=False)
+    # Sort rows by best result (using the new key names)
+    if 'f1_weighted' in df.columns:
+        df = df.sort_values(by='f1_weighted', ascending=False)
+    elif 'accuracy' in df.columns:
+        df = df.sort_values(by='accuracy', ascending=False)
+    elif 'r2' in df.columns: # Added fallback for regression models
+        df = df.sort_values(by='r2', ascending=False)
     
     df.to_csv(output_filename, index=False, sep=',')
     print(f"Results successfully exported to: {output_filename}")
