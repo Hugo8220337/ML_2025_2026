@@ -11,6 +11,8 @@ from .metrics import evaluate_model
 def train_linear_regression(
     X,
     y,
+    X_test=None,
+    y_test=None,
     test_size=0.2,
     random_state=42,
     fit_intercept=True,
@@ -18,9 +20,12 @@ def train_linear_regression(
     n_jobs=None,
     positive=False
 ):
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=test_size, random_state=random_state
-    )
+    if X_test is None or y_test is None:
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=test_size, random_state=random_state
+        )
+    else:
+        X_train, y_train = X, y
 
     model = LinearRegression(
         fit_intercept=fit_intercept,
@@ -32,7 +37,6 @@ def train_linear_regression(
     model.fit(X_train, y_train)
     predictions = model.predict(X_test)
 
-    
     evaluation = evaluate_model(model, X_test, y_test)
     metrics = evaluation['metrics']
 
@@ -46,6 +50,8 @@ def train_linear_regression(
 def train_logistic_regression(
     X,
     y,
+    X_test=None,
+    y_test=None,
     test_size=0.2,
     split_random_state=42,
     penalty='l2',
@@ -63,7 +69,10 @@ def train_logistic_regression(
     n_jobs=None,
     l1_ratio=None
 ):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=split_random_state)
+    if X_test is None or y_test is None:
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=split_random_state)
+    else:
+        X_train, y_train = X, y
     
     model = LogisticRegression(
         penalty=penalty, dual=dual, tol=tol, C=C, fit_intercept=fit_intercept,
@@ -80,7 +89,6 @@ def train_logistic_regression(
 
     predictions = model.predict(X_test)
 
-    
     evaluation = evaluate_model(model, X_test, y_test)
 
     return {
@@ -94,6 +102,8 @@ def train_logistic_regression(
 def train_neural_network(
     X,
     y,
+    X_test=None,
+    y_test=None,
     test_size=0.2,
     split_random_state=42,
     hidden_layer_sizes=(100,),
@@ -120,7 +130,10 @@ def train_neural_network(
     n_iter_no_change=10,
     max_fun=15000
 ):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=split_random_state)
+    if X_test is None or y_test is None:
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=split_random_state)
+    else:
+        X_train, y_train = X, y
     
     model = MLPClassifier(
         hidden_layer_sizes=hidden_layer_sizes, activation=activation, solver=solver, alpha=alpha,
@@ -139,7 +152,6 @@ def train_neural_network(
 
     predictions = model.predict(X_test)
 
-    
     evaluation = evaluate_model(model, X_test, y_test)
 
     return {
@@ -151,6 +163,8 @@ def train_neural_network(
 def train_decision_tree(
     X,
     y,
+    X_test=None,
+    y_test=None,
     test_size=0.2,
     split_random_state=42,
     criterion='gini',
@@ -166,7 +180,10 @@ def train_decision_tree(
     class_weight=None,
     ccp_alpha=0.0
 ):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=split_random_state)
+    if X_test is None or y_test is None:
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=split_random_state)
+    else:
+        X_train, y_train = X, y
 
     model = DecisionTreeClassifier(
         criterion=criterion, splitter=splitter, max_depth=max_depth, min_samples_split=min_samples_split,
@@ -183,7 +200,6 @@ def train_decision_tree(
 
     predictions = model.predict(X_test)
 
-    
     evaluation = evaluate_model(model, X_test, y_test)
 
     return {
@@ -195,6 +211,8 @@ def train_decision_tree(
 def train_random_forest(
     X,
     y,
+    X_test=None,
+    y_test=None,
     test_size=0.2,
     split_random_state=42,
     n_estimators=100,
@@ -216,7 +234,10 @@ def train_random_forest(
     ccp_alpha=0.0,
     max_samples=None
 ):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=split_random_state)
+    if X_test is None or y_test is None:
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=split_random_state)
+    else:
+        X_train, y_train = X, y
 
     model = RandomForestClassifier(
         n_estimators=n_estimators, criterion=criterion, max_depth=max_depth, min_samples_split=min_samples_split,
@@ -234,7 +255,6 @@ def train_random_forest(
 
     predictions = model.predict(X_test)
 
-    
     evaluation = evaluate_model(model, X_test, y_test)
 
     return {
@@ -246,6 +266,8 @@ def train_random_forest(
 def train_knn(
     X,
     y,
+    X_test=None,
+    y_test=None,
     test_size=0.2,
     split_random_state=42,
     n_neighbors=5,
@@ -257,7 +279,10 @@ def train_knn(
     metric_params=None,
     n_jobs=None
 ):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=split_random_state)
+    if X_test is None or y_test is None:
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=split_random_state)
+    else:
+        X_train, y_train = X, y
 
     model = KNeighborsClassifier(
         n_neighbors=n_neighbors, weights=weights, algorithm=algorithm, leaf_size=leaf_size,
@@ -272,7 +297,6 @@ def train_knn(
 
     predictions = model.predict(X_test)
 
-    
     evaluation = evaluate_model(model, X_test, y_test)
 
     return {
@@ -284,6 +308,8 @@ def train_knn(
 def train_svm(
     X,
     y,
+    X_test=None,
+    y_test=None,
     test_size=0.2,
     split_random_state=42,
     C=1.0,
@@ -302,7 +328,10 @@ def train_svm(
     break_ties=False,
     random_state=None
 ):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=split_random_state)
+    if X_test is None or y_test is None:
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=split_random_state)
+    else:
+        X_train, y_train = X, y
 
     model = SVC(
         C=C, kernel=kernel, degree=degree, gamma=gamma, coef0=coef0, shrinking=shrinking,
@@ -319,7 +348,6 @@ def train_svm(
 
     predictions = model.predict(X_test)
 
-    
     evaluation = evaluate_model(model, X_test, y_test)
 
     return {

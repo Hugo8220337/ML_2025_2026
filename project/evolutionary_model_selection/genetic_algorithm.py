@@ -13,7 +13,6 @@ def initialize_population(size, bounds, seeds=None):
                 if len(seed) == len(bounds):
                     population[i] = seed
 
-                    
     return population
 
 def tournament_selection(population, scores, tournament_size, maximize):
@@ -92,13 +91,16 @@ def run_genetic_algorithm(
     maximize=True,
     verbose=False,  
     patience=10,       
-    min_delta=0.00001,  # More sensitive to small improvements
+    min_delta=0.0001,
     elitism_count=3, 
+    mutation_strength=0.25,
     generation_report=None
 ):
     population = initialize_population(population_size, gene_bounds, seeds=seeds)
-    best_score = -float('inf') if maximize else float('inf')
-    best_solution = None
+    
+    first_score = fitness_function(population[0])
+    best_score = first_score
+    best_solution = population[0].copy()
     history = []
     no_improvement_counter = 0
     
@@ -124,7 +126,7 @@ def run_genetic_algorithm(
             generation_report(generation, scores, population)
         
         if verbose:
-            print(f"Gen {generation}: Best = {best_score:.4f} (No Improv: {no_improvement_counter})")
+            print(f"Gen {generation}: Best = {best_score:.4f} (No Improvement: {no_improvement_counter})")
 
         if no_improvement_counter >= patience:
             if verbose:
@@ -142,7 +144,7 @@ def run_genetic_algorithm(
         
         selected = tournament_selection(population, scores, tournament_size, maximize)
         offspring = crossover_population(selected, crossover_rate)
-        population = mutate_population(offspring, mutation_rate, gene_bounds)
+        population = mutate_population(offspring, mutation_rate, gene_bounds, mutation_strength)
         
         
         population[:elitism_count] = elites

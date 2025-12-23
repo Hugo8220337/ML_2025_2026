@@ -2,6 +2,8 @@ import os
 import sys
 import json
 import warnings
+import numpy as np
+from sklearn.model_selection import train_test_split
 from evolutionary_model_selection.genetic_algorithm import run_genetic_algorithm
 from common.supervised_models import *
 from common.unsupervised_models import *
@@ -170,7 +172,7 @@ def decode_params(model_name, genes):
         w_map = {0: 'uniform', 1: 'distance'}
         params['weights'] = w_map.get(int(genes[1]), 'uniform')
         
-        params['p'] = int(genes[2]) # 1 or 2
+        params['p'] = int(genes[2])
 
     elif model_name == 'svm':
         params['C'] = float(10 ** genes[0])
@@ -207,56 +209,47 @@ def ems(X, y, models, target_metric='accuracy', report=False):
         train_func = function_registry.get(model_name)
         bounds = MODEL_BOUNDS.get(model_name, [])
 
-        print(f"   -> Evaluating default parameters for {model_name}...")
-        try:
-            default_result = train_func(X, y)
-            if default_result and 'metrics' in default_result:
-                default_score = default_result['metrics'].get(target_metric, -float('inf'))
-                print(f"   -> Default Score ({target_metric}): {default_score:.4f}")
-                
-                if default_score > best_global_score:
-                    best_global_score = default_score
-                    best_global_model = default_result['model']
-                    best_global_info = {
-                        'model_name': model_name,
-                        'score': default_score,
-                        'params': 'default'
-                    }
-            else:
-                print("   -> Default training failed or returned no metrics.")
-                default_score = -float('inf')
-        except Exception as e:
-            print(f"   -> Error training defaults: {e}")
-            default_score = -float('inf')
-
         if bounds:
-            failed_evaluations = [0]  # Use list to allow mutation in nested function
-            eval_counter = [0]  # Track evaluation progress
+            failed_evaluations = [0]
+            eval_counter = [0]
             
-            # Subsample for faster fitness evaluation on large datasets
-            n_samples = X.shape[0]  # Works for both dense arrays and sparse matrices
-            max_fitness_samples = min(5000, int(n_samples * 0.1))  # 5% or max 3000 for speed
+            n_samples = X.shape[0]
+            max_fitness_samples = int(n_samples * 0.2)
+            
             if n_samples > max_fitness_samples:
-                print(f"   -> Using {max_fitness_samples} samples for fitness evaluation (full: {n_samples})")
+                print(f"   -> Using {max_fitness_samples} samples for evaluation (full: {n_samples})")
                 sys.stdout.flush()
-                from sklearn.model_selection import train_test_split
-                X_fitness, _, y_fitness, _ = train_test_split(
-                    X, y, train_size=max_fitness_samples, random_state=42, stratify=y
+                
+                X_sub, _, y_sub, _ = train_test_split(
+                    X, y, train_size=max_fitness_samples, random_state=42
                 )
             else:
-                X_fitness, y_fitness = X, y
+                X_sub, y_sub = X, y
+
+            
+            X_train, X_test, y_train, y_test = train_test_split(
+                X_sub, y_sub, test_size=0.2, random_state=42
+            )
+            
+            print(f"   -> Evaluating default parameters for {model_name}...")
+            try:
+                default_result = train_func(X_train, y_train, X_test=X_test, y_test=y_test)
+                if default_result and 'metrics' in default_result:
+                    default_score = default_result['metrics'].get(target_metric, -float('inf'))
+                    print(f"   -> Default Score ({target_metric}): {default_score:.4f}")
+                else:
+                    print("   -> Default training failed or returned no metrics.")
+                    default_score = -float('inf')
+            except Exception as e:
+                print(f"   -> Error training defaults: {e}")
+                default_score = -float('inf')
             
             def fitness_function(individual):
                 eval_counter[0] += 1
                 params = decode_params(model_name, individual)
                 
                 try:
-                    if model_name in ['random_forest', 'knn', 'linear_regression', 'logistic_regression']:
-                        # params['n_jobs'] = -1
-                        pass
-                    
-                    # Use subsampled data for fitness evaluation
-                    result = train_func(X_fitness, y_fitness, **params)
+                    result = train_func(X_train, y_train, X_test=X_test, y_test=y_test, **params)
                     if result and 'metrics' in result:
                         score = result['metrics'].get(target_metric, -float('inf'))
                         print(f"   [Eval {eval_counter[0]}] Score: {score:.4f}", end='\r')
@@ -264,13 +257,12 @@ def ems(X, y, models, target_metric='accuracy', report=False):
                         return score
                 except Exception as e:
                     failed_evaluations[0] += 1
-                    if failed_evaluations[0] <= 3:  # Log first 3 failures
+                    if failed_evaluations[0] <= 3:
                         print(f"   [DEBUG] Fitness eval failed for {model_name}: {e}")
                 
                 return -float('inf')
 
             def generation_report(gen, scores, population):
-                # Find the best individual in this generation
                 best_idx = int(np.argmax(scores))
                 best_score = float(scores[best_idx])
                 best_genes = population[best_idx]
@@ -281,7 +273,7 @@ def ems(X, y, models, target_metric='accuracy', report=False):
                     "generation": gen,
                     "stats": {
                         "best_score": best_score,
-                        "avg_score": float(np.mean(scores[scores > -float('inf')])),  # Exclude failed evals
+                        "avg_score": float(np.mean(scores[scores > -float('inf')])),
                         "min_score": float(np.min(scores[scores > -float('inf')])) if np.any(scores > -float('inf')) else None,
                         "max_score": float(np.max(scores)),
                         "failed_evals": int(np.sum(scores == -float('inf')))
@@ -306,34 +298,66 @@ def ems(X, y, models, target_metric='accuracy', report=False):
                     report_data.append(generation_data)
 
             seed_genes = get_default_genes(model_name)
-            seeds = [seed_genes] if seed_genes else None
+            seeds = []
+            if seed_genes:
+                seeds.append(seed_genes)  
+                import random
+                for _ in range(2):
+                    varied = []
+                    for i, g in enumerate(seed_genes):
+                        low, high = bounds[i]
+                        variation = random.uniform(-0.3, 0.3) * (high - low)
+                        new_val = max(low, min(high, g + variation))
+                        varied.append(new_val)
+                    seeds.append(varied)
 
             ga_result = run_genetic_algorithm(
                 fitness_function=fitness_function,
                 gene_bounds=bounds,
-                seeds=seeds,
-                population_size=10,    # Keep reasonable to avoid slow runs
-                generations=25,        # Increased from 15, but not too high
-                mutation_rate=0.25,    # Slightly higher for more diversity
-                elitism_count=2,       # Reduced from 3 to allow more exploration
-                patience=12,           # Slightly higher patience
-                maximize=True,         
+                seeds=seeds if seeds else None,
+                population_size=15,
+                generations=25,
+                mutation_rate=0.3,
+                crossover_rate=0.8,
+                tournament_size=3,
+                maximize=True,
                 verbose=True,
+                patience=12,
+                min_delta=0.0001,
+                elitism_count=1,
+                mutation_strength=0.3,
                 generation_report=generation_report,
             )
 
-            if ga_result['best_score'] > best_global_score:
-                best_global_score = ga_result['best_score']
+            print(f"\n   -> GA Best Score: {ga_result['best_score']:.4f} vs Default: {default_score:.4f}")
+            
+            if ga_result['best_score'] > default_score:
                 best_params = decode_params(model_name, ga_result['best_solution'])
                 
                 final_run = train_func(X, y, **best_params)
-                best_global_model = final_run['model']
+                final_score = final_run['metrics'].get(target_metric, ga_result['best_score'])
                 
-                best_global_info = {
-                    'model_name': model_name,
-                    'score': best_global_score,
-                    'params': best_params
-                }
+                if final_score > best_global_score:
+                    best_global_score = final_score
+                    best_global_model = final_run['model']
+                    best_global_info = {
+                        'model_name': model_name,
+                        'score': final_score,
+                        'params': best_params
+                    }
+            else:
+                print(f"   -> Default params are optimal. Training final model on full data...")
+                final_run = train_func(X, y)
+                final_score = final_run['metrics'].get(target_metric, default_score)
+                
+                if final_score > best_global_score:
+                    best_global_score = final_score
+                    best_global_model = final_run['model']
+                    best_global_info = {
+                        'model_name': model_name,
+                        'score': final_score,
+                        'params': 'default'
+                    }
 
     if report and report_data:
         with open(report_file, "w") as f:
