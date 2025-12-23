@@ -214,7 +214,7 @@ def ems(X, y, models, target_metric='accuracy', report=False):
             eval_counter = [0]
             
             n_samples = X.shape[0]
-            max_fitness_samples = int(n_samples * 0.2)
+            max_fitness_samples = min(5000, int(n_samples * 0.1))
             
             if n_samples > max_fitness_samples:
                 print(f"   -> Using {max_fitness_samples} samples for evaluation (full: {n_samples})")
