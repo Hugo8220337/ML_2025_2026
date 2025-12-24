@@ -188,8 +188,59 @@ def decode_params(model_name, genes):
 
     return params
 
-def ems(X, y, models, target_metric='accuracy', report=False):
+def ems(X, y, models, target_metric='accuracy', report=False, options=None):
     options_validation(models)
+    
+    presets = {
+        'quick': {
+            'population_size': 10,
+            'generations': 10,
+            'mutation_rate': 0.3,
+            'crossover_rate': 0.8,
+            'tournament_size': 3,
+            'maximize': True,
+            'verbose': True,
+            'patience': 5,
+            'min_delta': 0.001,
+            'elitism_count': 1,
+            'mutation_strength': 0.3,
+        },
+        'default': {
+            'population_size': 15,
+            'generations': 25,
+            'mutation_rate': 0.3,
+            'crossover_rate': 0.8,
+            'tournament_size': 3,
+            'maximize': True,
+            'verbose': True,
+            'patience': 10,
+            'min_delta': 0.0001,
+            'elitism_count': 1,
+            'mutation_strength': 0.3,
+        },
+        'slow': {
+            'population_size': 25,
+            'generations': 100,
+            'mutation_rate': 0.3,
+            'crossover_rate': 0.8,
+            'tournament_size': 5,
+            'maximize': True,
+            'verbose': True,
+            'patience': 20,
+            'min_delta': 0.00001,
+            'elitism_count': 2,
+            'mutation_strength': 0.2,
+        }
+    }
+
+
+    if isinstance(options, str):
+        run_options = presets.get(options.lower(), presets['default'])
+    elif isinstance(options, dict):
+        run_options = presets['default'].copy()
+        run_options.update(options)
+    else:
+        run_options = presets['default']
     
     best_global_model = None
     best_global_score = -float('inf')
@@ -315,17 +366,17 @@ def ems(X, y, models, target_metric='accuracy', report=False):
                 fitness_function=fitness_function,
                 gene_bounds=bounds,
                 seeds=seeds if seeds else None,
-                population_size=15,
-                generations=25,
-                mutation_rate=0.3,
-                crossover_rate=0.8,
-                tournament_size=3,
-                maximize=True,
-                verbose=True,
-                patience=12,
-                min_delta=0.0001,
-                elitism_count=1,
-                mutation_strength=0.3,
+                population_size=run_options['population_size'],
+                generations=run_options['generations'],
+                mutation_rate=run_options['mutation_rate'],
+                crossover_rate=run_options['crossover_rate'],
+                tournament_size=run_options['tournament_size'],
+                maximize=run_options['maximize'],
+                verbose=run_options['verbose'],
+                patience=run_options['patience'],
+                min_delta=run_options['min_delta'],
+                elitism_count=run_options['elitism_count'],
+                mutation_strength=run_options['mutation_strength'],
                 generation_report=generation_report,
             )
 
