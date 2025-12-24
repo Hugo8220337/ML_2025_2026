@@ -2,13 +2,13 @@ import json
 from common.tools import read_csv
 from common.nlp import tfidf_vectorize
 from evolutionary_model_selection.ems import ems
-from common.cache import CacheManager # Import the new class
+from common.cache import CacheManager
 
 _topics = {1: "World", 2: "Sports", 3: "Business", 4: "Sci/Tech"}
 
 
-def topic_classification(cache_strategy='smart'):
-    cm = CacheManager(strategy=cache_strategy, module_name='topic_classification')
+def topic_classification(data_strategy='smart', model_strategy='smart', models=['logistic_regression']):
+    cm = CacheManager(module_name="topic_classification")
     
     df = read_csv('datasets/AGNEWS/train.csv')
     df['data'] = df['Title'] + ' ' + df['Description']
@@ -23,11 +23,11 @@ def topic_classification(cache_strategy='smart'):
     X, vectorizer= cm.execute(
         task_name="preprocessing",
         func=run_vectorization,
-        inputs=df['data']
+        inputs=df['data'],
+        strategy=data_strategy
     )
 
 
-    models = ['logistic_regression']
 
     def run_ems_training():
         return ems(X, df['Class Index'], models, report=True)
@@ -37,7 +37,8 @@ def topic_classification(cache_strategy='smart'):
         task_name="model_selection",
         func=run_ems_training,
         inputs=X,
-        params={'models': models}
+        params={'models': models},
+        strategy=model_strategy
     )
 
     print(json.dumps(result['info'], indent=4))
