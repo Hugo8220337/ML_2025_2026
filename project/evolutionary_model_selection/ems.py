@@ -18,8 +18,8 @@ function_registry = {
     # Supervised
     'linear_regression': train_linear_regression,
     'logistic_regression': train_logistic_regression,
-    # ------------ TESTED ------------
     'neural_network': train_neural_network,
+    # ------------ TESTED ------------
     'decision_tree': train_decision_tree,
     'random_forest': train_random_forest,
     'knn': train_knn,
@@ -38,10 +38,13 @@ MODEL_BOUNDS = {
     ],
     'neural_network': [
         (10, 300),     # hidden_layer_size (neurons)
+        (0, 300),      # hidden_layer_size_2 (neurons) - <10 means no 2nd layer
         (0, 3),        # activation: 0=relu, 1=tanh, 2=logistic
         (0, 3),        # solver: 0=adam, 1=sgd, 2=lbfgs
         (-5.0, -1.0),  # alpha: 10^-5 to 10^-1 (Log Scale)
         (-4.0, -1.0),  # learning_rate_init: 10^-4 to 10^-1 (Log Scale)
+        (0.5, 0.99),   # momentum: 0.5 to 0.99 (for sgd)
+        (0, 2),        # early_stopping: 0=False, 1=True
     ],
     'decision_tree': [
         (2, 100),      # max_depth
@@ -79,8 +82,8 @@ def get_default_genes(model_name):
         defaults['genes'] = [0.0, 0.0, -4.0, 0.0]
 
     elif model_name == 'neural_network':
-        # hidden=(100,), activation='relu', solver='adam', alpha=0.0001, lr_init=0.001
-        defaults['genes'] = [100.0, 0.0, 0.0, -4.0, -3.0]
+        # hidden=(100,), activation='relu', solver='adam', alpha=0.0001, lr_init=0.001, momentum=0.9, early_stopping=False
+        defaults['genes'] = [100.0, 0.0, 0.0, 0.0, -4.0, -3.0, 0.9, 0.0]
 
     elif model_name == 'decision_tree':
         # max_depth=None, split=2, leaf=1, gini, best
@@ -123,16 +126,28 @@ def decode_params(model_name, genes):
             params['penalty'] = penalty_map.get(raw_penalty, 'l2')
 
     elif model_name == 'neural_network':
-        params['hidden_layer_sizes'] = (int(genes[0]),)
+        h1 = int(genes[0])
+        h2 = int(genes[1])
+        if h2 < 10:
+            params['hidden_layer_sizes'] = (h1,)
+        else:
+            params['hidden_layer_sizes'] = (h1, h2)
         
         act_map = {0: 'relu', 1: 'tanh', 2: 'logistic'}
-        params['activation'] = act_map.get(int(genes[1]), 'relu')
+        params['activation'] = act_map.get(int(genes[2]), 'relu')
         
         solver_map = {0: 'adam', 1: 'sgd', 2: 'lbfgs'}
-        params['solver'] = solver_map.get(int(genes[2]), 'adam')
+        solver = solver_map.get(int(genes[3]), 'adam')
+        params['solver'] = solver
         
-        params['alpha'] = float(10 ** genes[3])
-        params['learning_rate_init'] = float(10 ** genes[4])
+        if solver == 'sgd':
+            params['learning_rate'] = 'adaptive'
+        
+        params['alpha'] = float(10 ** genes[4])
+        params['learning_rate_init'] = float(10 ** genes[5])
+        
+        params['momentum'] = float(genes[6])
+        params['early_stopping'] = True if int(genes[7]) == 1 else False
 
     elif model_name == 'decision_tree':
         params['max_depth'] = int(genes[0])
@@ -183,19 +198,21 @@ def ems(X, y, models, target_metric='accuracy', report=False, options=None):
     options_validation(models)
     
     presets = {
+        # Around 50 models trained
         'quick': {
             'population_size': 10,
-            'generations': 10,
+            'generations': 5,
             'mutation_rate': 0.3,
             'crossover_rate': 0.8,
             'tournament_size': 3,
             'maximize': True,
             'verbose': True,
-            'patience': 5,
+            'patience': 3,
             'min_delta': 0.001,
             'elitism_count': 1,
             'mutation_strength': 0.3,
         },
+        # Around 375 models trained
         'default': {
             'population_size': 15,
             'generations': 25,
@@ -209,6 +226,7 @@ def ems(X, y, models, target_metric='accuracy', report=False, options=None):
             'elitism_count': 1,
             'mutation_strength': 0.3,
         },
+        # Around 2500 models trained
         'slow': {
             'population_size': 25,
             'generations': 100,

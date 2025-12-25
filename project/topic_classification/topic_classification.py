@@ -7,7 +7,7 @@ from common.cache import CacheManager
 _topics = {1: "World", 2: "Sports", 3: "Business", 4: "Sci/Tech"}
 
 
-def topic_classification(data_strategy='smart', model_strategy='smart', models=['logistic_regression']):
+def topic_classification(data_strategy='smart', model_strategy='smart', models=['logistic_regression'], options=None):
     cm = CacheManager(module_name="topic_classification")
     
     df = read_csv('datasets/AGNEWS/train.csv')
@@ -30,7 +30,7 @@ def topic_classification(data_strategy='smart', model_strategy='smart', models=[
 
 
     def run_ems_training():
-        return ems(X, df['Class Index'], models, report=True)
+        return ems(X, df['Class Index'], models, report=True, options=options)
 
 
     result = cm.execute(

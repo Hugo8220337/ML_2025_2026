@@ -20,7 +20,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
 
-    tc(data_strategy=args.cache_data, model_strategy=args.cache_models)
+    tc(data_strategy=args.cache_data, model_strategy='overwrite', models=['neural_network'], options='quick')
     
     # semantic_consistency()
     # setence_detection()
