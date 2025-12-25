@@ -2,12 +2,14 @@ import os
 import joblib
 import hashlib
 import pandas as pd
+import shutil
 
 
 class CacheManager:
     def __init__(self, default_strategy='smart', module_name=None, base_dir='files/cache'):
         self.default_strategy = default_strategy
         self.module_name = module_name or "general"
+        self.base_dir = base_dir
         
         if module_name:
             self.cache_dir = os.path.join(base_dir, module_name)
@@ -40,7 +42,7 @@ class CacheManager:
 
         else: 
             if os.path.exists(filepath):
-                print(f"[Cache|{self.module_name}] Hit: '{task_name}'")
+                print(f"[Cache|{self.module_name}] Loading: '{task_name}'")
                 try:
                     return joblib.load(filepath)
                 except Exception:
@@ -50,6 +52,15 @@ class CacheManager:
             result = func()
             joblib.dump(result, filepath)
             return result
+
+    def clear(self, module_name=None):
+        target = self.base_dir
+        if module_name:
+            target = os.path.join(self.base_dir, module_name)
+
+        if os.path.exists(target):
+            print(f"[Cache|{self.module_name}] Deleting: {target}")
+            shutil.rmtree(target)
 
     def _get_obj_hash(self, obj):
         if obj is None: return "0"

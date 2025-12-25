@@ -18,6 +18,7 @@ function_registry = {
     # Supervised
     'linear_regression': train_linear_regression,
     'logistic_regression': train_logistic_regression,
+    # ------------ TESTED ------------
     'neural_network': train_neural_network,
     'decision_tree': train_decision_tree,
     'random_forest': train_random_forest,
@@ -29,9 +30,6 @@ function_registry = {
 }
 
 MODEL_BOUNDS = {
-    'linear_regression': [
-        (0, 2),        # fit_intercept (0=False, 1=True) - mapped to int
-    ],
     'logistic_regression': [
         (-4.0, 4.0),   # C (Regularization): 10^-4 to 10^4 (Log Scale) - wider range
         (0, 2),        # penalty: 0=l2, 1=l1 (for saga), 2=none
@@ -75,11 +73,7 @@ MODEL_BOUNDS = {
 def get_default_genes(model_name):
     defaults = {}
     
-    if model_name == 'linear_regression':
-        # Default: fit_intercept=True (1)
-        defaults['genes'] = [1.0] 
-
-    elif model_name == 'logistic_regression':
+    if model_name == 'logistic_regression':
         # C=1.0, penalty='l2', tol=1e-4, solver='lbfgs'
         # C (10^0 = 1), penalty (0=l2), tol (10^-4), solver (0=lbfgs)
         defaults['genes'] = [0.0, 0.0, -4.0, 0.0]
@@ -111,10 +105,7 @@ def get_default_genes(model_name):
 def decode_params(model_name, genes):
     params = {}
     
-    if model_name == 'linear_regression':
-        params['fit_intercept'] = bool(int(genes[0]))
-
-    elif model_name == 'logistic_regression':
+    if model_name == 'logistic_regression':
         params['C'] = float(10 ** genes[0])
         params['tol'] = float(10 ** genes[2])
         solver_map = {0: 'lbfgs', 1: 'saga'}  
@@ -409,6 +400,23 @@ def ems(X, y, models, target_metric='accuracy', report=False, options=None):
                         'score': final_score,
                         'params': 'default'
                     }
+        else:
+            print(f"   -> Running default training for {model_name}...")
+            try:
+                final_run = train_func(X, y)
+                final_score = final_run['metrics'].get('rmse')
+                print(f"   -> Score: {final_score:.4f}")
+                
+                if final_score > best_global_score:
+                    best_global_score = final_score
+                    best_global_model = final_run['model']
+                    best_global_info = {
+                        'model_name': model_name,
+                        'score': final_score,
+                        'params': 'default'
+                    }
+            except Exception as e:
+                print(f"   -> Error training {model_name}: {e}")
 
     if report and report_data:
         with open(report_file, "w") as f:
