@@ -1,0 +1,32 @@
+\section{Desenvolvimento dos Modelos (Metodologia)} \label{sec:desenvolvimento-modelos}
+% Aqui descreves o "coração" do trabalho. Para cada sub-tópico abaixo, deves identificar e justificar os algoritmos e parâmetros.
+
+O presente capítulo detalha a metodologia adotada para o desenvolvimento do sistema de deteção de \textit{Fake News}. Dada a natureza multidimensional da desinformação, optou-se por uma arquitetura modular hierárquica (abordagem inspirada em \textit{Stacking Ensemble}), em vez de um único modelo monolítico.
+
+Para tal, foram desenvolvidos modelos especialistas independentes, treinados em \textit{datasets} distintos, cujo objetivo é capturar diferentes nuances linguísticas e estruturais das notícias. As saídas probabilísticas destes modelos funcionam como \textit{features} de alto nível (meta-features) para o classificador final.
+
+A arquitetura proposta compreende os seguintes módulos:
+
+\begin{itemize}
+	\item \textbf{Deteção de Clickbait:} Análise de padrões sensacionalistas nos títulos;
+	\item \textbf{Classificação de Tópicos:} Contextualização temática do artigo (ex: Política, Saúde, Tecnologia);
+	\item \textbf{Deteção de Stance (Postura):} Análise da concordância entre o título e o corpo da notícia;
+	\item \textbf{Análise de Consistência Semântica:} Identificação de contradições internas ou exageros;
+	\item \textbf{Meta-Classificador (Modelo Final):} Agregação das saídas anteriores para a previsão final de veracidade.
+\end{itemize}
+
+Nas subsecções seguintes, é descrito o ciclo de vida de desenvolvimento para cada um destes componentes, abrangendo desde o pré-processamento específico e engenharia de atributos (\textit{Feature Engineering}), até à justificação da escolha dos algoritmos.
+
+% TODO falta aqui a análise de clickbait
+% Para cada modelo devo falar dos algoritmos testados e a justificação da escolha
+\subsection{Modelo 1: Classificação de Tópicos} \label{subsec:topic-classification}
+
+\subsection{Modelo 2: Deteção de Stance (Postura} \label{subsec:stance-detection}
+
+\subsection{Modelo 3: Análise de Consistência Semântica} \label{subsec:semantic-consistency}
+
+\subsection{Requisito de Aprendizagem Não Supervisionada} \label{subsec:aprendizagem-nao-supervisionada}
+% Se ainda não o fizeste, podes aplicar Clustering (K-Means ou LDA) na fase de Análise de Tópicos ou para agrupar artigos semelhantes antes da classificação final. Dedica um subcapítulo a explicar onde isto foi aplicado.
+
+\subsection{Modelo Final: Fake News Meta-Classifier} \label{subsec:modelo-final}
+% Como as saídas dos modelos anteriores (1, 2 e 3) entram neste modelo.
