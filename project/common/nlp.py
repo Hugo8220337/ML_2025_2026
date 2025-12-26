@@ -38,17 +38,24 @@ def get_wordnet_pos(nltk_tag):
     else:
         return wordnet.NOUN
 
-def preprocessing(df, remove_stopwords=True):
-    df = df.map(lambda x: x.lower() if isinstance(x, str) else x)
-    df = df.replace(to_replace=r'[^\w\s]', value=' ', regex=True)
-    df = df.replace(to_replace=r'\d', value='', regex=True)
-    df = df.map(lambda x: word_tokenize(x) if isinstance(x, str) else x)
-    
-    # Remove stopwords if specified (by default, it's True)
-    if remove_stopwords:
-        stop_words = set(stopwords.words('english'))
-        df = df.map(lambda x: [word for word in x if word not in stop_words] if isinstance(x, list) else x)
 
+def _to_lower(df):
+    return df.map(lambda x: x.lower() if isinstance(x, str) else x)
+
+def _remove_punctuation(df):
+    return df.replace(to_replace=r'[^\w\s]', value=' ', regex=True)
+
+def _remove_digits(df):
+    return df.replace(to_replace=r'\d', value='', regex=True)
+
+def _tokenize(df):
+    return df.map(lambda x: word_tokenize(x) if isinstance(x, str) else x)
+
+def _remove_stopwords(df):
+    stop_words = set(stopwords.words('english'))
+    return df.map(lambda x: [word for word in x if word not in stop_words] if isinstance(x, list) else x)
+
+def _lemmatize(df):
     wl = WordNetLemmatizer()
     
     def lemmatize_list(token_list):
@@ -57,8 +64,29 @@ def preprocessing(df, remove_stopwords=True):
         tagged = pos_tag(token_list)
         return [wl.lemmatize(word, get_wordnet_pos(tag)) for word, tag in tagged]
 
-    df = df.map(lemmatize_list)
+    return df.map(lemmatize_list)
 
+def preprocessing(
+    df, 
+    to_lower=True, 
+    remove_punctuation=True, 
+    remove_digits=True, 
+    tokenize=True, 
+    remove_stopwords=True, 
+    lemmatize=True
+):
+    if to_lower:
+        df = _to_lower(df)
+    if remove_punctuation:
+        df = _remove_punctuation(df)
+    if remove_digits:
+        df = _remove_digits(df)
+    if tokenize:
+        df = _tokenize(df)
+    if remove_stopwords:
+        df = _remove_stopwords(df)
+    if lemmatize:
+        df = _lemmatize(df)
 
     return df
 

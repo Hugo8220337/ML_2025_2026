@@ -12,6 +12,7 @@
 # IMPORTANT
 
 * [ ] Fix preprocessing leakage
-* [ ] Try to improve NLP
+* [ ] Let ems manage preprocessing
+* [x] Try to improve NLP
 * [ ] Remember to remove hardcoded variable from debugs
 * [ ] Improve error handling on the GA
