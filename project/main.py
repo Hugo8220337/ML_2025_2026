@@ -9,18 +9,14 @@ if __name__ == "__main__":
     
     parser.add_argument(
         '--cache-data', type=str, default='smart', choices=['smart', 'overwrite', 'load_only'],
-        help="Control caching for data preprocessing steps."
+        help="Control cache strategy."
     )
     
-    parser.add_argument(
-        '--cache-models', type=str, default='smart', choices=['smart', 'overwrite', 'load_only'],
-        help="Control caching for model training/selection steps."
-    )
-
     args = parser.parse_args()
+    os.environ["CACHE_STRATEGY"] = args.cache_data
 
 
-    tc(data_strategy=args.cache_data, model_strategy='overwrite', models=['neural_network'], options='quick')
+    tc(models=['logistic_regression'], options='quick')
     
     # semantic_consistency()
     # setence_detection()

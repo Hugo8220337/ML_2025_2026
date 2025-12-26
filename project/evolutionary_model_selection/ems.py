@@ -3,11 +3,14 @@ import sys
 import json
 import warnings
 import numpy as np
+import pandas as pd
 from sklearn.model_selection import train_test_split
 from evolutionary_model_selection.genetic_algorithm import run_genetic_algorithm
 from common.supervised_models import *
 from common.unsupervised_models import *
 from common.deep_learning import *
+from common.nlp import preprocessing, tfidf_vectorize
+from common.cache import CacheManager
 import datetime
 
 warnings.filterwarnings('ignore', category=UserWarning, module='sklearn')
@@ -194,8 +197,57 @@ def decode_params(model_name, genes):
 
     return params
 
-def ems(X, y, models, target_metric='accuracy', report=False, options=None):
-    options_validation(models)
+def preprocess_text(X_train, X_test=None, **kwargs):
+    is_text = False
+    if isinstance(X_train, pd.Series) and X_train.dtype == 'object':
+        is_text = True
+    elif isinstance(X_train, pd.DataFrame) and X_train.shape[1] == 1 and X_train.iloc[:, 0].dtype == 'object':
+        is_text = True
+    
+    if not is_text:
+        return X_train, X_test
+
+    prep_keys = ['to_lower', 'remove_punctuation', 'remove_digits', 'tokenize', 'remove_stopwords', 'lemmatize']
+    vect_keys = ['max_features', 'lowercase', 'stop_words']
+    
+    prep_kwargs = {k: v for k, v in kwargs.items() if k in prep_keys}
+    vect_kwargs = {k: v for k, v in kwargs.items() if k in vect_keys}
+
+    cm = CacheManager(module_name="ems")
+
+    def _run_preprocessing():
+        def to_df(data):
+            if isinstance(data, pd.Series):
+                return data.to_frame(name='data')
+            elif isinstance(data, pd.DataFrame):
+                df = data.copy()
+                df.columns = ['data']
+                return df
+            return None
+
+        df_train = to_df(X_train)
+        df_train = preprocessing(df_train, **prep_kwargs)
+        X_train_vec, vectorizer = tfidf_vectorize(df_train, col_name='data', **vect_kwargs)
+        
+        X_test_vec = None
+        if X_test is not None:
+            df_test = to_df(X_test)
+            df_test = preprocessing(df_test, **prep_kwargs)
+            corpus_test = df_test['data'].apply(lambda x: ' '.join(x) if isinstance(x, list) else x)
+            X_test_vec = vectorizer.transform(corpus_test)
+            return X_train_vec, X_test_vec
+        
+        return X_train_vec, None
+
+    return cm.execute(
+        task_name="text_preprocessing",
+        func=_run_preprocessing,
+        inputs={'X_train': X_train, 'X_test': X_test},
+        params=kwargs
+    )
+
+def ems(X, y, models, target_metric='accuracy', report=False, options=None, nlp_options=None):
+    models_validation(models)
     
     presets = {
         # Around 50 models trained
@@ -242,7 +294,8 @@ def ems(X, y, models, target_metric='accuracy', report=False, options=None):
         }
     }
 
-
+    nlp_params = nlp_options if nlp_options is not None else {}
+    
     if isinstance(options, str):
         run_options = presets.get(options.lower(), presets['default'])
     elif isinstance(options, dict):
@@ -250,7 +303,7 @@ def ems(X, y, models, target_metric='accuracy', report=False, options=None):
         run_options.update(options)
     else:
         run_options = presets['default']
-    
+
     best_global_model = None
     best_global_score = -float('inf')
     best_global_info = {}
@@ -290,6 +343,8 @@ def ems(X, y, models, target_metric='accuracy', report=False, options=None):
             X_train, X_test, y_train, y_test = train_test_split(
                 X_sub, y_sub, test_size=0.2, random_state=42
             )
+            
+            X_train, X_test = preprocess_text(X_train, X_test, **nlp_params)
             
             print(f"   -> Evaluating default parameters for {model_name}...")
             try:
@@ -394,7 +449,8 @@ def ems(X, y, models, target_metric='accuracy', report=False, options=None):
             if ga_result['best_score'] > default_score:
                 best_params = decode_params(model_name, ga_result['best_solution'])
                 
-                final_run = train_func(X, y, **best_params)
+                X_final, _ = preprocess_text(X, **nlp_params)
+                final_run = train_func(X_final, y, **best_params)
                 final_score = final_run['metrics'].get(target_metric, ga_result['best_score'])
                 
                 if final_score > best_global_score:
@@ -407,7 +463,8 @@ def ems(X, y, models, target_metric='accuracy', report=False, options=None):
                     }
             else:
                 print(f"   -> Default params are optimal. Training final model on full data...")
-                final_run = train_func(X, y)
+                X_final, _ = preprocess_text(X, **nlp_params)
+                final_run = train_func(X_final, y)
                 final_score = final_run['metrics'].get(target_metric, default_score)
                 
                 if final_score > best_global_score:
@@ -421,7 +478,8 @@ def ems(X, y, models, target_metric='accuracy', report=False, options=None):
         else:
             print(f"   -> Running default training for {model_name}...")
             try:
-                final_run = train_func(X, y)
+                X_final, _ = preprocess_text(X, **nlp_params)
+                final_run = train_func(X_final, y)
                 final_score = final_run['metrics'].get('rmse')
                 print(f"   -> Score: {final_score:.4f}")
                 
@@ -446,7 +504,7 @@ def ems(X, y, models, target_metric='accuracy', report=False, options=None):
     }
 
 
-def options_validation(models):
+def models_validation(models):
     if not all(model in function_registry for model in models):
         raise ValueError
     

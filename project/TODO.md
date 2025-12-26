@@ -5,6 +5,7 @@
 * [ ] Implement DBSCAN and GMM
 * [ ] Study use case for isolation forest
 * [ ] Study use case for elastic net instead of linear regression
+* [ ] Study use case for language detection model
 * [ ] Streamlit front end [Implementation Plan](Dashboard.md)
 * [ ] Deploy
 * [ ] Write documentation <!-- ahahahahahhahahaha  -->
@@ -12,9 +13,10 @@
 
 # IMPORTANT
 
-* [ ] Fix preprocessing leakage
-* [ ] Let ems manage preprocessing
+* [x] Fix preprocessing leakage
+* [x] Let ems manage preprocessing
 * [x] Try to improve NLP
 * [ ] Improve fitness function
-* [ ] Remember to remove hardcoded variable from debugs
+* [x] Remember to remove hardcoded variable from debugs
 * [ ] Improve error handling on the GA
+* [x] Improve caching

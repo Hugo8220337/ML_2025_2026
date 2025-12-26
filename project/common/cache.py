@@ -6,8 +6,9 @@ import shutil
 
 
 class CacheManager:
-    def __init__(self, default_strategy='smart', module_name=None, base_dir='files/cache'):
-        self.default_strategy = default_strategy
+    def __init__(self, module_name=None, base_dir='files/cache'):
+        env_strategy = os.getenv("CACHE_STRATEGY")
+        self.default_strategy = env_strategy or 'smart'
         self.module_name = module_name or "general"
         self.base_dir = base_dir
         
@@ -19,7 +20,7 @@ class CacheManager:
         os.makedirs(self.cache_dir, exist_ok=True)
 
     def execute(self, task_name, func, inputs=None, params=None, strategy=None):
-        effective_strategy = strategy if strategy else self.default_strategy
+        strategy = strategy or self.default_strategy
         
         input_hash = self._get_obj_hash(inputs)
         param_hash = self._get_obj_hash(params) if params else "default"
@@ -27,14 +28,14 @@ class CacheManager:
         filename = f"{task_name}_{input_hash[:10]}_{param_hash[:10]}.pkl"
         filepath = os.path.join(self.cache_dir, filename)
 
-        if effective_strategy == 'load_only':
+        if strategy == 'load_only':
             if os.path.exists(filepath):
                 print(f"[Cache|{self.module_name}] Loading '{task_name}' (strategy: load_only)")
                 return joblib.load(filepath)
             else:
                 raise FileNotFoundError(f"Cache required but not found: {filepath}")
 
-        elif effective_strategy == 'overwrite':
+        elif strategy == 'overwrite':
             print(f"[Cache|{self.module_name}] Overwriting '{task_name}'...")
             result = func()
             joblib.dump(result, filepath)
@@ -48,7 +49,6 @@ class CacheManager:
                 except Exception:
                     print(f"[Cache|{self.module_name}] Warning: Corrupt file for '{task_name}'.")
             
-            print(f"[Cache|{self.module_name}] Miss: '{task_name}' (Computing...)")
             result = func()
             joblib.dump(result, filepath)
             return result
