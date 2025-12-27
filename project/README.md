@@ -8,7 +8,7 @@ It’s written in a professional academic/industry style, suitable for a Master�
 ## 📰 **Project: Multistage Fake News & Misinformation Detection System**
 
 This project implements a **sequential, multi-model machine learning pipeline** designed to analyze news articles and detect misinformation.
-Unlike standard one-shot classifiers, this system uses **multiple models in sequence**, each responsible for a different stage of semantic analysis, enabling more explainable and higher-accuracy classification.
+Unlike standard one-shot classifiers, this system uses **multiple models in sequence**, optimized by an **evolutionary strategy**. Each model is responsible for a different stage of semantic analysis, enabling more explainable and higher-accuracy classification.
 
 ---
 
@@ -62,16 +62,33 @@ This pipeline allows the classifier to make a final decision with **richer conte
 
 ---
 
+## 💻 **Core Modules**
+
+The system is built using a modular architecture centered around two key components:
+
+### **1. `common`**
+The backbone of the project, providing:
+*   **Data Handling:** Unified interfaces for loading datasets (FakeNewsNet, LIAR, etc.).
+*   **Preprocessing:** Standardized text cleaning, tokenization, and feature extraction utilities.
+*   **Infrastructure:** Logging, configuration management, and shared type definitions.
+
+### **2. `evolutionary_model_selection`**
+The intelligence behind the pipeline's performance:
+*   **Automated Tuning:** Uses evolutionary algorithms (Genetic Algorithms) to select the best model architectures and hyperparameters for each stage.
+*   **Dynamic Adaptation:** Instead of hard-coding models, the system evolves the optimal configuration based on the target dataset.
+
+---
+
 ## 🧠 **Model Breakdown**
 
 ### **1. Topic Classification**
 
 * **Purpose:** Understand the domain of the article.
-* **Possible Models:**
+* **Candidate Models (Selected via Evolutionary Search):**
 
-  * BERT / DistilBERT
-  * RoBERTa
-  * Logistic Regression / SVM with TF-IDF
+  * Probabilistic Classifiers (e.g., Naive Bayes)
+  * Linear Models (e.g., SVM, Logistic Regression)
+  * Deep Learning Architectures (e.g., Transformers, CNNs)
 
 ---
 
@@ -79,33 +96,33 @@ This pipeline allows the classifier to make a final decision with **richer conte
 
 * **Purpose:** Evaluate the relationship between headline and article body.
 * **Labels:** *Agree, Disagree, Discuss, Unrelated*
-* **Possible Models:**
+* **Candidate Models (Selected via Evolutionary Search):**
 
-  * Sentence-BERT similarity
-  * BERT fine-tuned for stance tasks
-  * ESIM / Siamese LSTM networks
+  * Similarity-based Algorithms (Cosine Similarity)
+  * Recurrent Neural Networks (RNNs, LSTMs)
+  * Attention-based Mechanisms
 
 ---
 
 ### **3. Semantic Consistency Analysis**
 
 * **Purpose:** Detect contradictions or exaggeration within the article.
-* **Possible Approaches:**
+* **Candidate Approaches (Selected via Evolutionary Search):**
 
-  * Natural Language Inference (NLI) transformers
-  * RoBERTa-MNLI
-  * DeBERTa NLI models
+  * Textual Entailment Algorithms
+  * Sequence-to-Sequence Models
+  * Transformer-based Encoders
 
 ---
 
 ### **4. Fake News Final Classifier**
 
 * **Purpose:** Use aggregated features + model outputs to classify the article.
-* **Possible Models:**
+* **Candidate Models (Selected via Evolutionary Search):**
 
-  * Gradient Boosting (XGBoost, LightGBM)
-  * MLP
-  * Transformer classifier
+  * Ensemble Learning Methods (Gradient Boosting, Random Forest)
+  * Feedforward Neural Networks (MLP)
+  * Support Vector Machines (SVM)
 * **Inputs:**
 
   * Topic label
@@ -190,4 +207,3 @@ Because this is a multi-stage pipeline, each component has its own metrics:
 * Multilingual support
 
 ---
-

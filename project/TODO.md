@@ -21,4 +21,3 @@
 * [x] Remember to remove hardcoded variable from debugs
 * [ ] Improve error handling on the GA
 * [x] Improve caching
-* [ ] Check why preprocessing is being stored twice
