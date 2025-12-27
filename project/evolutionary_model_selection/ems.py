@@ -22,7 +22,6 @@ function_registry = {
     'linear_regression': train_linear_regression,
     'logistic_regression': train_logistic_regression,
     'neural_network': train_neural_network,
-    # ------------ TESTED ------------
     'decision_tree': train_decision_tree,
     'random_forest': train_random_forest,
     'knn': train_knn,
@@ -34,35 +33,38 @@ function_registry = {
 
 MODEL_BOUNDS = {
     'logistic_regression': [
-        (-4.0, 4.0),   # C (Regularization): 10^-4 to 10^4 (Log Scale) - wider range
+        (-4.0, 4.0),   # C (Regularization): 10^-4 to 10^4 (Log Scale)
         (0, 2),        # penalty: 0=l2, 1=l1 (for saga), 2=none
-        (-5.0, -1.0),  # tol: 10^-5 to 10^-1
-        (0, 2),        # solver: 0=lbfgs, 1=saga (removed deprecated liblinear)
+        (0, 2),        # solver: 0=lbfgs, 1=saga
+        (0, 2),        # class_weight: 0=None, 1=balanced
     ],
     'neural_network': [
         (10, 300),     # hidden_layer_size (neurons)
-        (0, 300),      # hidden_layer_size_2 (neurons) - <10 means no 2nd layer
+        (0, 300),      # hidden_layer_size_2 (neurons)
         (0, 3),        # activation: 0=relu, 1=tanh, 2=logistic
-        (0, 3),        # solver: 0=adam, 1=sgd, 2=lbfgs
+        (0, 2),        # solver: 0=adam, 1=sgd
         (-5.0, -1.0),  # alpha: 10^-5 to 10^-1 (Log Scale)
         (-4.0, -1.0),  # learning_rate_init: 10^-4 to 10^-1 (Log Scale)
-        (0.5, 0.99),   # momentum: 0.5 to 0.99 (for sgd)
-        (0, 2),        # early_stopping: 0=False, 1=True
     ],
     'decision_tree': [
         (2, 100),      # max_depth
         (2, 40),       # min_samples_split
         (1, 20),       # min_samples_leaf
         (0, 2),        # criterion: 0=gini, 1=entropy
-        (0, 2),        # splitter: 0=best, 1=random
+        (0, 3),        # max_features: 0=sqrt, 1=log2, 2=None
+        (0.0, 0.05),   # ccp_alpha
+        (0, 2),        # class_weight: 0=None, 1=balanced
     ],
     'random_forest': [
-        (10, 300),     # n_estimators
+        # n_estimators is fixed to 100 in decode_params to reduce variance
         (2, 100),      # max_depth
         (2, 40),       # min_samples_split
         (1, 20),       # min_samples_leaf
         (0, 2),        # criterion: 0=gini, 1=entropy
         (0, 3),        # max_features: 0=sqrt, 1=log2, 2=None
+        (0, 2),        # bootstrap: 0=True, 1=False
+        (0.0, 0.05),   # ccp_alpha
+        (0, 2),        # class_weight: 0=None, 1=balanced
     ],
     'knn': [
         (1, 50),       # n_neighbors
@@ -72,7 +74,8 @@ MODEL_BOUNDS = {
     'svm': [
         (-3.0, 3.0),   # C: 10^-3 to 10^3 (Log Scale)
         (0, 4),        # kernel: 0=linear, 1=rbf, 2=poly, 3=sigmoid
-        (-4.0, 1.0),   # gamma (if scalar): 10^-4 to 10^1 (Log Scale) 
+        (-4.0, 1.0),   # gamma (if scalar): 10^-4 to 10^1 (Log Scale)
+        (0, 2),        # class_weight: 0=None, 1=balanced
     ],
 }
 
@@ -80,31 +83,29 @@ def get_default_genes(model_name):
     defaults = {}
     
     if model_name == 'logistic_regression':
-        # C=1.0, penalty='l2', tol=1e-4, solver='lbfgs'
-        # C (10^0 = 1), penalty (0=l2), tol (10^-4), solver (0=lbfgs)
-        defaults['genes'] = [0.0, 0.0, -4.0, 0.0]
+        # C (10^0 = 1.0), penalty (0=l2), solver (0=lbfgs), class_weight (0=None)
+        defaults['genes'] = [0.0, 0.0, 0.0, 0.0]
 
     elif model_name == 'neural_network':
-        # hidden=(100,), activation='relu', solver='adam', alpha=0.0001, lr_init=0.001, momentum=0.9, early_stopping=False
-        defaults['genes'] = [100.0, 0.0, 0.0, 0.0, -4.0, -3.0, 0.9, 0.0]
+        # hidden1=100, hidden2=0 (off), act=0 (relu), solver=0 (adam), alpha=-4.0 (1e-4), lr_init=-3.0 (1e-3)
+        defaults['genes'] = [100.0, 0.0, 0.0, 0.0, -4.0, -3.0]
 
     elif model_name == 'decision_tree':
-        # max_depth=None, split=2, leaf=1, gini, best
-        # Note: GA Bound for depth is (2,100). We use 100.0 to approximate "None" (max depth).
-        defaults['genes'] = [100.0, 2.0, 1.0, 0.0, 0.0]
+        # max_depth=100 (approx None), split=2, leaf=1, gini(0), max_features=None(2), ccp=0.0, class_weight=None(0)
+        defaults['genes'] = [100.0, 2.0, 1.0, 0.0, 2.0, 0.0, 0.0]
 
     elif model_name == 'random_forest':
-        # n_estimators=100, max_depth=None, split=2, leaf=1, gini, max_features='sqrt'
-        defaults['genes'] = [100.0, 100.0, 2.0, 1.0, 0.0, 0.0]
+        # n_estimators is fixed in decode.
+        # max_depth=100 (approx None), split=2, leaf=1, gini(0), max_features=sqrt(0), bootstrap=True(0), ccp=0.0, class_weight=None(0)
+        defaults['genes'] = [100.0, 2.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 
     elif model_name == 'knn':
-        # n_neighbors=5, weights='uniform', p=2
+        # n_neighbors=5, weights=uniform(0), p=2
         defaults['genes'] = [5.0, 0.0, 2.0]
 
     elif model_name == 'svm':
-        # C=1.0, kernel='linear', gamma='scale'
-        # C(10^0), Kernel(0=linear), Gamma(Ignored for linear, but setting -2.0 placeholder)
-        defaults['genes'] = [0.0, 0.0, -2.0] 
+        # C=1.0 (10^0), kernel=linear(0), gamma=-2.0 (scale approx), class_weight=None(0)
+        defaults['genes'] = [0.0, 0.0, -2.0, 0.0] 
 
     return defaults.get('genes', [])
 
@@ -113,20 +114,21 @@ def decode_params(model_name, genes):
     
     if model_name == 'logistic_regression':
         params['C'] = float(10 ** genes[0])
-        params['tol'] = float(10 ** genes[2])
-        solver_map = {0: 'lbfgs', 1: 'saga'}  
-        solver = solver_map.get(int(genes[3]), 'lbfgs')
+        
+        solver_map = {0: 'lbfgs', 1: 'saga'}
+        solver = solver_map.get(int(genes[2]), 'lbfgs')
         params['solver'] = solver
         
-        raw_penalty = int(genes[1])  # 0=l2, 1=l1, 2=none
+        raw_penalty = int(genes[1]) 
         
         if solver == 'lbfgs':
-            # lbfgs only supports l2 or None
             params['penalty'] = 'l2' if raw_penalty == 0 else None
         elif solver == 'saga':
-            # saga supports l1, l2, elasticnet, or None
             penalty_map = {0: 'l2', 1: 'l1', 2: None}
             params['penalty'] = penalty_map.get(raw_penalty, 'l2')
+
+        cw_map = {0: None, 1: 'balanced'}
+        params['class_weight'] = cw_map.get(int(genes[3]), None)
 
     elif model_name == 'neural_network':
         h1 = int(genes[0])
@@ -139,18 +141,15 @@ def decode_params(model_name, genes):
         act_map = {0: 'relu', 1: 'tanh', 2: 'logistic'}
         params['activation'] = act_map.get(int(genes[2]), 'relu')
         
-        solver_map = {0: 'adam', 1: 'sgd', 2: 'lbfgs'}
+        solver_map = {0: 'adam', 1: 'sgd'}
         solver = solver_map.get(int(genes[3]), 'adam')
         params['solver'] = solver
-        
-        if solver == 'sgd':
-            params['learning_rate'] = 'adaptive'
         
         params['alpha'] = float(10 ** genes[4])
         params['learning_rate_init'] = float(10 ** genes[5])
         
-        params['momentum'] = float(genes[6])
-        params['early_stopping'] = True if int(genes[7]) == 1 else False
+        params['max_iter'] = 200
+        params['early_stopping'] = False 
 
     elif model_name == 'decision_tree':
         params['max_depth'] = int(genes[0])
@@ -159,21 +158,33 @@ def decode_params(model_name, genes):
         
         crit_map = {0: 'gini', 1: 'entropy'}
         params['criterion'] = crit_map.get(int(genes[3]), 'gini')
+                
+        feat_map = {0: 'sqrt', 1: 'log2', 2: None}
+        params['max_features'] = feat_map.get(int(genes[4]), None)
         
-        split_map = {0: 'best', 1: 'random'}
-        params['splitter'] = split_map.get(int(genes[4]), 'best')
+        params['ccp_alpha'] = float(genes[5])
+        
+        cw_map = {0: None, 1: 'balanced'}
+        params['class_weight'] = cw_map.get(int(genes[6]), None)
 
     elif model_name == 'random_forest':
-        params['n_estimators'] = int(genes[0])
-        params['max_depth'] = int(genes[1])
-        params['min_samples_split'] = int(genes[2])
-        params['min_samples_leaf'] = int(genes[3])
+        params['n_estimators'] = 100
+        
+        params['max_depth'] = int(genes[0])
+        params['min_samples_split'] = int(genes[1])
+        params['min_samples_leaf'] = int(genes[2])
         
         crit_map = {0: 'gini', 1: 'entropy'}
-        params['criterion'] = crit_map.get(int(genes[4]), 'gini')
+        params['criterion'] = crit_map.get(int(genes[3]), 'gini')
         
         feat_map = {0: 'sqrt', 1: 'log2', 2: None}
-        params['max_features'] = feat_map.get(int(genes[5]), 'sqrt')
+        params['max_features'] = feat_map.get(int(genes[4]), 'sqrt')
+
+        params['bootstrap'] = True if int(genes[5]) == 0 else False
+        params['ccp_alpha'] = float(genes[6])
+        
+        cw_map = {0: None, 1: 'balanced'}
+        params['class_weight'] = cw_map.get(int(genes[7]), None)
 
     elif model_name == 'knn':
         params['n_neighbors'] = int(genes[0])
@@ -194,6 +205,9 @@ def decode_params(model_name, genes):
             params['gamma'] = float(10 ** genes[2])
         else:
             params['gamma'] = 'scale'
+            
+        cw_map = {0: None, 1: 'balanced'}
+        params['class_weight'] = cw_map.get(int(genes[3]), None)
 
     return params
 
