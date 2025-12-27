@@ -26,6 +26,7 @@ function_registry = {
     'random_forest': train_random_forest,
     'knn': train_knn,
     'svm': train_svm,
+    'naive_bayes': train_naive_bayes,
     # Unsupervised
     'kmeans': train_kmeans,
     'pca': perform_pca
@@ -77,6 +78,12 @@ MODEL_BOUNDS = {
         (-4.0, 1.0),   # gamma (if scalar): 10^-4 to 10^1 (Log Scale)
         (0, 2),        # class_weight: 0=None, 1=balanced
     ],
+    'naive_bayes': [
+        (0, 2),        # distribution: 0=gaussian, 1=multinomial
+        (-11.0, -7.0), # var_smoothing: 10^-11 to 10^-7 (Log Scale)
+        (-3.0, 1.0),   # alpha: 10^-3 to 10^1 (Log Scale)
+        (0, 2),        # fit_prior: 0=True, 1=False
+    ],
 }
 
 def get_default_genes(model_name):
@@ -106,6 +113,10 @@ def get_default_genes(model_name):
     elif model_name == 'svm':
         # C=1.0 (10^0), kernel=linear(0), gamma=-2.0 (scale approx), class_weight=None(0)
         defaults['genes'] = [0.0, 0.0, -2.0, 0.0] 
+
+    elif model_name == 'naive_bayes':
+        # distribution=gaussian(0), var_smoothing=1e-9(-9.0), alpha=1.0(0.0), fit_prior=True(0)
+        defaults['genes'] = [0.0, -9.0, 0.0, 0.0]
 
     return defaults.get('genes', [])
 
@@ -208,6 +219,17 @@ def decode_params(model_name, genes):
             
         cw_map = {0: None, 1: 'balanced'}
         params['class_weight'] = cw_map.get(int(genes[3]), None)
+
+    elif model_name == 'naive_bayes':
+        dist_map = {0: 'gaussian', 1: 'multinomial'}
+        distribution = dist_map.get(int(genes[0]), 'gaussian')
+        params['distribution'] = distribution
+        
+        if distribution == 'gaussian':
+            params['var_smoothing'] = float(10 ** genes[1])
+        elif distribution == 'multinomial':
+            params['alpha'] = float(10 ** genes[2])
+            params['fit_prior'] = True if int(genes[3]) == 0 else False
 
     return params
 

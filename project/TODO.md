@@ -1,7 +1,7 @@
 # 16/01/2026 - 18:00
 
 * [x] Fully test EMS
-* [ ] Implement Naive Bayes
+* [x] Implement Naive Bayes
 * [ ] Implement DBSCAN and GMM
 * [ ] Study use case for isolation forest
 * [ ] Study use case for elastic net instead of linear regression

@@ -6,6 +6,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
+from sklearn.naive_bayes import GaussianNB, MultinomialNB
 from .metrics import evaluate_model
 
 def train_linear_regression(
@@ -355,5 +356,47 @@ def train_svm(
         "metrics": evaluation['metrics'],
         "intercept": model.intercept_ if hasattr(model, 'intercept_') else "N/A",
         "coefficients": model.coef_ if kernel == 'linear' else "N/A",
+        "test_data": {"y_test": y_test, "predictions": predictions}
+    }
+
+def train_naive_bayes(
+    X,
+    y,
+    X_test=None,
+    y_test=None,
+    test_size=0.2,
+    split_random_state=42,
+    distribution='gaussian',
+    priors=None,
+    var_smoothing=1e-9,
+    alpha=1.0,
+    fit_prior=True
+):
+    if X_test is None or y_test is None:
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=split_random_state)
+    else:
+        X_train, y_train = X, y
+
+    if distribution == 'gaussian':
+        model = GaussianNB(priors=priors, var_smoothing=var_smoothing)
+    elif distribution == 'multinomial':
+        model = MultinomialNB(alpha=alpha, fit_prior=fit_prior, class_prior=priors)
+    else:
+        print(f"Error: distribution '{distribution}' not supported. Choose 'gaussian' or 'multinomial'.")
+        return None
+
+    try:
+        model.fit(X_train, y_train)
+    except Exception as e:
+        print(f"Error during training: {e}")
+        return None
+
+    predictions = model.predict(X_test)
+
+    evaluation = evaluate_model(model, X_test, y_test)
+
+    return {
+        "model": model,
+        "metrics": evaluation['metrics'],
         "test_data": {"y_test": y_test, "predictions": predictions}
     }
