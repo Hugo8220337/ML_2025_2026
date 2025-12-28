@@ -17,6 +17,24 @@ warnings.filterwarnings('ignore', category=UserWarning, module='sklearn')
 warnings.filterwarnings('ignore', category=FutureWarning, module='sklearn')
 
 
+SUPERVISED_MODELS = {
+    'linear_regression',
+    'logistic_regression',
+    'neural_network',
+    'decision_tree',
+    'random_forest',
+    'knn',
+    'svm',
+    'naive_bayes',
+}
+
+UNSUPERVISED_MODELS = {
+    'kmeans',
+    'dbscan',
+    'gmm',
+    'pca',
+}
+
 function_registry = {
     # Supervised
     'linear_regression': train_linear_regression,
@@ -29,7 +47,9 @@ function_registry = {
     'naive_bayes': train_naive_bayes,
     # Unsupervised
     'kmeans': train_kmeans,
-    'pca': perform_pca
+    'dbscan': train_dbscan,
+    'gmm': train_gmm,
+    'pca': perform_pca,
 }
 
 MODEL_BOUNDS = {
@@ -84,6 +104,30 @@ MODEL_BOUNDS = {
         (-3.0, 1.0),   # alpha: 10^-3 to 10^1 (Log Scale)
         (0, 2),        # fit_prior: 0=True, 1=False
     ],
+    # Unsupervised models
+    'kmeans': [
+        (2, 20),       # n_clusters
+        (0, 2),        # init: 0=k-means++, 1=random
+        (100, 500),    # max_iter
+        (0, 2),        # algorithm: 0=lloyd, 1=elkan
+    ],
+    'dbscan': [
+        (0.1, 2.0),    # eps
+        (2, 20),       # min_samples
+        (0, 3),        # metric: 0=euclidean, 1=manhattan, 2=cosine
+        (10, 50),      # leaf_size
+    ],
+    'gmm': [
+        (2, 20),       # n_components
+        (0, 4),        # covariance_type: 0=full, 1=tied, 2=diag, 3=spherical
+        (50, 300),     # max_iter
+        (1, 10),       # n_init
+    ],
+    'pca': [
+        (2, 50),       # n_components
+        (0, 2),        # whiten: 0=False, 1=True
+        (0, 4),        # svd_solver: 0=auto, 1=full, 2=arpack, 3=randomized
+    ],
 }
 
 def get_default_genes(model_name):
@@ -117,6 +161,23 @@ def get_default_genes(model_name):
     elif model_name == 'naive_bayes':
         # distribution=gaussian(0), var_smoothing=1e-9(-9.0), alpha=1.0(0.0), fit_prior=True(0)
         defaults['genes'] = [0.0, -9.0, 0.0, 0.0]
+
+    # Unsupervised models
+    elif model_name == 'kmeans':
+        # n_clusters=8, init=k-means++(0), max_iter=300, algorithm=lloyd(0)
+        defaults['genes'] = [8.0, 0.0, 300.0, 0.0]
+
+    elif model_name == 'dbscan':
+        # eps=0.5, min_samples=5, metric=euclidean(0), leaf_size=30
+        defaults['genes'] = [0.5, 5.0, 0.0, 30.0]
+
+    elif model_name == 'gmm':
+        # n_components=1, covariance_type=full(0), max_iter=100, n_init=1
+        defaults['genes'] = [1.0, 0.0, 100.0, 1.0]
+
+    elif model_name == 'pca':
+        # n_components=2, whiten=False(0), svd_solver=auto(0)
+        defaults['genes'] = [2.0, 0.0, 0.0]
 
     return defaults.get('genes', [])
 
@@ -231,6 +292,43 @@ def decode_params(model_name, genes):
             params['alpha'] = float(10 ** genes[2])
             params['fit_prior'] = True if int(genes[3]) == 0 else False
 
+    # Unsupervised models
+    elif model_name == 'kmeans':
+        params['n_clusters'] = int(genes[0])
+        
+        init_map = {0: 'k-means++', 1: 'random'}
+        params['init'] = init_map.get(int(genes[1]), 'k-means++')
+        
+        params['max_iter'] = int(genes[2])
+        
+        algo_map = {0: 'lloyd', 1: 'elkan'}
+        params['algorithm'] = algo_map.get(int(genes[3]), 'lloyd')
+
+    elif model_name == 'dbscan':
+        params['eps'] = float(genes[0])
+        params['min_samples'] = int(genes[1])
+        
+        metric_map = {0: 'euclidean', 1: 'manhattan', 2: 'cosine'}
+        params['metric'] = metric_map.get(int(genes[2]), 'euclidean')
+        
+        params['leaf_size'] = int(genes[3])
+
+    elif model_name == 'gmm':
+        params['n_components'] = int(genes[0])
+        
+        cov_map = {0: 'full', 1: 'tied', 2: 'diag', 3: 'spherical'}
+        params['covariance_type'] = cov_map.get(int(genes[1]), 'full')
+        
+        params['max_iter'] = int(genes[2])
+        params['n_init'] = int(genes[3])
+
+    elif model_name == 'pca':
+        params['n_components'] = int(genes[0])
+        params['whiten'] = True if int(genes[1]) == 1 else False
+        
+        solver_map = {0: 'auto', 1: 'full', 2: 'arpack', 3: 'randomized'}
+        params['svd_solver'] = solver_map.get(int(genes[2]), 'auto')
+
     return params
 
 def preprocess_text(X_train, X_test=None, **kwargs):
@@ -291,8 +389,9 @@ def _get_options_key(options):
         return 'default'
 
 
-def ems(X, y, models, target_metric='accuracy', report=False, options=None, nlp_options=None):
-    models_validation(models)
+def ems(X, y=None, models=None, target_metric='accuracy', report=False, options=None, nlp_options=None):
+    is_unsupervised = y is None
+    models_validation(models, is_unsupervised)
     
     presets = {
         # Around 50 models trained
@@ -367,21 +466,34 @@ def ems(X, y, models, target_metric='accuracy', report=False, options=None, nlp_
     n_samples = X.shape[0]
     max_fitness_samples = min(5000, int(n_samples * 0.1))
     
-    if n_samples > max_fitness_samples:
-        print(f"-> Using {max_fitness_samples} samples for evaluation (full: {n_samples})")
-        sys.stdout.flush()
+    if is_unsupervised:
+        if n_samples > max_fitness_samples:
+            print(f"-> Using {max_fitness_samples} samples for evaluation (full: {n_samples})")
+            sys.stdout.flush()
+            indices = np.random.RandomState(42).choice(n_samples, max_fitness_samples, replace=False)
+            X_sub = X.iloc[indices] if hasattr(X, 'iloc') else X[indices]
+        else:
+            X_sub = X
         
-        X_sub, _, y_sub, _ = train_test_split(
-            X, y, train_size=max_fitness_samples, random_state=42
-        )
+        X_train_processed, _ = preprocess_text(X_sub, **nlp_params)
+        X_test_processed = None
+        y_train, y_test = None, None
     else:
-        X_sub, y_sub = X, y
+        if n_samples > max_fitness_samples:
+            print(f"-> Using {max_fitness_samples} samples for evaluation (full: {n_samples})")
+            sys.stdout.flush()
+            
+            X_sub, _, y_sub, _ = train_test_split(
+                X, y, train_size=max_fitness_samples, random_state=42
+            )
+        else:
+            X_sub, y_sub = X, y
 
-    X_train, X_test, y_train, y_test = train_test_split(
-        X_sub, y_sub, test_size=0.2, random_state=42
-    )
-    
-    X_train_processed, X_test_processed = preprocess_text(X_train, X_test, **nlp_params)
+        X_train, X_test, y_train, y_test = train_test_split(
+            X_sub, y_sub, test_size=0.2, random_state=42
+        )
+        
+        X_train_processed, X_test_processed = preprocess_text(X_train, X_test, **nlp_params)
 
     for model_name in models:
         cache_task_name = f"{model_name}_{options_key}"
@@ -607,7 +719,35 @@ def ems(X, y, models, target_metric='accuracy', report=False, options=None, nlp_
     }
 
 
-def models_validation(models):
+def models_validation(models, is_unsupervised=False):
+    if not models:
+        raise ValueError("Models list cannot be empty.")
+    
     if not all(model in function_registry for model in models):
-        raise ValueError
+        invalid = [m for m in models if m not in function_registry]
+        raise ValueError(f"Unknown model(s): {invalid}. Valid models: {list(function_registry.keys())}")
+    
+    has_supervised = any(model in SUPERVISED_MODELS for model in models)
+    has_unsupervised = any(model in UNSUPERVISED_MODELS for model in models)
+    
+    if has_supervised and has_unsupervised:
+        raise ValueError(
+            "Cannot mix supervised and unsupervised models. "
+            f"Supervised: {[m for m in models if m in SUPERVISED_MODELS]}, "
+            f"Unsupervised: {[m for m in models if m in UNSUPERVISED_MODELS]}"
+        )
+    
+    if is_unsupervised and has_supervised:
+        raise ValueError(
+            f"y=None indicates unsupervised mode, but supervised models were provided: "
+            f"{[m for m in models if m in SUPERVISED_MODELS]}. "
+            f"Use unsupervised models instead: {list(UNSUPERVISED_MODELS)}"
+        )
+    
+    if not is_unsupervised and has_unsupervised:
+        raise ValueError(
+            f"y is provided (supervised mode), but unsupervised models were provided: "
+            f"{[m for m in models if m in UNSUPERVISED_MODELS]}. "
+            f"Use supervised models instead: {list(SUPERVISED_MODELS)}"
+        )
     
