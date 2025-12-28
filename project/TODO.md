@@ -2,11 +2,11 @@
 
 * [x] Fully test EMS
 * [x] Implement Naive Bayes
-* [ ] Implement DBSCAN and GMM
+* [x] Implement DBSCAN and GMM
 * [ ] Study use case for isolation forest
 * [ ] Study use case for elastic net instead of linear regression
 * [ ] Study use case for CNN, LSTM and Bi-LSTM
-* [ ] Study use case for language detection model
+* [ ] Study use case for unsupervised models
 * [ ] Streamlit front end [Implementation Plan](Dashboard.md)
 * [ ] Deploy
 * [ ] Write documentation <!-- ahahahahahhahahaha  -->
@@ -17,7 +17,6 @@
 * [x] Fix preprocessing leakage
 * [x] Let ems manage preprocessing
 * [x] Try to improve NLP
-* [ ] Improve fitness function
 * [x] Remember to remove hardcoded variable from debugs
-* [ ] Improve error handling on the GA
 * [x] Improve caching
+* [ ] Support unsupervised algorithms in EMS
