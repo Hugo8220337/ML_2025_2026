@@ -282,6 +282,15 @@ def preprocess_text(X_train, X_test=None, **kwargs):
         params=kwargs
     )
 
+def _get_options_key(options):
+    if isinstance(options, str):
+        return options.lower()
+    elif isinstance(options, dict):
+        return str(sorted(options.items()))
+    else:
+        return 'default'
+
+
 def ems(X, y, models, target_metric='accuracy', report=False, options=None, nlp_options=None):
     models_validation(models)
     
@@ -331,6 +340,9 @@ def ems(X, y, models, target_metric='accuracy', report=False, options=None, nlp_
     }
 
     nlp_params = nlp_options if nlp_options is not None else {}
+    options_key = _get_options_key(options)
+    
+    model_cache = CacheManager(module_name="ems_models")
     
     if isinstance(options, str):
         run_options = presets.get(options.lower(), presets['default'])
@@ -352,7 +364,46 @@ def ems(X, y, models, target_metric='accuracy', report=False, options=None, nlp_
         report_file = os.path.join(reports_dir, f"evolution_report_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.json")
         report_data = []
 
+    n_samples = X.shape[0]
+    max_fitness_samples = min(5000, int(n_samples * 0.1))
+    
+    if n_samples > max_fitness_samples:
+        print(f"-> Using {max_fitness_samples} samples for evaluation (full: {n_samples})")
+        sys.stdout.flush()
+        
+        X_sub, _, y_sub, _ = train_test_split(
+            X, y, train_size=max_fitness_samples, random_state=42
+        )
+    else:
+        X_sub, y_sub = X, y
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X_sub, y_sub, test_size=0.2, random_state=42
+    )
+    
+    X_train_processed, X_test_processed = preprocess_text(X_train, X_test, **nlp_params)
+
     for model_name in models:
+        cache_task_name = f"{model_name}_{options_key}"
+        cache_inputs = {'X': X, 'y': y, 'nlp_params': nlp_params, 'target_metric': target_metric}
+        
+        cached_result = model_cache.execute(
+            task_name=cache_task_name,
+            func=lambda: None,  
+            inputs=cache_inputs,
+            params={'options_key': options_key},
+            strategy='load_only'
+        )
+        
+        if cached_result is not None and isinstance(cached_result, dict) and 'score' in cached_result:
+            print(f"[Cache] Loaded cached result for {model_name} with options='{options_key}'")
+            
+            if cached_result['score'] > best_global_score:
+                best_global_score = cached_result['score']
+                best_global_model = cached_result['model']
+                best_global_info = cached_result['info']
+            continue 
+        
         print(f"Training {model_name}...")
         
         train_func = function_registry.get(model_name)
@@ -362,29 +413,9 @@ def ems(X, y, models, target_metric='accuracy', report=False, options=None, nlp_
             failed_evaluations = [0]
             eval_counter = [0]
             
-            n_samples = X.shape[0]
-            max_fitness_samples = min(5000, int(n_samples * 0.1))
-            
-            if n_samples > max_fitness_samples:
-                print(f"   -> Using {max_fitness_samples} samples for evaluation (full: {n_samples})")
-                sys.stdout.flush()
-                
-                X_sub, _, y_sub, _ = train_test_split(
-                    X, y, train_size=max_fitness_samples, random_state=42
-                )
-            else:
-                X_sub, y_sub = X, y
-
-            
-            X_train, X_test, y_train, y_test = train_test_split(
-                X_sub, y_sub, test_size=0.2, random_state=42
-            )
-            
-            X_train, X_test = preprocess_text(X_train, X_test, **nlp_params)
-            
             print(f"   -> Evaluating default parameters for {model_name}...")
             try:
-                default_result = train_func(X_train, y_train, X_test=X_test, y_test=y_test)
+                default_result = train_func(X_train_processed, y_train, X_test=X_test_processed, y_test=y_test)
                 if default_result and 'metrics' in default_result:
                     default_score = default_result['metrics'].get(target_metric, -float('inf'))
                     print(f"   -> Default Score ({target_metric}): {default_score:.4f}")
@@ -400,7 +431,7 @@ def ems(X, y, models, target_metric='accuracy', report=False, options=None, nlp_
                 params = decode_params(model_name, individual)
                 
                 try:
-                    result = train_func(X_train, y_train, X_test=X_test, y_test=y_test, **params)
+                    result = train_func(X_train_processed, y_train, X_test=X_test_processed, y_test=y_test, **params)
                     if result and 'metrics' in result:
                         score = result['metrics'].get(target_metric, -float('inf'))
                         print(f"   [Eval {eval_counter[0]}] Score: {score:.4f}", end='\r')
@@ -489,28 +520,52 @@ def ems(X, y, models, target_metric='accuracy', report=False, options=None, nlp_
                 final_run = train_func(X_final, y, **best_params)
                 final_score = final_run['metrics'].get(target_metric, ga_result['best_score'])
                 
+                model_info = {
+                    'model_name': model_name,
+                    'score': final_score,
+                    'params': best_params
+                }
+                
+                cache_result = {'model': final_run['model'], 'score': final_score, 'info': model_info}
+                model_cache.execute(
+                    task_name=cache_task_name,
+                    func=lambda r=cache_result: r,
+                    inputs=cache_inputs,
+                    params={'options_key': options_key},
+                    strategy='overwrite'
+                )
+                print(f"[Cache] Saved {model_name} with options='{options_key}' to cache")
+                
                 if final_score > best_global_score:
                     best_global_score = final_score
                     best_global_model = final_run['model']
-                    best_global_info = {
-                        'model_name': model_name,
-                        'score': final_score,
-                        'params': best_params
-                    }
+                    best_global_info = model_info
             else:
                 print(f"   -> Default params are optimal. Training final model on full data...")
                 X_final, _ = preprocess_text(X, **nlp_params)
                 final_run = train_func(X_final, y)
                 final_score = final_run['metrics'].get(target_metric, default_score)
                 
+                model_info = {
+                    'model_name': model_name,
+                    'score': final_score,
+                    'params': 'default'
+                }
+                
+                cache_result = {'model': final_run['model'], 'score': final_score, 'info': model_info}
+                model_cache.execute(
+                    task_name=cache_task_name,
+                    func=lambda r=cache_result: r,
+                    inputs=cache_inputs,
+                    params={'options_key': options_key},
+                    strategy='overwrite'
+                )
+                print(f"[Cache] Saved {model_name} with options='{options_key}' to cache")
+                
                 if final_score > best_global_score:
                     best_global_score = final_score
                     best_global_model = final_run['model']
-                    best_global_info = {
-                        'model_name': model_name,
-                        'score': final_score,
-                        'params': 'default'
-                    }
+                    best_global_info = model_info
         else:
             print(f"   -> Running default training for {model_name}...")
             try:
@@ -519,14 +574,26 @@ def ems(X, y, models, target_metric='accuracy', report=False, options=None, nlp_
                 final_score = final_run['metrics'].get('rmse')
                 print(f"   -> Score: {final_score:.4f}")
                 
+                model_info = {
+                    'model_name': model_name,
+                    'score': final_score,
+                    'params': 'default'
+                }
+                
+                cache_result = {'model': final_run['model'], 'score': final_score, 'info': model_info}
+                model_cache.execute(
+                    task_name=cache_task_name,
+                    func=lambda r=cache_result: r,
+                    inputs=cache_inputs,
+                    params={'options_key': options_key},
+                    strategy='overwrite'
+                )
+                print(f"[Cache] Saved {model_name} with options='{options_key}' to cache")
+                
                 if final_score > best_global_score:
                     best_global_score = final_score
                     best_global_model = final_run['model']
-                    best_global_info = {
-                        'model_name': model_name,
-                        'score': final_score,
-                        'params': 'default'
-                    }
+                    best_global_info = model_info
             except Exception as e:
                 print(f"   -> Error training {model_name}: {e}")
 

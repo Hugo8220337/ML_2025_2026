@@ -7,23 +7,13 @@ _topics = {1: "World", 2: "Sports", 3: "Business", 4: "Sci/Tech"}
 
 
 def topic_classification(models=['logistic_regression'], options=None):
-    cm = CacheManager(module_name="topic_classification")
-    
     df = read_csv('datasets/AGNEWS/train.csv')
     df['data'] = df['Title'] + ' ' + df['Description']
     df = df.drop(columns=['Title', 'Description'])
     
     X = df['data']
+    y = df['Class Index']
 
-    def run_ems_training():
-        return ems(X, df['Class Index'], models, report=True, options=options)
-
-
-    result = cm.execute(
-        task_name="model_selection",
-        func=run_ems_training,
-        inputs=X,
-        params={'models': models}
-    )
+    result = ems(X, y, models, report=True, options=options)
 
     print(json.dumps(result['info'], indent=4))

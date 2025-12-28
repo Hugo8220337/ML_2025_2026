@@ -16,7 +16,7 @@ if __name__ == "__main__":
     os.environ["CACHE_STRATEGY"] = args.cache_data
 
 
-    tc(models=['logistic_regression'], options='quick')
+    tc(models=['logistic_regression'], options='default')
     
     # semantic_consistency()
     # setence_detection()

@@ -33,7 +33,8 @@ class CacheManager:
                 print(f"[Cache|{self.module_name}] Loading '{task_name}' (strategy: load_only)")
                 return joblib.load(filepath)
             else:
-                raise FileNotFoundError(f"Cache required but not found: {filepath}")
+                print(f"[Cache|{self.module_name}] No cache found for '{task_name}', running without caching")
+                return func()
 
         elif strategy == 'overwrite':
             print(f"[Cache|{self.module_name}] Overwriting '{task_name}'...")
