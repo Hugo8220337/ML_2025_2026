@@ -1,7 +1,47 @@
 \section{Dados e Analise Exploratória dos Dados} \label{sec:dados-analise-exploratoria}
 
 \subsection{Seleção dos Datasets} \label{subsec:selecao-datasets}
-% Justificação da escolha dos datasets e origem.
+
+Para cumprir os objetivos do projeto e alimentar os diferentes modelos desenvolvidos, foi necessário recorrer a múltiplas fontes de dados. Como o sistema final depende de várias tarefas distintas (como detetar tópicos ou analisar títulos), não seria viável utilizar apenas um único dataset.
+
+Abaixo apresenta-se a lista dos datasets escolhidos e a respetiva justificação:
+
+\begin{itemize}
+	\item \textbf{All The News (Para Análise de Tópicos):}
+	\begin{itemize}
+		\item \textit{Origem:} Kaggle (David McKinley).
+		\item \textit{Conteúdo:} Cerca de 143.000 artigos de publicações reais (ex: CNN, New York Times).
+		\item \textit{Justificação:} Devido ao grande volume de notícias legítimas, é ideal para a análise de tópicos de notícias, permitindo o modelo aprender a classificar tópicos corretamente.
+	\end{itemize}
+	
+	\item \textbf{Fake News Challenge - FNC-1 (Para Stance Detection):}
+	\begin{itemize}
+		\item \textit{Origem:} Repositório oficial do desafio FNC-1.
+		\item \textit{Conteúdo:} Pares de "Título" e "Corpo da Notícia" classificados quanto à concordância (concorda, discorda, discute, não relacionado).
+		\item \textit{Justificação:} A maioria dos datasets não liga o título ao texto. Este foi escolhido especificamente para deteção de posição (\textit{Stance}), pois permite treinar o algoritmo a perceber se o título está a mentir sobre o conteúdo do texto.
+	\end{itemize}
+	
+	\item \textbf{Clickbait Dataset (Para Deteção de Clickbait):}
+	\begin{itemize}
+		\item \textit{Origem:} Kaggle (Aman Anand Rai).
+		\item \textit{Conteúdo:} Milhares de manchetes classificadas simplesmente como "Clickbait" ou "Não-Clickbait".
+		\item \textit{Justificação:} Escolhido para a deteção de \textit{clickbait} pois isola o problema do sensacionalismo. Permite que o sistema identifique títulos exagerados independentemente de a notícia ser falsa ou não.
+	\end{itemize}
+	
+	\item \textbf{ISOT Fake News Dataset (Para Análise de Anomalias):}
+	\begin{itemize}
+		\item \textit{Origem:} University of Victoria (ISOT Research Lab).
+		\item \textit{Conteúdo:} Artigos verdadeiros (extraídos da Reuters) e artigos falsos (sinalizados pelo PolitiFact).
+		\item \textit{Justificação:} Escolhido devido à qualidade da secção de notícias verdadeiras, provenientes da agência Reuters. Por serem textos com um padrão jornalístico rigoroso e consistente, constituem a base ideal para definir o que é uma notícia legítima e fiável.
+	\end{itemize}
+	
+	\item \textbf{FakeNewsNet (Para o Modelo Final):}
+	\begin{itemize}
+		\item \textit{Origem:} Repositório GitHub (Shu et al.) / Arizona State University.
+		\item \textit{Conteúdo:} Um repositório abrangente que inclui dados do \textit{PolitiFact} e \textit{GossipCop}, contendo conteúdo noticioso e metadados.
+		\item \textit{Justificação:} Como é um dataset de referência na literatura para validação de modelos de \textit{Fake News}, oferece a robustez necessária para testar a eficácia da agregação de todas as \textit{features} extraídas pelos modelos anteriores.
+	\end{itemize}
+\end{itemize}
 
 \subsection{Análise e Tratamento de Dados} \label{subsec:analise-tratamento-de-dados}
 %Para cada um (Topic, Stance, Semantic, Final), apresenta resumidamente:

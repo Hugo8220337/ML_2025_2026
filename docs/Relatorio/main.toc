@@ -6,20 +6,20 @@
 \contentsline {section}{\numberline {2}Arquitetura da Solução}{4}{section.2}%
 \contentsline {section}{\numberline {3}Dados e Analise Exploratória dos Dados}{5}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Seleção dos Datasets}{5}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Análise e Tratamento de Dados}{5}{subsection.3.2}%
-\contentsline {section}{\numberline {4}Desenvolvimento dos Modelos (Metodologia)}{6}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Modelo 1: Classificação de Tópicos}{6}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Modelo 2: Deteção de Stance (Postura}{6}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Modelo 3: Análise de Consistência Semântica}{6}{subsection.4.3}%
-\contentsline {subsection}{\numberline {4.4}Requisito de Aprendizagem Não Supervisionada}{6}{subsection.4.4}%
-\contentsline {subsection}{\numberline {4.5}Modelo Final: Fake News Meta-Classifier}{6}{subsection.4.5}%
-\contentsline {section}{\numberline {5}Resultados e Análise Crítica}{7}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Avaliação dos Modelos Intermédios}{7}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Avaliação do Modelo Final}{7}{subsection.5.2}%
-\contentsline {subsection}{\numberline {5.3}Discussão}{7}{subsection.5.3}%
-\contentsline {section}{\numberline {6}Interface de Utilização}{8}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Descrição da Aplicação}{8}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}Exemplo de Utilização}{8}{subsection.6.2}%
-\contentsline {section}{\numberline {7}Conclusões e Trabalho Futuro}{9}{section.7}%
-\contentsline {subsection}{\numberline {7.1}Reflexão Crítica dos Resultados}{9}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2}Conclusões e Trabalho Futuro}{9}{subsection.7.2}%
+\contentsline {subsection}{\numberline {3.2}Análise e Tratamento de Dados}{6}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Desenvolvimento dos Modelos (Metodologia)}{7}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Modelo 1: Classificação de Tópicos}{7}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Modelo 2: Análise de Anomalias}{7}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Modelo 3: Deteção de Stance (Postura)}{7}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Modelo 4: Deteção de Clickbait}{7}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Modelo Final: Fake News Meta-Classifier}{7}{subsection.4.5}%
+\contentsline {section}{\numberline {5}Resultados e Análise Crítica}{8}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Avaliação dos Modelos Intermédios}{8}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Avaliação do Modelo Final}{8}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Discussão}{8}{subsection.5.3}%
+\contentsline {section}{\numberline {6}Interface de Utilização}{9}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Descrição da Aplicação}{9}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Exemplo de Utilização}{9}{subsection.6.2}%
+\contentsline {section}{\numberline {7}Conclusões e Trabalho Futuro}{10}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Reflexão Crítica dos Resultados}{10}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Conclusões e Trabalho Futuro}{10}{subsection.7.2}%
