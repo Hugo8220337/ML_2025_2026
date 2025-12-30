@@ -7,7 +7,7 @@ digraph {
 	Pre [label="Pré-processamento Geral
 (Limpeza, Tokenização)" fillcolor="#F5F5F5"]
 	subgraph cluster_level1 {
-		color=grey label="Nível 1: Modelos Especialistas (Extração de Features)" style=dashed
+		color=grey label="Modelos Especialistas (Extração de Features)" style=dashed
 		node [fillcolor="#FFF9C4"]
 		M1 [label="M1: Classificação
 de Tópicos
@@ -22,8 +22,6 @@ Detection
 Clickbait
 (Clickbait Dataset)"]
 	}
-	Features [label="Vetor de Meta-Features
-(Probabilidades M1, Score M2, Classe M3, Score M4)" fillcolor="#E1BEE7" shape=parallelogram]
 	Meta [label="Meta-Classificador
 (Modelo Final - FakeNewsNet)" fillcolor="#B2EBF2" shape=box3d]
 	Output [label="Classificação Final:
@@ -33,10 +31,9 @@ Real vs Fake" fillcolor="#C8E6C9" shape=ellipse style="filled,bold"]
 	Pre -> M2
 	Pre -> M3
 	Pre -> M4
-	M1 -> Features [label="Tópico"]
-	M2 -> Features [label="Score Anomalia"]
-	M3 -> Features [label=Stance]
-	M4 -> Features [label="Score Clickbait"]
-	Features -> Meta
+	M1 -> Meta [label="Tópico"]
+	M2 -> Meta [label="Score Anomalia"]
+	M3 -> Meta [label=Stance]
+	M4 -> Meta [label="Score Clickbait"]
 	Meta -> Output
 }

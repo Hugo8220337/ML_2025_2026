@@ -1,2 +1,33 @@
 \section{Arquitetura da Solução} \label{sec:arquitetura-solucao}
 % IMPORTANTE: Incluir aqui o diagrama que ilustre a estrutura da implementação e como os modelos se ligam. O professor precisa de ver o fluxo: Input -> Topic -> Stance -> Semantic -> Final Decision
+
+A solução proposta baseia-se numa arquitetura hierárquica modular, seguindo uma estratégia de \textit{Stacking Ensemble}. Ao contrário de abordagens monolíticas, este sistema decompõe o problema da deteção de \textit{Fake News} em sub-tarefas especializadas, cujos resultados alimentam um decisor final.
+
+A estrutura da \textit{pipeline}, ilustrada na Figura \ref{fig:arquitetura}, divide-se em três fases principais: Pré-processamento, Nível 1 (Especialistas) e Nível 2 (Meta-Classificação).
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.85\textwidth]{imagens/arquitetura_alto_nivel.png}
+	\caption{Diagrama da Arquitetura Hierárquica do Sistema}
+	\label{fig:arquitetura}
+\end{figure}
+
+\subsection{Fluxo de Dados e Processamento}
+
+\paragraph{1. Entrada e Pré-processamento:}
+O sistema recebe como entrada o título e o corpo da notícia. Estes dados são submetidos a um processo de pré-processamento que executa a limpeza de texto (remoção de caracteres especiais, espaços em branco, lematização) e tokenização, preparando os dados para os modelos posteriores.
+
+\paragraph{2. Nível 1: Modelos Especialistas (Extração de \textit{Features}):}
+Nesta camada, quatro modelos independentes analisam características distintas da notícia. Cada modelo foi treinado num \textit{dataset} específico para garantir especialização:
+
+\begin{itemize}
+	\item \textbf{M1 - Classificação de Tópicos (All The News):} Identifica o contexto temático (ex: política, economia, saúde). O objetivo é fornecer contexto ao meta-classificador, visto que a linguagem de \textit{fake news} varia consoante o tópico.
+	\item \textbf{M2 - Deteção de Anomalias (ISOT - Reuters):} Analisa padrões estatísticos e linguísticos para detetar desvios da norma em notícias reais, gerando um \textit{score} de anomalia.
+	\item \textbf{M3 - \textit{Stance Detection} (FNC-1):} Verifica a consistência entre o título e o corpo da notícia. Este modelo é crucial para detetar "títulos enganosos" onde o corpo da notícia não suporta a afirmação do título.
+	\item \textbf{M4 - Deteção de \textit{Clickbait} (Clickbait Dataset):} Avalia o sensacionalismo do título, atribuindo uma pontuação baseada em padrões de atração de cliques comuns em desinformação.
+\end{itemize}
+
+\paragraph{3. Nível 2: Meta-Classificador:}
+As saídas dos quatro modelos especialistas (probabilidades, classes e \textit{scores}) são concatenadas num vetor de \textit{meta-features}. Este vetor serve de entrada para o Meta-Classificador (treinado no \textit{dataset} FakeNewsNet). 
+
+Este modelo final aprende a ponderar a importância de cada especialista. Por exemplo, pode aprender que uma notícia com alto \textit{score} de \textit{clickbait} (M4) e inconsistência título-corpo (M3) tem uma probabilidade quase total de ser falsa, independentemente do tópico (M1). A saída final é a classificação binária: Real ou \textit{Fake}.

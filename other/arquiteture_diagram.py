@@ -1,12 +1,13 @@
+import streamlit as st
 from graphviz import Digraph
 
 
-def gerar_diagrama():
+def get_diagrama():
     # Criar o objeto do gráfico
     dot = Digraph(comment="Arquitetura do Sistema de Fake News")
 
-    # Configurações globais para ficar com aspeto académico/limpo
-    dot.attr(rankdir="TB")  # TB = Top to Bottom (De cima para baixo)
+    # --- Configurações Visuais (Idênticas ao teu script original) ---
+    dot.attr(rankdir="TB")
     dot.attr("node", shape="box", style="rounded,filled", fontname="Helvetica")
 
     # 1. Entrada
@@ -20,10 +21,9 @@ def gerar_diagrama():
     )
 
     # 3. Camada dos Modelos Especialistas (Level 1)
-    # Usamos um 'subgraph' para os alinhar horizontalmente
     with dot.subgraph(name="cluster_level1") as c:
         c.attr(
-            label="Nível 1: Modelos Especialistas (Extração de Features)",
+            label="Modelos Especialistas (Extração de Features)",
             style="dashed",
             color="grey",
         )
@@ -34,15 +34,7 @@ def gerar_diagrama():
         c.node("M3", "M3: Stance\nDetection\n(FNC-1)")
         c.node("M4", "M4: Deteção de\nClickbait\n(Clickbait Dataset)")
 
-    # 4. Vetor de Features (Opcional, mas ajuda a explicar)
-    dot.node(
-        "Features",
-        "Vetor de Meta-Features\n(Probabilidades M1, Score M2, Classe M3, Score M4)",
-        shape="parallelogram",
-        fillcolor="#E1BEE7",
-    )
-
-    # 5. Meta-Classificador (Level 2)
+    # 54. Meta-Classificador
     dot.node(
         "Meta",
         "Meta-Classificador\n(Modelo Final - FakeNewsNet)",
@@ -50,7 +42,7 @@ def gerar_diagrama():
         fillcolor="#B2EBF2",
     )
 
-    # 6. Saída
+    # 5. Saída
     dot.node(
         "Output",
         "Classificação Final:\nReal vs Fake",
@@ -59,30 +51,34 @@ def gerar_diagrama():
         style="filled,bold",
     )
 
-    # --- Definição das Ligações (Edges) ---
+    # --- Ligações ---
     dot.edge("Input", "Pre")
 
-    # Do pré-processamento para cada modelo
     dot.edge("Pre", "M1")
     dot.edge("Pre", "M2")
     dot.edge("Pre", "M3")
     dot.edge("Pre", "M4")
 
-    # Dos modelos para o vetor de features (ou direto para o meta)
-    dot.edge("M1", "Features", label="Tópico")
-    dot.edge("M2", "Features", label="Score Anomalia")
-    dot.edge("M3", "Features", label="Stance")
-    dot.edge("M4", "Features", label="Score Clickbait")
+    dot.edge("M1", "Meta", label="Tópico")
+    dot.edge("M2", "Meta", label="Score Anomalia")
+    dot.edge("M3", "Meta", label="Stance")
+    dot.edge("M4", "Meta", label="Score Clickbait")
 
-    # Do vetor para o meta e saída
-    dot.edge("Features", "Meta")
     dot.edge("Meta", "Output")
 
-    # Renderizar o gráfico para um ficheiro
-    # Isto cria um ficheiro 'arquitetura_fake_news.png' na mesma pasta
-    dot.render("arquitetura_fake_news", view=True, format="png")
-    print("Diagrama gerado com sucesso!")
+    return dot
 
 
-if __name__ == "__main__":
-    gerar_diagrama()
+# --- Interface Streamlit ---
+st.title("Arquitetura Detalhada do Sistema")
+
+# Chamamos a função e passamos o resultado para o componente do Streamlit
+grafico = get_diagrama()
+try:
+    grafico.render("arquitetura_fake_news", format="png", cleanup=True)
+    print("Imagem gerada: arquitetura_fake_news.png")
+except Exception as e:
+    print("Erro ao gerar ficheiro (provavelmente falta o Graphviz no PATH).")
+    print("Sugestão: Corre no Streamlit e tira um Print Screen da imagem gerada.")
+
+st.graphviz_chart(grafico)
