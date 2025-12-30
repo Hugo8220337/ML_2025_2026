@@ -1,5 +1,5 @@
 services:
   ml-app:
     build: .
-    volumes:
-      - ./:/app
+    ports:
+      - "8501:8501"
