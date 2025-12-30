@@ -404,6 +404,7 @@ pyrightconfig.json
 .history
 .ionide
 
-datasets/*
-!datasets/References.txt
-!datasets/download_data.py
+
+project/datasets/*
+!project/datasets/References.txt
+!project/datasets/download_data.py
