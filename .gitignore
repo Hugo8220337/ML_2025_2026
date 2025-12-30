@@ -404,4 +404,5 @@ pyrightconfig.json
 .history
 .ionide
 
-# End of https://www.toptal.com/developers/gitignore/api/python,visualstudiocode,jetbrains,pycharm,data,jupyternotebooks
+datasets/
+!datasets/References.txt
