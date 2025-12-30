@@ -44,7 +44,7 @@ def _train_consistency_svm(X, y, class_weights_dict):
     return results
 
 
-def semantic_consistency():
+def stance_detection():
     bodies = read_csv(BODY_DATA_PATH)
     stances = read_csv(STANCES_DATA_PATH)
 
