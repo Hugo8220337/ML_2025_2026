@@ -3,6 +3,7 @@
 * [x] Fully test EMS
 * [x] Implement Naive Bayes
 * [x] Implement DBSCAN and GMM
+* [ ] Implement NMF and LDA
 * [ ] Study use case for isolation forest
 * [ ] Study use case for elastic net instead of linear regression
 * [ ] Study use case for CNN, LSTM and Bi-LSTM
