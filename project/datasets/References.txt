@@ -2,3 +2,4 @@ FakeNewsNet: https://www.kaggle.com/datasets/mdepak/fakenewsnet/data
 Clickbait: https://www.kaggle.com/datasets/amananandrai/clickbait-dataset
 FNC-1: https://github.com/FakeNewsChallenge/fnc-1
 abcNews: https://www.kaggle.com/datasets/therohk/million-headlines
+isot: https://www.kaggle.com/datasets/csmalarkodi/isot-fake-news-dataset
