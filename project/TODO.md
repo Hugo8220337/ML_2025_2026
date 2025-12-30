@@ -19,4 +19,4 @@
 * [x] Try to improve NLP
 * [x] Remember to remove hardcoded variable from debugs
 * [x] Improve caching
-* [ ] Support unsupervised algorithms in EMS
+* [x] Support unsupervised algorithms in EMS
