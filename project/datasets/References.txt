@@ -1,2 +1,4 @@
 FakeNewsNet: https://www.kaggle.com/datasets/mdepak/fakenewsnet/data
+Clickbait: https://www.kaggle.com/datasets/amananandrai/clickbait-dataset
+FNC-1: https://github.com/FakeNewsChallenge/fnc-1
 AG News: https://www.kaggle.com/datasets/amananandrai/ag-news-classification-dataset
