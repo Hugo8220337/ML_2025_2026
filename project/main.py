@@ -19,4 +19,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
     os.environ["CACHE_STRATEGY"] = args.cache_data
 
-    tc(models=["logistic_regression"], options="default")
+    tc()

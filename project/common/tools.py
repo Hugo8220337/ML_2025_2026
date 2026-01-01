@@ -67,13 +67,13 @@ def csv_to_json(csv_file_path, json_file_path):
 
 
 
-def read_csv(csv_file_path):
+def read_csv(csv_file_path, **kwargs):
     if not os.path.exists(csv_file_path):
         print(f"Error: The file '{csv_file_path}' was not found.")
         return None
 
     try:
-        df = pd.read_csv(csv_file_path)
+        df = pd.read_csv(csv_file_path, **kwargs)
         return df
         
     except pd.errors.EmptyDataError:

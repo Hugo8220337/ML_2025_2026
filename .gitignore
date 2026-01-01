@@ -408,3 +408,4 @@ pyrightconfig.json
 project/datasets/*
 !project/datasets/References.txt
 !project/datasets/download_data.py
+*.pkl
