@@ -454,6 +454,7 @@ def ems(X, y=None, models=None, target_metric='accuracy', report=False, options=
     best_global_model = None
     best_global_score = -float('inf')
     best_global_info = {}
+    all_models_results = {}
 
     if report:
         reports_dir = "files/ga_logs"
@@ -514,6 +515,11 @@ def ems(X, y=None, models=None, target_metric='accuracy', report=False, options=
                 best_global_score = cached_result['score']
                 best_global_model = cached_result['model']
                 best_global_info = cached_result['info']
+            
+            all_models_results[model_name] = {
+                'model': cached_result['model'],
+                'info': cached_result['info']
+            }
             continue 
         
         print(f"Training {model_name}...")
@@ -652,6 +658,11 @@ def ems(X, y=None, models=None, target_metric='accuracy', report=False, options=
                     best_global_score = final_score
                     best_global_model = final_run['model']
                     best_global_info = model_info
+                
+                all_models_results[model_name] = {
+                    'model': cache_result['model'],
+                    'info': cache_result['info']
+                }
             else:
                 print(f"   -> Default params are optimal. Training final model on full data...")
                 X_final, _ = preprocess_text(X, **nlp_params)
@@ -678,6 +689,11 @@ def ems(X, y=None, models=None, target_metric='accuracy', report=False, options=
                     best_global_score = final_score
                     best_global_model = final_run['model']
                     best_global_info = model_info
+                
+                all_models_results[model_name] = {
+                    'model': cache_result['model'],
+                    'info': cache_result['info']
+                }
         else:
             print(f"   -> Running default training for {model_name}...")
             try:
@@ -706,6 +722,11 @@ def ems(X, y=None, models=None, target_metric='accuracy', report=False, options=
                     best_global_score = final_score
                     best_global_model = final_run['model']
                     best_global_info = model_info
+                
+                all_models_results[model_name] = {
+                    'model': cache_result['model'],
+                    'info': cache_result['info']
+                }
             except Exception as e:
                 print(f"   -> Error training {model_name}: {e}")
 
@@ -715,7 +736,8 @@ def ems(X, y=None, models=None, target_metric='accuracy', report=False, options=
 
     return {
         "model": best_global_model,
-        "info": best_global_info
+        "info": best_global_info,
+        "other": all_models_results
     }
 
 
