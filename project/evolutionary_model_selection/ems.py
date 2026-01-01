@@ -164,8 +164,8 @@ def get_default_genes(model_name):
 
     # Unsupervised models
     elif model_name == 'kmeans':
-        # n_clusters=8, init=k-means++(0), max_iter=300, algorithm=lloyd(0)
-        defaults['genes'] = [8.0, 0.0, 300.0, 0.0]
+        # n_clusters=3, init=k-means++(0), max_iter=300, algorithm=lloyd(0)
+        defaults['genes'] = [3.0, 0.0, 300.0, 0.0]
 
     elif model_name == 'dbscan':
         # eps=0.5, min_samples=5, metric=euclidean(0), leaf_size=30
@@ -389,10 +389,15 @@ def _get_options_key(options):
         return 'default'
 
 
-def ems(X, y=None, models=None, target_metric='accuracy', report=False, options=None, nlp_options=None):
+def ems(X, y=None, models=None, target_metric=None, report=False, options=None, nlp_options=None):
     is_unsupervised = y is None
     models_validation(models, is_unsupervised)
-    
+    if target_metric is None:
+        target_metric = 'silhouette_score' if is_unsupervised else 'accuracy'
+
+    minimize_metrics = {'inertia', 'mse', 'mae', 'rmse', 'bic', 'aic'}
+    should_maximize = target_metric not in minimize_metrics
+
     presets = {
         # Around 50 models trained
         'quick': {
@@ -401,7 +406,7 @@ def ems(X, y=None, models=None, target_metric='accuracy', report=False, options=
             'mutation_rate': 0.3,
             'crossover_rate': 0.8,
             'tournament_size': 3,
-            'maximize': True,
+            'maximize': should_maximize,
             'verbose': True,
             'patience': 3,
             'min_delta': 0.001,
@@ -415,7 +420,7 @@ def ems(X, y=None, models=None, target_metric='accuracy', report=False, options=
             'mutation_rate': 0.3,
             'crossover_rate': 0.8,
             'tournament_size': 3,
-            'maximize': True,
+            'maximize': should_maximize,
             'verbose': True,
             'patience': 10,
             'min_delta': 0.0001,
@@ -429,7 +434,7 @@ def ems(X, y=None, models=None, target_metric='accuracy', report=False, options=
             'mutation_rate': 0.3,
             'crossover_rate': 0.8,
             'tournament_size': 5,
-            'maximize': True,
+            'maximize': should_maximize,
             'verbose': True,
             'patience': 20,
             'min_delta': 0.00001,
@@ -511,7 +516,8 @@ def ems(X, y=None, models=None, target_metric='accuracy', report=False, options=
         if cached_result is not None and isinstance(cached_result, dict) and 'score' in cached_result:
             print(f"[Cache] Loaded cached result for {model_name} with options='{options_key}'")
             
-            if cached_result['score'] > best_global_score:
+            is_better = (cached_result['score'] > best_global_score) if should_maximize else (cached_result['score'] < best_global_score)
+            if is_better:
                 best_global_score = cached_result['score']
                 best_global_model = cached_result['model']
                 best_global_info = cached_result['info']
@@ -532,17 +538,20 @@ def ems(X, y=None, models=None, target_metric='accuracy', report=False, options=
             eval_counter = [0]
             
             print(f"   -> Evaluating default parameters for {model_name}...")
+            
+            worst_score = -float('inf') if should_maximize else float('inf')
+            
             try:
                 default_result = train_func(X_train_processed, y_train, X_test=X_test_processed, y_test=y_test)
                 if default_result and 'metrics' in default_result:
-                    default_score = default_result['metrics'].get(target_metric, -float('inf'))
+                    default_score = default_result['metrics'].get(target_metric, worst_score)
                     print(f"   -> Default Score ({target_metric}): {default_score:.4f}")
                 else:
                     print("   -> Default training failed or returned no metrics.")
-                    default_score = -float('inf')
+                    default_score = worst_score
             except Exception as e:
                 print(f"   -> Error training defaults: {e}")
-                default_score = -float('inf')
+                default_score = worst_score
             
             def fitness_function(individual):
                 eval_counter[0] += 1
@@ -551,7 +560,7 @@ def ems(X, y=None, models=None, target_metric='accuracy', report=False, options=
                 try:
                     result = train_func(X_train_processed, y_train, X_test=X_test_processed, y_test=y_test, **params)
                     if result and 'metrics' in result:
-                        score = result['metrics'].get(target_metric, -float('inf'))
+                        score = result['metrics'].get(target_metric, worst_score)
                         print(f"   [Eval {eval_counter[0]}] Score: {score:.4f}", end='\r')
                         sys.stdout.flush()
                         return score
@@ -560,23 +569,29 @@ def ems(X, y=None, models=None, target_metric='accuracy', report=False, options=
                     if failed_evaluations[0] <= 3:
                         print(f"   [DEBUG] Fitness eval failed for {model_name}: {e}")
                 
-                return -float('inf')
+                return worst_score
 
             def generation_report(gen, scores, population):
-                best_idx = int(np.argmax(scores))
+                if should_maximize:
+                    best_idx = int(np.argmax(scores))
+                else:
+                    best_idx = int(np.argmin(scores))
+
                 best_score = float(scores[best_idx])
                 best_genes = population[best_idx]
                 best_params = decode_params(model_name, best_genes)
+                
+                valid_scores = scores[scores != worst_score]
                 
                 generation_data = {
                     "model": model_name,
                     "generation": gen,
                     "stats": {
                         "best_score": best_score,
-                        "avg_score": float(np.mean(scores[scores > -float('inf')])),
-                        "min_score": float(np.min(scores[scores > -float('inf')])) if np.any(scores > -float('inf')) else None,
-                        "max_score": float(np.max(scores)),
-                        "failed_evals": int(np.sum(scores == -float('inf')))
+                        "avg_score": float(np.mean(valid_scores)) if len(valid_scores) > 0 else worst_score,
+                        "min_score": float(np.min(valid_scores)) if len(valid_scores) > 0 else None,
+                        "max_score": float(np.max(valid_scores)) if len(valid_scores) > 0 else None,
+                        "failed_evals": int(np.sum(scores == worst_score))
                     },
                     "best": {
                         "index": best_idx,
@@ -631,11 +646,16 @@ def ems(X, y=None, models=None, target_metric='accuracy', report=False, options=
 
             print(f"\n   -> GA Best Score: {ga_result['best_score']:.4f} vs Default: {default_score:.4f}")
             
-            if ga_result['best_score'] > default_score:
+            improved = ga_result['best_score'] > default_score if should_maximize else ga_result['best_score'] < default_score
+            
+            if improved:
                 best_params = decode_params(model_name, ga_result['best_solution'])
                 
                 X_final, _ = preprocess_text(X, **nlp_params)
-                final_run = train_func(X_final, y, **best_params)
+                if y:
+                    final_run = train_func(X_final, y, **best_params)
+                else:
+                    final_run = train_func(X_final, **best_params)
                 final_score = final_run['metrics'].get(target_metric, ga_result['best_score'])
                 
                 model_info = {
@@ -654,7 +674,8 @@ def ems(X, y=None, models=None, target_metric='accuracy', report=False, options=
                 )
                 print(f"[Cache] Saved {model_name} with options='{options_key}' to cache")
                 
-                if final_score > best_global_score:
+                is_better = (final_score > best_global_score) if should_maximize else (final_score < best_global_score)
+                if is_better:
                     best_global_score = final_score
                     best_global_model = final_run['model']
                     best_global_info = model_info
@@ -666,7 +687,10 @@ def ems(X, y=None, models=None, target_metric='accuracy', report=False, options=
             else:
                 print(f"   -> Default params are optimal. Training final model on full data...")
                 X_final, _ = preprocess_text(X, **nlp_params)
-                final_run = train_func(X_final, y)
+                if y:
+                    final_run = train_func(X_final, y)
+                else:
+                    final_run = train_func(X_final)
                 final_score = final_run['metrics'].get(target_metric, default_score)
                 
                 model_info = {
@@ -685,7 +709,8 @@ def ems(X, y=None, models=None, target_metric='accuracy', report=False, options=
                 )
                 print(f"[Cache] Saved {model_name} with options='{options_key}' to cache")
                 
-                if final_score > best_global_score:
+                is_better = (final_score > best_global_score) if should_maximize else (final_score < best_global_score)
+                if is_better:
                     best_global_score = final_score
                     best_global_model = final_run['model']
                     best_global_info = model_info
@@ -699,7 +724,7 @@ def ems(X, y=None, models=None, target_metric='accuracy', report=False, options=
             try:
                 X_final, _ = preprocess_text(X, **nlp_params)
                 final_run = train_func(X_final, y)
-                final_score = final_run['metrics'].get('rmse')
+                final_score = final_run['metrics'].get(target_metric)
                 print(f"   -> Score: {final_score:.4f}")
                 
                 model_info = {
@@ -718,7 +743,8 @@ def ems(X, y=None, models=None, target_metric='accuracy', report=False, options=
                 )
                 print(f"[Cache] Saved {model_name} with options='{options_key}' to cache")
                 
-                if final_score > best_global_score:
+                is_better = (final_score > best_global_score) if should_maximize else (final_score < best_global_score)
+                if is_better:
                     best_global_score = final_score
                     best_global_model = final_run['model']
                     best_global_info = model_info

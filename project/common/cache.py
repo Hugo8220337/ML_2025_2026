@@ -30,10 +30,8 @@ class CacheManager:
 
         if strategy == 'load_only':
             if os.path.exists(filepath):
-                print(f"[Cache|{self.module_name}] Loading '{task_name}' (strategy: load_only)")
                 return joblib.load(filepath)
             else:
-                print(f"[Cache|{self.module_name}] No cache found for '{task_name}', running without caching")
                 return func()
 
         elif strategy == 'overwrite':

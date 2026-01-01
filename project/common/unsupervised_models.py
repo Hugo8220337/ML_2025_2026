@@ -1,4 +1,6 @@
 import pandas as pd
+import numpy as np
+import scipy.sparse
 from sklearn.cluster import KMeans, DBSCAN
 from sklearn.decomposition import PCA
 from sklearn.mixture import GaussianMixture
@@ -7,9 +9,9 @@ from .metrics import get_clustering_metrics
 
 
 def train_kmeans(
-    df,
-    feature_columns,
-    n_clusters=8,
+    X,
+    feature_columns=None,
+    n_clusters=3,
     init='k-means++',
     n_init='auto',
     max_iter=300,
@@ -17,15 +19,20 @@ def train_kmeans(
     verbose=0,
     random_state=None,
     copy_x=True,
-    algorithm='lloyd'
+    algorithm='lloyd',
+    **kwargs
 ):
-    
-    for col in feature_columns:
-        if col not in df.columns:
-            print(f"Error: Feature '{col}' not found in DataFrame.")
-            return None
-
-    X = df[feature_columns]
+    if isinstance(X, pd.DataFrame):
+        if feature_columns:
+            missing = [col for col in feature_columns if col not in X.columns]
+            if missing:
+                print(f"Error: Features {missing} not found in DataFrame.")
+                return None
+            X_data = X[feature_columns]
+        else:
+            X_data = X
+    else:
+        X_data = X
 
     model = KMeans(
         n_clusters=n_clusters,
@@ -40,7 +47,7 @@ def train_kmeans(
     )
 
     try:
-        model.fit(X)
+        model.fit(X_data)
     except Exception as e:
         print(f"Error during training: {e}")
         return None
@@ -48,7 +55,7 @@ def train_kmeans(
     labels = model.labels_
     centroids = model.cluster_centers_
 
-    metrics = get_clustering_metrics(X, labels, model)
+    metrics = get_clustering_metrics(X_data, labels, model)
 
     return {
         "model": model,
@@ -60,22 +67,28 @@ def train_kmeans(
     
 
 def perform_pca(
-    df,
-    feature_columns,
+    X,
+    feature_columns=None,
     n_components=None,
     copy=True,
     whiten=False,
     svd_solver='auto',
     tol=0.0,
     iterated_power='auto',
-    random_state=None
+    random_state=None,
+    **kwargs
 ):
-    for col in feature_columns:
-        if col not in df.columns:
-            print(f"Error: Feature '{col}' not found in DataFrame.")
-            return None
-
-    X = df[feature_columns]
+    if isinstance(X, pd.DataFrame):
+        if feature_columns:
+            missing = [col for col in feature_columns if col not in X.columns]
+            if missing:
+                print(f"Error: Features {missing} not found in DataFrame.")
+                return None
+            X_data = X[feature_columns]
+        else:
+            X_data = X
+    else:
+        X_data = X
 
     model = PCA(
         n_components=n_components,
@@ -88,26 +101,37 @@ def perform_pca(
     )
 
     try:
-        transformed_data = model.fit_transform(X)
+        transformed_data = model.fit_transform(X_data)
     except Exception as e:
         print(f"Error during PCA: {e}")
         return None
 
-    num_cols = transformed_data.shape[1]
-    new_col_names = [f'PC{i+1}' for i in range(num_cols)]
-    df_transformed = pd.DataFrame(transformed_data, columns=new_col_names)
+    # For PCA, 'metrics' isn't standard clustering metrics, but we can return explained variance
+    metrics = {
+        'total_explained_variance': float(np.sum(model.explained_variance_ratio_)),
+        'n_components': int(model.n_components_)
+    }
+
+    # Helper for returning transformed data as DataFrame if input was DataFrame or similar
+    if isinstance(X_data, pd.DataFrame):
+        num_cols = transformed_data.shape[1]
+        new_col_names = [f'PC{i+1}' for i in range(num_cols)]
+        df_transformed = pd.DataFrame(transformed_data, columns=new_col_names, index=X_data.index)
+    else:
+        df_transformed = transformed_data
 
     return {
         "model": model,
-        "transformed_df": df_transformed,
+        "transformed_data": df_transformed,
+        "metrics": metrics,
         "explained_variance_ratio": model.explained_variance_ratio_,
         "components": model.components_
     }
 
 
 def train_dbscan(
-    df,
-    feature_columns,
+    X,
+    feature_columns=None,
     eps=0.5,
     min_samples=5,
     metric='euclidean',
@@ -115,15 +139,20 @@ def train_dbscan(
     algorithm='auto',
     leaf_size=30,
     p=None,
-    n_jobs=None
+    n_jobs=None,
+    **kwargs
 ):
-    
-    for col in feature_columns:
-        if col not in df.columns:
-            print(f"Error: Feature '{col}' not found in DataFrame.")
-            return None
-
-    X = df[feature_columns]
+    if isinstance(X, pd.DataFrame):
+        if feature_columns:
+            missing = [col for col in feature_columns if col not in X.columns]
+            if missing:
+                print(f"Error: Features {missing} not found in DataFrame.")
+                return None
+            X_data = X[feature_columns]
+        else:
+            X_data = X
+    else:
+        X_data = X
 
     model = DBSCAN(
         eps=eps,
@@ -137,7 +166,7 @@ def train_dbscan(
     )
 
     try:
-        model.fit(X)
+        model.fit(X_data)
     except Exception as e:
         print(f"Error during training: {e}")
         return None
@@ -146,7 +175,9 @@ def train_dbscan(
     n_clusters = len(set(labels)) - (1 if -1 in labels else 0)
     n_noise = list(labels).count(-1)
 
-    metrics = get_clustering_metrics(X, labels, model)
+    metrics = get_clustering_metrics(X_data, labels, model)
+    metrics['n_clusters'] = n_clusters
+    metrics['n_noise'] = n_noise
 
     return {
         "model": model,
@@ -158,8 +189,8 @@ def train_dbscan(
 
 
 def train_gmm(
-    df,
-    feature_columns,
+    X,
+    feature_columns=None,
     n_components=1,
     covariance_type='full',
     tol=1e-3,
@@ -173,15 +204,20 @@ def train_gmm(
     random_state=None,
     warm_start=False,
     verbose=0,
-    verbose_interval=10
+    verbose_interval=10,
+    **kwargs
 ):
-    
-    for col in feature_columns:
-        if col not in df.columns:
-            print(f"Error: Feature '{col}' not found in DataFrame.")
-            return None
-
-    X = df[feature_columns]
+    if isinstance(X, pd.DataFrame):
+        if feature_columns:
+            missing = [col for col in feature_columns if col not in X.columns]
+            if missing:
+                print(f"Error: Features {missing} not found in DataFrame.")
+                return None
+            X_data = X[feature_columns]
+        else:
+            X_data = X
+    else:
+        X_data = X
 
     model = GaussianMixture(
         n_components=n_components,
@@ -201,15 +237,17 @@ def train_gmm(
     )
 
     try:
-        model.fit(X)
+        model.fit(X_data)
     except Exception as e:
         print(f"Error during training: {e}")
         return None
 
-    labels = model.predict(X)
-    probabilities = model.predict_proba(X)
+    labels = model.predict(X_data)
+    probabilities = model.predict_proba(X_data)
 
-    metrics = get_clustering_metrics(X, labels, model)
+    metrics = get_clustering_metrics(X_data, labels, model)
+    metrics['bic'] = model.bic(X_data)
+    metrics['aic'] = model.aic(X_data)
 
     return {
         "model": model,
@@ -219,6 +257,6 @@ def train_gmm(
         "covariances": model.covariances_,
         "weights": model.weights_,
         "metrics": metrics,
-        "bic": model.bic(X),
-        "aic": model.aic(X)
+        "bic": metrics['bic'],
+        "aic": metrics['aic']
     }

@@ -7,7 +7,6 @@
 * [ ] Study use case for isolation forest
 * [ ] Study use case for elastic net instead of linear regression
 * [ ] Study use case for CNN, LSTM and Bi-LSTM
-* [ ] Study use case for unsupervised models
 * [ ] Streamlit front end [Implementation Plan](Dashboard.md)
 * [ ] Deploy
 * [ ] Write documentation <!-- ahahahahahhahahaha  -->
