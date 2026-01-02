@@ -6,6 +6,7 @@ from nltk.corpus import stopwords, wordnet
 from nltk.stem import WordNetLemmatizer
 from nltk import pos_tag
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_extraction.text import HashingVectorizer
 
 
 # Verify and download necessary NLTK resources (quietly)
@@ -115,3 +116,17 @@ def tfidf_vectorize(df, col_name='data', max_features=5000, lowercase=False, sto
     tfidf_matrix = vectorizer.fit_transform(corpus)
     
     return tfidf_matrix, vectorizer
+
+
+def hashing_vectorize(df, col_name='data', n_features=2**12, stop_words='english', alternate_sign=False):
+    corpus = df[col_name].apply(lambda x: ' '.join(x) if isinstance(x, list) else x)
+    
+
+    vectorizer = HashingVectorizer(
+        n_features=n_features,
+        stop_words=stop_words,
+        alternate_sign=alternate_sign
+    )
+    matrix = vectorizer.transform(corpus)
+    
+    return matrix, vectorizer

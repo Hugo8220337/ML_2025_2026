@@ -10,6 +10,7 @@ def topic_classification(models=['kmeans'], options='quick'):
     def preprocessing(file_path):
         df = read_csv(file_path, usecols=['title', 'article'])
         df = df.dropna()
+        df = df.sample(n=100000, random_state=42)
         df['data'] = df['title'] + ' ' + df['article']
         df = df.drop(columns=['title', 'article'])
         return df
@@ -23,5 +24,5 @@ def topic_classification(models=['kmeans'], options='quick'):
     
     X = df['data']
 
-    result = ems(X, models=models, report=True, options=options)
+    result = ems(X, models=models, report=True, options=options, vectorizer_type='hashing')
     print(json.dumps(result['info'], indent=4))
