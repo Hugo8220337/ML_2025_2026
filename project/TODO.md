@@ -3,7 +3,7 @@
 * [x] Fully test EMS
 * [x] Implement Naive Bayes
 * [x] Implement DBSCAN and GMM
-* [ ] Implement NMF and LDA
+* [x] Implement Dimensionality reduction
 * [ ] Study use case for isolation forest
 * [ ] Study use case for elastic net instead of linear regression
 * [ ] Study use case for CNN, LSTM and Bi-LSTM
@@ -20,3 +20,4 @@
 * [x] Remember to remove hardcoded variable from debugs
 * [x] Improve caching
 * [x] Support unsupervised algorithms in EMS
+* [ ] Support dimensionality reduction in EMS

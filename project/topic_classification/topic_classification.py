@@ -24,5 +24,5 @@ def topic_classification(models=['kmeans'], options='quick'):
     
     X = df['data']
 
-    result = ems(X, models=models, report=True, options=options, vectorizer_type='hashing')
+    result = ems(X, models=models, report=True, options=options, reduction='nmf', vectorizer_type='hashing')
     print(json.dumps(result['info'], indent=4))

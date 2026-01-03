@@ -327,7 +327,7 @@ def decode_params(model_name, genes):
 
     return params
 
-def reduce_dimensions(X, method='pca', **kwargs):
+def reduce_dimensions(X, method, **kwargs):
     method = method.lower()
     
     if method not in DIMENSIONALITY_REDUCTION:
@@ -495,6 +495,12 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
             X_sub = X
         
         X_train_processed, _ = preprocess_text(X_sub, vectorizer_type=vectorizer_type, **nlp_params)
+        
+        if reduction is not None:
+            print(f"-> Applying dimensionality reduction: {reduction}")
+            reduction_result = reduce_dimensions(X_train_processed, method=reduction)
+            X_train_processed = reduction_result['reduced_data']
+        
         X_test_processed = None
         y_train, y_test = None, None
     else:
@@ -513,6 +519,10 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
         )
         
         X_train_processed, X_test_processed = preprocess_text(X_train, X_test, vectorizer_type=vectorizer_type, **nlp_params)
+        if reduction is not None:
+            print(f"-> Applying dimensionality reduction: {reduction}")
+            reduction_result = reduce_dimensions(X_train_processed, method=reduction)
+            X_train_processed = reduction_result['reduced_data']
 
     for model_name in models:
         cache_task_name = f"{model_name}_{options_key}"
@@ -665,6 +675,9 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
                 best_params = decode_params(model_name, ga_result['best_solution'])
                 
                 X_final, _ = preprocess_text(X, vectorizer_type=vectorizer_type, **nlp_params)
+                if reduction is not None:
+                    reduction_result = reduce_dimensions(X_final, method=reduction)
+                    X_final = reduction_result['reduced_data']
                 if y:
                     final_run = train_func(X_final, y, **best_params)
                 else:
@@ -700,6 +713,9 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
             else:
                 print(f"   -> Default params are optimal. Training final model on full data...")
                 X_final, _ = preprocess_text(X, vectorizer_type=vectorizer_type, **nlp_params)
+                if reduction is not None:
+                    reduction_result = reduce_dimensions(X_final, method=reduction)
+                    X_final = reduction_result['reduced_data']
                 if y:
                     final_run = train_func(X_final, y)
                 else:
@@ -736,6 +752,9 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
             print(f"   -> Running default training for {model_name}...")
             try:
                 X_final, _ = preprocess_text(X, vectorizer_type=vectorizer_type, **nlp_params)
+                if reduction is not None:
+                    reduction_result = reduce_dimensions(X_final, method=reduction)
+                    X_final = reduction_result['reduced_data']
                 final_run = train_func(X_final, y)
                 final_score = final_run['metrics'].get(target_metric)
                 print(f"   -> Score: {final_score:.4f}")
