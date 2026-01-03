@@ -523,6 +523,13 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
             print(f"-> Applying dimensionality reduction: {reduction}")
             reduction_result = reduce_dimensions(X_train_processed, method=reduction)
             X_train_processed = reduction_result['reduced_data']
+            if X_test_processed is not None:
+                X_test_to_transform = X_test_processed.toarray() if hasattr(X_test_processed, 'toarray') else X_test_processed
+                try:
+                    X_test_processed = reduction_result['model'].transform(X_test_to_transform)
+                except Exception as e:
+                    print(f"-> Warning: Failed to transform test data with reduction model: {e}")
+                    raise e
 
     for model_name in models:
         cache_task_name = f"{model_name}_{options_key}"
