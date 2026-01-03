@@ -9,6 +9,7 @@ from evolutionary_model_selection.genetic_algorithm import run_genetic_algorithm
 from common.supervised_models import *
 from common.unsupervised_models import *
 from common.deep_learning import *
+from common.dimensionality_reduction import apply_pca, apply_nmf, apply_lda, apply_lsa
 from common.nlp import preprocessing, tfidf_vectorize, hashing_vectorize
 from common.cache import CacheManager
 import datetime
@@ -32,10 +33,17 @@ UNSUPERVISED_MODELS = {
     'kmeans',
     'dbscan',
     'gmm',
-    'pca',
 }
 
-function_registry = {
+DIMENSIONALITY_REDUCTION = {
+    'pca',
+    'nmf',
+    'lda',
+    'lsa',
+}
+
+
+FUNCTION_REGISTRY = {
     # Supervised
     'linear_regression': train_linear_regression,
     'logistic_regression': train_logistic_regression,
@@ -49,8 +57,12 @@ function_registry = {
     'kmeans': train_kmeans,
     'dbscan': train_dbscan,
     'gmm': train_gmm,
-    'pca': perform_pca,
-}
+    # Dimensionality reduction
+    'pca': apply_pca,
+    'nmf': apply_nmf,
+    'lda': apply_lda,
+    'lsa': apply_lsa,
+    }
 
 MODEL_BOUNDS = {
     'logistic_regression': [
@@ -123,11 +135,6 @@ MODEL_BOUNDS = {
         (50, 300),     # max_iter
         (1, 10),       # n_init
     ],
-    'pca': [
-        (2, 50),       # n_components
-        (0, 2),        # whiten: 0=False, 1=True
-        (0, 4),        # svd_solver: 0=auto, 1=full, 2=arpack, 3=randomized
-    ],
 }
 
 def get_default_genes(model_name):
@@ -174,10 +181,6 @@ def get_default_genes(model_name):
     elif model_name == 'gmm':
         # n_components=1, covariance_type=full(0), max_iter=100, n_init=1
         defaults['genes'] = [1.0, 0.0, 100.0, 1.0]
-
-    elif model_name == 'pca':
-        # n_components=2, whiten=False(0), svd_solver=auto(0)
-        defaults['genes'] = [2.0, 0.0, 0.0]
 
     return defaults.get('genes', [])
 
@@ -322,14 +325,19 @@ def decode_params(model_name, genes):
         params['max_iter'] = int(genes[2])
         params['n_init'] = int(genes[3])
 
-    elif model_name == 'pca':
-        params['n_components'] = int(genes[0])
-        params['whiten'] = True if int(genes[1]) == 1 else False
-        
-        solver_map = {0: 'auto', 1: 'full', 2: 'arpack', 3: 'randomized'}
-        params['svd_solver'] = solver_map.get(int(genes[2]), 'auto')
-
     return params
+
+def reduce_dimensions(X, method='pca', **kwargs):
+    method = method.lower()
+    
+    if method not in DIMENSIONALITY_REDUCTION:
+        raise ValueError(
+            f"Unknown dimensionality reduction method: '{method}'. "
+            f"Available methods: {list(DIMENSIONALITY_REDUCTION)}"
+        )
+    
+    return FUNCTION_REGISTRY[method](X, **kwargs)
+
 
 def preprocess_text(X_train, X_test=None, vectorizer_type='tfidf', **kwargs):
     is_text = False
@@ -394,7 +402,7 @@ def _get_options_key(options):
         return 'default'
 
 
-def ems(X, y=None, models=None, target_metric=None, report=False, options=None, nlp_options=None, vectorizer_type='tfidf'):
+def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False, options=None, nlp_options=None, vectorizer_type='tfidf'):
     is_unsupervised = y is None
     models_validation(models, is_unsupervised)
     if target_metric is None:
@@ -535,7 +543,7 @@ def ems(X, y=None, models=None, target_metric=None, report=False, options=None, 
         
         print(f"Training {model_name}...")
         
-        train_func = function_registry.get(model_name)
+        train_func = FUNCTION_REGISTRY.get(model_name)
         bounds = MODEL_BOUNDS.get(model_name, [])
 
         if bounds:
@@ -776,9 +784,9 @@ def models_validation(models, is_unsupervised=False):
     if not models:
         raise ValueError("Models list cannot be empty.")
     
-    if not all(model in function_registry for model in models):
-        invalid = [m for m in models if m not in function_registry]
-        raise ValueError(f"Unknown model(s): {invalid}. Valid models: {list(function_registry.keys())}")
+    if not all(model in FUNCTION_REGISTRY for model in models):
+        invalid = [m for m in models if m not in FUNCTION_REGISTRY]
+        raise ValueError(f"Unknown model(s): {invalid}. Valid models: {list(FUNCTION_REGISTRY.keys())}")
     
     has_supervised = any(model in SUPERVISED_MODELS for model in models)
     has_unsupervised = any(model in UNSUPERVISED_MODELS for model in models)
@@ -804,3 +812,4 @@ def models_validation(models, is_unsupervised=False):
             f"Use supervised models instead: {list(SUPERVISED_MODELS)}"
         )
     
+

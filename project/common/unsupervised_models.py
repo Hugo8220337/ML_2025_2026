@@ -1,8 +1,6 @@
 import pandas as pd
 import numpy as np
-import scipy.sparse
 from sklearn.cluster import KMeans, DBSCAN
-from sklearn.decomposition import PCA
 from sklearn.mixture import GaussianMixture
 from .metrics import get_clustering_metrics
 
@@ -63,69 +61,6 @@ def train_kmeans(
         "centroids": centroids,
         "metrics": metrics,
         "inertia": model.inertia_ 
-    }
-    
-
-def perform_pca(
-    X,
-    feature_columns=None,
-    n_components=None,
-    copy=True,
-    whiten=False,
-    svd_solver='auto',
-    tol=0.0,
-    iterated_power='auto',
-    random_state=None,
-    **kwargs
-):
-    if isinstance(X, pd.DataFrame):
-        if feature_columns:
-            missing = [col for col in feature_columns if col not in X.columns]
-            if missing:
-                print(f"Error: Features {missing} not found in DataFrame.")
-                return None
-            X_data = X[feature_columns]
-        else:
-            X_data = X
-    else:
-        X_data = X
-
-    model = PCA(
-        n_components=n_components,
-        copy=copy,
-        whiten=whiten,
-        svd_solver=svd_solver,
-        tol=tol,
-        iterated_power=iterated_power,
-        random_state=random_state
-    )
-
-    try:
-        transformed_data = model.fit_transform(X_data)
-    except Exception as e:
-        print(f"Error during PCA: {e}")
-        return None
-
-    # For PCA, 'metrics' isn't standard clustering metrics, but we can return explained variance
-    metrics = {
-        'total_explained_variance': float(np.sum(model.explained_variance_ratio_)),
-        'n_components': int(model.n_components_)
-    }
-
-    # Helper for returning transformed data as DataFrame if input was DataFrame or similar
-    if isinstance(X_data, pd.DataFrame):
-        num_cols = transformed_data.shape[1]
-        new_col_names = [f'PC{i+1}' for i in range(num_cols)]
-        df_transformed = pd.DataFrame(transformed_data, columns=new_col_names, index=X_data.index)
-    else:
-        df_transformed = transformed_data
-
-    return {
-        "model": model,
-        "transformed_data": df_transformed,
-        "metrics": metrics,
-        "explained_variance_ratio": model.explained_variance_ratio_,
-        "components": model.components_
     }
 
 
