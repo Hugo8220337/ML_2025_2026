@@ -382,9 +382,9 @@ def preprocess_text(X_train, X_test=None, vectorizer_type='tfidf', **kwargs):
             df_test = preprocessing(df_test, **prep_kwargs)
             corpus_test = df_test['data'].apply(lambda x: ' '.join(x) if isinstance(x, list) else x)
             X_test_vec = vectorizer.transform(corpus_test)
-            return X_train_vec, X_test_vec
+            return X_train_vec, X_test_vec, vectorizer
         
-        return X_train_vec, None
+        return X_train_vec, None, vectorizer
 
     return cm.execute(
         task_name="text_preprocessing",
@@ -494,7 +494,7 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
         else:
             X_sub = X
         
-        X_train_processed, _ = preprocess_text(X_sub, vectorizer_type=vectorizer_type, **nlp_params)
+        X_train_processed, _, _ = preprocess_text(X_sub, vectorizer_type=vectorizer_type, **nlp_params)
         
         if reduction is not None:
             print(f"-> Applying dimensionality reduction: {reduction}")
@@ -518,7 +518,7 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
             X_sub, y_sub, test_size=0.2, random_state=42
         )
         
-        X_train_processed, X_test_processed = preprocess_text(X_train, X_test, vectorizer_type=vectorizer_type, **nlp_params)
+        X_train_processed, X_test_processed, _ = preprocess_text(X_train, X_test, vectorizer_type=vectorizer_type, **nlp_params)
         if reduction is not None:
             print(f"-> Applying dimensionality reduction: {reduction}")
             reduction_result = reduce_dimensions(X_train_processed, method=reduction)
@@ -681,11 +681,15 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
             if improved:
                 best_params = decode_params(model_name, ga_result['best_solution'])
                 
-                X_final, _ = preprocess_text(X, vectorizer_type=vectorizer_type, **nlp_params)
+                X_final, _, final_vectorizer = preprocess_text(X, vectorizer_type=vectorizer_type, **nlp_params)
+                
+                final_reduction_model = None
                 if reduction is not None:
                     reduction_result = reduce_dimensions(X_final, method=reduction)
                     X_final = reduction_result['reduced_data']
-                if y:
+                    final_reduction_model = reduction_result['model']
+
+                if y is not None:
                     final_run = train_func(X_final, y, **best_params)
                 else:
                     final_run = train_func(X_final, **best_params)
@@ -694,7 +698,9 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
                 model_info = {
                     'model_name': model_name,
                     'score': final_score,
-                    'params': best_params
+                    'params': best_params,
+                    'vectorizer': final_vectorizer,
+                    'reduction_model': final_reduction_model
                 }
                 
                 cache_result = {'model': final_run['model'], 'score': final_score, 'info': model_info}
@@ -719,11 +725,16 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
                 }
             else:
                 print(f"   -> Default params are optimal. Training final model on full data...")
-                X_final, _ = preprocess_text(X, vectorizer_type=vectorizer_type, **nlp_params)
+                
+                X_final, _, final_vectorizer = preprocess_text(X, vectorizer_type=vectorizer_type, **nlp_params)
+                
+                final_reduction_model = None
                 if reduction is not None:
                     reduction_result = reduce_dimensions(X_final, method=reduction)
                     X_final = reduction_result['reduced_data']
-                if y:
+                    final_reduction_model = reduction_result['model']
+
+                if y is not None:
                     final_run = train_func(X_final, y)
                 else:
                     final_run = train_func(X_final)
@@ -732,7 +743,9 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
                 model_info = {
                     'model_name': model_name,
                     'score': final_score,
-                    'params': 'default'
+                    'params': 'default',
+                    'vectorizer': final_vectorizer,
+                    'reduction_model': final_reduction_model
                 }
                 
                 cache_result = {'model': final_run['model'], 'score': final_score, 'info': model_info}
@@ -758,18 +771,24 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
         else:
             print(f"   -> Running default training for {model_name}...")
             try:
-                X_final, _ = preprocess_text(X, vectorizer_type=vectorizer_type, **nlp_params)
+                X_final, _, final_vectorizer = preprocess_text(X, vectorizer_type=vectorizer_type, **nlp_params)
+                
+                final_reduction_model = None
                 if reduction is not None:
                     reduction_result = reduce_dimensions(X_final, method=reduction)
                     X_final = reduction_result['reduced_data']
-                final_run = train_func(X_final, y)
+                    final_reduction_model = reduction_result['model']
+
+                final_run = train_func(X_final, y) if y is not None else train_func(X_final)
                 final_score = final_run['metrics'].get(target_metric)
                 print(f"   -> Score: {final_score:.4f}")
                 
                 model_info = {
                     'model_name': model_name,
                     'score': final_score,
-                    'params': 'default'
+                    'params': 'default',
+                    'vectorizer': final_vectorizer,
+                    'reduction_model': final_reduction_model
                 }
                 
                 cache_result = {'model': final_run['model'], 'score': final_score, 'info': model_info}
