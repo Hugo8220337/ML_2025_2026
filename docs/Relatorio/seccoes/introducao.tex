@@ -1,6 +1,33 @@
 \section{Introdução} \label{sec:introducao}
 \subsection{Contextualização} \label{subsec:contextualizacao}
+A democratização do acesso à internet e a ascensão das redes sociais alteraram drasticamente o paradigma de produção e consumo de informação. Se, por um lado, estas plataformas permitem uma disseminação rápida de conhecimento, por outro, tornaram-se canais privilegiados para a propagação de desinformação, comummente designada por \textit{Fake News} \cite{alves_o_2020}.
+
+Este fenómeno não é apenas um problema tecnológico, mas um desafio social complexo com consequências tangíveis. Estudos recentes demonstram como a desinformação tem sido utilizada como ferramenta de manipulação política, com impacto observado em processos eleitorais e na polarização da opinião pública \cite{tenove_protecting_2020}. Além disso, em contextos de crise, como a pandemia COVID-19, a disseminação de notícias falsas representou um risco direto para a saúde pública \cite{galhardi_fato_2020}.
+
+O grande desafio reside no volume massivo de dados gerados diariamente (Big Data), o que torna a verificação manual de factos (\textit{fact-checking}) uma tarefa impossível de realizar em tempo útil \cite{mishra_analyzing_2022} . Consequentemente, torna-se imperativo o desenvolvimento de sistemas automáticos baseados em \textit{Machine Learning} (ML) capazes de detetar, classificar e mitigar a propagação de conteúdos falsos, analisando não apenas o texto, mas também o contexto, a postura (\textit{stance}) e a consistência semântica das notícias.
 
 \subsection{Objetivos} \label{subsec:objetivos}
+O principal objetivo deste trabalho é o desenvolvimento de uma arquitetura de \textit{Machine Learning} capaz de classificar a veracidade de artigos noticiosos. Este projeto visa integrar os conhecimentos adquiridos na Unidade Curricular, aplicando algoritmos de aprendizagem supervisionada e não supervisionada para a resolução de um problema real.
+
+De acordo com os requisitos propostos no enunciado, foram definidos os seguintes objetivos específicos:
+
+\begin{itemize}
+	\item Realizar uma análise exploratória de dados em múltiplos \textit{datasets} para compreender padrões de desinformação;
+	\item Implementar e comparar diferentes algoritmos de classificação para tarefas distintas: classificação de tópicos, deteção de \textit{stance}, identificação de \textit{clickbait} e análise de anomalias;
+	\item Aplicar técnicas de aprendizagem não supervisionada para a deteção de padrões anómalos em notícias reais;
+	\item Desenvolver um \textit{Meta-Classificador} (modelo final) que agregue as previsões dos modelos parcelares para uma decisão final robusta;
+	\item Construir uma interface gráfica que permita a um utilizador testar o modelo treinado de forma interativa;
+	\item Avaliar a performance da solução utilizando métricas adequadas (Accuracy, Precision, Recall e F1-Score).
+\end{itemize}
 
 \subsection{Estrutura do Relatório} \label{subsec:estrutura-relatorio}
+O presente relatório encontra-se organizado em 6 capítulos, refletindo o fluxo de trabalho desenvolvido:
+
+\begin{itemize}
+	\item A Secção \ref{sec:arquitetura-solucao} apresenta a arquitetura do modelo de \textit{Machine Learning} treinado;
+	\item A Secção \ref{sec:dados-analise-exploratoria} descreve os \textit{datasets} selecionados e o processo de análise exploratória e tratamento dos dados;
+	\item A Secção \ref{sec:desenvolvimento-modelos} detalha a metodologia de desenvolvimento, justificando a arquitetura modular e a escolha dos algoritmos para cada tarefa específica;
+	\item A Secção \ref{sec:resultados-analise-critica} expõe os resultados obtidos, apresentando uma análise comparativa e crítica da performance dos modelos;
+	\item A Secção \ref{sec:interface-utilizador} ilustra a implementação da interface de utilização;
+	\item Por fim, a Secção \ref{sec:conclusoes} sintetiza as conclusões do trabalho e aponta linhas para desenvolvimento futuro.
+\end{itemize}
