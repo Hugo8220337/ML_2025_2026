@@ -22,11 +22,3 @@
 * [x] Support unsupervised algorithms in EMS
 * [x] Support dimensionality reduction in EMS
 * [ ] Option to skip full data training
-
-
-
-🔴 Broken Inference Pipeline (Deployment Blocker) The ems function returns the best classifier model, but it discards the fitted vectorizer and dimensionality_reducer.
-
-* Why this matters: When you eventually deploy this (as mentioned in your TODO.md), you will have a trained classifier (e.g., SVM) that expects input vectors of size 50. However, you won't have the specific TF-IDF vectorizer or PCA model used to create those inputs. You cannot process new user input without them.
-
-* Recommendation: Your ems return object needs to include the entire pipeline (Preprocessor -> Vectorizer -> Reducer -> Classifier), or you need to use sklearn.pipeline.Pipeline objects to bundle them together.

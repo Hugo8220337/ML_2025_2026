@@ -533,7 +533,7 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
                     raise e
 
     for model_name in models:
-        cache_task_name = f"{model_name}_{options_key}"
+        cache_task_name = model_name
         cache_inputs = {'X': X, 'y': y, 'nlp_params': nlp_params, 'target_metric': target_metric}
         
         cached_result = model_cache.execute(
