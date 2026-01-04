@@ -472,6 +472,7 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
     best_global_model = None
     best_global_score = -float('inf')
     best_global_info = {}
+    best_global_pipeline = {}
     all_models_results = {}
 
     if report:
@@ -551,10 +552,12 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
                 best_global_score = cached_result['score']
                 best_global_model = cached_result['model']
                 best_global_info = cached_result['info']
+                best_global_pipeline = cached_result.get('pipeline', {})
             
             all_models_results[model_name] = {
                 'model': cached_result['model'],
-                'info': cached_result['info']
+                'info': cached_result['info'],
+                'pipeline': cached_result.get('pipeline', {})
             }
             continue 
         
@@ -679,6 +682,7 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
             improved = ga_result['best_score'] > default_score if should_maximize else ga_result['best_score'] < default_score
             
             if improved:
+                print(f"   -> Model improved. Training final model on full data...")
                 best_params = decode_params(model_name, ga_result['best_solution'])
                 
                 X_final, _, final_vectorizer = preprocess_text(X, vectorizer_type=vectorizer_type, **nlp_params)
@@ -698,12 +702,21 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
                 model_info = {
                     'model_name': model_name,
                     'score': final_score,
-                    'params': best_params,
-                    'vectorizer': final_vectorizer,
-                    'reduction_model': final_reduction_model
+                    'params': best_params
                 }
                 
-                cache_result = {'model': final_run['model'], 'score': final_score, 'info': model_info}
+                pipeline_dict = {
+                    'vectorizer': final_vectorizer,
+                    'reduction_model': final_reduction_model,
+                    'classifier': final_run['model']
+                }
+                
+                cache_result = {
+                    'model': final_run['model'], 
+                    'score': final_score, 
+                    'info': model_info,
+                    'pipeline': pipeline_dict
+                }
                 model_cache.execute(
                     task_name=cache_task_name,
                     func=lambda r=cache_result: r,
@@ -718,10 +731,12 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
                     best_global_score = final_score
                     best_global_model = final_run['model']
                     best_global_info = model_info
+                    best_global_pipeline = pipeline_dict
                 
                 all_models_results[model_name] = {
                     'model': cache_result['model'],
-                    'info': cache_result['info']
+                    'info': cache_result['info'],
+                    'pipeline': cache_result['pipeline']
                 }
             else:
                 print(f"   -> Default params are optimal. Training final model on full data...")
@@ -743,12 +758,21 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
                 model_info = {
                     'model_name': model_name,
                     'score': final_score,
-                    'params': 'default',
-                    'vectorizer': final_vectorizer,
-                    'reduction_model': final_reduction_model
+                    'params': 'default'
                 }
                 
-                cache_result = {'model': final_run['model'], 'score': final_score, 'info': model_info}
+                pipeline_dict = {
+                    'vectorizer': final_vectorizer,
+                    'reduction_model': final_reduction_model,
+                    'classifier': final_run['model']
+                }
+                
+                cache_result = {
+                    'model': final_run['model'], 
+                    'score': final_score, 
+                    'info': model_info,
+                    'pipeline': pipeline_dict
+                }
                 model_cache.execute(
                     task_name=cache_task_name,
                     func=lambda r=cache_result: r,
@@ -763,10 +787,12 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
                     best_global_score = final_score
                     best_global_model = final_run['model']
                     best_global_info = model_info
+                    best_global_pipeline = pipeline_dict
                 
                 all_models_results[model_name] = {
                     'model': cache_result['model'],
-                    'info': cache_result['info']
+                    'info': cache_result['info'],
+                    'pipeline': cache_result['pipeline']
                 }
         else:
             print(f"   -> Running default training for {model_name}...")
@@ -786,12 +812,21 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
                 model_info = {
                     'model_name': model_name,
                     'score': final_score,
-                    'params': 'default',
-                    'vectorizer': final_vectorizer,
-                    'reduction_model': final_reduction_model
+                    'params': 'default'
                 }
                 
-                cache_result = {'model': final_run['model'], 'score': final_score, 'info': model_info}
+                pipeline_dict = {
+                    'vectorizer': final_vectorizer,
+                    'reduction_model': final_reduction_model,
+                    'classifier': final_run['model']
+                }
+                
+                cache_result = {
+                    'model': final_run['model'], 
+                    'score': final_score, 
+                    'info': model_info,
+                    'pipeline': pipeline_dict
+                }
                 model_cache.execute(
                     task_name=cache_task_name,
                     func=lambda r=cache_result: r,
@@ -806,10 +841,12 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
                     best_global_score = final_score
                     best_global_model = final_run['model']
                     best_global_info = model_info
+                    best_global_pipeline = pipeline_dict
                 
                 all_models_results[model_name] = {
                     'model': cache_result['model'],
-                    'info': cache_result['info']
+                    'info': cache_result['info'],
+                    'pipeline': cache_result['pipeline']
                 }
             except Exception as e:
                 print(f"   -> Error training {model_name}: {e}")
@@ -821,6 +858,7 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
     return {
         "model": best_global_model,
         "info": best_global_info,
+        "pipeline": best_global_pipeline,
         "other": all_models_results
     }
 

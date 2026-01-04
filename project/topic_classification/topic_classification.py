@@ -24,5 +24,15 @@ def topic_classification(models=['kmeans'], options='quick'):
     
     X = df['data']
 
-    result = ems(X, models=models, report=True, options=options, reduction='nmf', vectorizer_type='hashing')
+
+    result = cache.execute(task_name='ems',
+                           func=lambda: ems(
+                            X, 
+                            models=models,
+                            report=True, 
+                            options=options, 
+                            reduction='nmf', 
+                            vectorizer_type='hashing'),
+                           inputs=X)
+
     print(json.dumps(result['info'], indent=4))
