@@ -402,7 +402,7 @@ def _get_options_key(options):
         return 'default'
 
 
-def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False, options=None, nlp_options=None, vectorizer_type='tfidf'):
+def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False, options=None, nlp_options=None, fulldatatrain=True, vectorizer_type='tfidf'):
     is_unsupervised = y is None
     models_validation(models, is_unsupervised)
     if target_metric is None:
@@ -531,6 +531,20 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
                 except Exception as e:
                     print(f"-> Warning: Failed to transform test data with reduction model: {e}")
                     raise e
+
+    X_final_train = X
+    y_final_train = y
+    
+    if not fulldatatrain:
+        final_sample_size = min(20000, int(n_samples * 0.25))
+        if n_samples > final_sample_size:
+            print(f"-> Using {final_sample_size} samples for final training (full: {n_samples})")
+            indices = np.random.RandomState(42).choice(n_samples, final_sample_size, replace=False)
+            
+            X_final_train = X.iloc[indices] if hasattr(X, 'iloc') else X[indices]
+            if y is not None:
+                y_final_train = y.iloc[indices] if hasattr(y, 'iloc') else y[indices]
+
 
     for model_name in models:
         cache_task_name = model_name
@@ -681,175 +695,88 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
             
             improved = ga_result['best_score'] > default_score if should_maximize else ga_result['best_score'] < default_score
             
+            final_train_params = {}
+            final_params_info = 'default'
+            final_fallback_score = None
+            
             if improved:
                 print(f"   -> Model improved. Training final model on full data...")
-                best_params = decode_params(model_name, ga_result['best_solution'])
-                
-                X_final, _, final_vectorizer = preprocess_text(X, vectorizer_type=vectorizer_type, **nlp_params)
-                
-                final_reduction_model = None
-                if reduction is not None:
-                    reduction_result = reduce_dimensions(X_final, method=reduction)
-                    X_final = reduction_result['reduced_data']
-                    final_reduction_model = reduction_result['model']
-
-                if y is not None:
-                    final_run = train_func(X_final, y, **best_params)
-                else:
-                    final_run = train_func(X_final, **best_params)
-                final_score = final_run['metrics'].get(target_metric, ga_result['best_score'])
-                
-                model_info = {
-                    'model_name': model_name,
-                    'score': final_score,
-                    'params': best_params
-                }
-                
-                pipeline_dict = {
-                    'vectorizer': final_vectorizer,
-                    'reduction_model': final_reduction_model,
-                    'classifier': final_run['model']
-                }
-                
-                cache_result = {
-                    'model': final_run['model'], 
-                    'score': final_score, 
-                    'info': model_info,
-                    'pipeline': pipeline_dict
-                }
-                model_cache.execute(
-                    task_name=cache_task_name,
-                    func=lambda r=cache_result: r,
-                    inputs=cache_inputs,
-                    params={'options_key': options_key},
-                    strategy='overwrite'
-                )
-                print(f"[Cache] Saved {model_name} with options='{options_key}' to cache")
-                
-                is_better = (final_score > best_global_score) if should_maximize else (final_score < best_global_score)
-                if is_better:
-                    best_global_score = final_score
-                    best_global_model = final_run['model']
-                    best_global_info = model_info
-                    best_global_pipeline = pipeline_dict
-                
-                all_models_results[model_name] = {
-                    'model': cache_result['model'],
-                    'info': cache_result['info'],
-                    'pipeline': cache_result['pipeline']
-                }
+                final_train_params = decode_params(model_name, ga_result['best_solution'])
+                final_params_info = final_train_params
+                final_fallback_score = ga_result['best_score']
             else:
                 print(f"   -> Default params are optimal. Training final model on full data...")
-                
-                X_final, _, final_vectorizer = preprocess_text(X, vectorizer_type=vectorizer_type, **nlp_params)
-                
-                final_reduction_model = None
-                if reduction is not None:
-                    reduction_result = reduce_dimensions(X_final, method=reduction)
-                    X_final = reduction_result['reduced_data']
-                    final_reduction_model = reduction_result['model']
+                final_fallback_score = default_score
 
-                if y is not None:
-                    final_run = train_func(X_final, y)
-                else:
-                    final_run = train_func(X_final)
-                final_score = final_run['metrics'].get(target_metric, default_score)
-                
-                model_info = {
-                    'model_name': model_name,
-                    'score': final_score,
-                    'params': 'default'
-                }
-                
-                pipeline_dict = {
-                    'vectorizer': final_vectorizer,
-                    'reduction_model': final_reduction_model,
-                    'classifier': final_run['model']
-                }
-                
-                cache_result = {
-                    'model': final_run['model'], 
-                    'score': final_score, 
-                    'info': model_info,
-                    'pipeline': pipeline_dict
-                }
-                model_cache.execute(
-                    task_name=cache_task_name,
-                    func=lambda r=cache_result: r,
-                    inputs=cache_inputs,
-                    params={'options_key': options_key},
-                    strategy='overwrite'
-                )
-                print(f"[Cache] Saved {model_name} with options='{options_key}' to cache")
-                
-                is_better = (final_score > best_global_score) if should_maximize else (final_score < best_global_score)
-                if is_better:
-                    best_global_score = final_score
-                    best_global_model = final_run['model']
-                    best_global_info = model_info
-                    best_global_pipeline = pipeline_dict
-                
-                all_models_results[model_name] = {
-                    'model': cache_result['model'],
-                    'info': cache_result['info'],
-                    'pipeline': cache_result['pipeline']
-                }
         else:
             print(f"   -> Running default training for {model_name}...")
-            try:
-                X_final, _, final_vectorizer = preprocess_text(X, vectorizer_type=vectorizer_type, **nlp_params)
-                
-                final_reduction_model = None
-                if reduction is not None:
-                    reduction_result = reduce_dimensions(X_final, method=reduction)
-                    X_final = reduction_result['reduced_data']
-                    final_reduction_model = reduction_result['model']
+            final_train_params = {}
+            final_params_info = 'default'
+            final_fallback_score = None
 
-                final_run = train_func(X_final, y) if y is not None else train_func(X_final)
+        try:
+            X_final, _, final_vectorizer = preprocess_text(X_final_train, vectorizer_type=vectorizer_type, **nlp_params)
+            
+            final_reduction_model = None
+            if reduction is not None:
+                reduction_result = reduce_dimensions(X_final, method=reduction)
+                X_final = reduction_result['reduced_data']
+                final_reduction_model = reduction_result['model']
+
+            run_inputs = [X_final]
+            if y is not None:
+                run_inputs.append(y_final_train)
+            
+            final_run = train_func(*run_inputs, **final_train_params)
+            
+            if final_fallback_score is not None:
+                final_score = final_run['metrics'].get(target_metric, final_fallback_score)
+            else:
                 final_score = final_run['metrics'].get(target_metric)
                 print(f"   -> Score: {final_score:.4f}")
-                
-                model_info = {
-                    'model_name': model_name,
-                    'score': final_score,
-                    'params': 'default'
-                }
-                
-                pipeline_dict = {
-                    'vectorizer': final_vectorizer,
-                    'reduction_model': final_reduction_model,
-                    'classifier': final_run['model']
-                }
-                
-                cache_result = {
-                    'model': final_run['model'], 
-                    'score': final_score, 
-                    'info': model_info,
-                    'pipeline': pipeline_dict
-                }
-                model_cache.execute(
-                    task_name=cache_task_name,
-                    func=lambda r=cache_result: r,
-                    inputs=cache_inputs,
-                    params={'options_key': options_key},
-                    strategy='overwrite'
-                )
-                print(f"[Cache] Saved {model_name} with options='{options_key}' to cache")
-                
-                is_better = (final_score > best_global_score) if should_maximize else (final_score < best_global_score)
-                if is_better:
-                    best_global_score = final_score
-                    best_global_model = final_run['model']
-                    best_global_info = model_info
-                    best_global_pipeline = pipeline_dict
-                
-                all_models_results[model_name] = {
-                    'model': cache_result['model'],
-                    'info': cache_result['info'],
-                    'pipeline': cache_result['pipeline']
-                }
-            except Exception as e:
-                print(f"   -> Error training {model_name}: {e}")
+
+            model_info = {
+                'model_name': model_name,
+                'score': final_score,
+                'params': final_params_info
+            }
+            
+            pipeline_dict = {
+                'vectorizer': final_vectorizer,
+                'reduction_model': final_reduction_model,
+                'classifier': final_run['model']
+            }
+            
+            cache_result = {
+                'model': final_run['model'], 
+                'score': final_score, 
+                'info': model_info,
+                'pipeline': pipeline_dict
+            }
+            model_cache.execute(
+                task_name=cache_task_name,
+                func=lambda r=cache_result: r,
+                inputs=cache_inputs,
+                params={'options_key': options_key},
+                strategy='overwrite'
+            )
+            print(f"[Cache] Saved {model_name} with options='{options_key}' to cache")
+            
+            is_better = (final_score > best_global_score) if should_maximize else (final_score < best_global_score)
+            if is_better:
+                best_global_score = final_score
+                best_global_model = final_run['model']
+                best_global_info = model_info
+                best_global_pipeline = pipeline_dict
+            
+            all_models_results[model_name] = {
+                'model': cache_result['model'],
+                'info': cache_result['info'],
+                'pipeline': cache_result['pipeline']
+            }
+
+        except Exception as e:
+            print(f"   -> Error training {model_name}: {e}")
 
     if report and report_data:
         with open(report_file, "w") as f:
