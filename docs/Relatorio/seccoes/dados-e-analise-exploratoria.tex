@@ -44,9 +44,44 @@ Abaixo apresenta-se a lista dos datasets escolhidos e a respetiva justificação
 \end{itemize}
 
 \subsection{Análise e Tratamento de Dados} \label{subsec:analise-tratamento-de-dados}
-%Para cada um (Topic, Stance, Semantic, Final), apresenta resumidamente:
-	%Verificação de valores omissos e outliers.
-	
-	%Distribuição das classes (está desbalanceado?).
-	
-	%Técnicas de Feature Engineering e limpeza aplicadas (tokenização, remoção de stop-words, vetores TF-IDF/Embeddings).
+
+Previamente à fase de modelação, foi executado um rigoroso processo de tratamento e normalização de dados. Esta etapa é crítica para garantir a qualidade das \textit{features} extraídas e, consequentemente, a performance dos algoritmos.
+
+Foi realizada uma verificação preliminar da integridade dos dados em todos os \textit{datasets}, não tendo sido detetados valores omissos (nulos) que comprometessem a análise. Relativamente a \textit{outliers}, analisou-se a distribuição do comprimento dos textos, não se registando anomalias significativas (como textos vazios ou excessivamente longos resultantes de erros de recolha).
+
+Embora cada módulo exija especificidades, definiu-se uma \textit{pipeline} transversal de pré-processamento aplicado a todos os dados:
+
+\begin{itemize}
+	\item \textbf{Divisão dos Dados:} Partição em conjuntos de treino (80\%) e teste (20\%), garantindo a representatividade das classes;
+	\item \textbf{Normalização:} Conversão de todo o texto para minúsculas (\textit{lowercase}) para reduzir a variabilidade do vocabulário;
+	\item \textbf{Limpeza:} Remoção de sinais de pontuação e caracteres especiais;
+	\item \textbf{Tokenização:} Segmentação do texto em unidades individuais (palavras/tokens);
+	\item \textbf{Vetorização:} Conversão do texto para representação numérica (a técnica específica varia consoante o modelo, conforme detalhado abaixo).
+\end{itemize}
+
+Nas secções seguintes, detalham-se as estratégias de \textit{Feature Engineering} específicas adotadas para cada tarefa.
+
+\subsubsection{Classificação de Tópicos (AllTheNews)}
+Este \textit{dataset}, caracterizado por ter um elevado volume, exigiu estratégias focadas na eficiência computacional e escalabilidade:
+
+\begin{itemize}
+	\item \textbf{Redução de Dimensionalidade (NMF):} Aplicação de \textit{Non-Negative Matrix Factorization} para resumir o vasto vocabulário a um conjunto de tópicos principais, reduzindo o ruído e a complexidade do modelo;
+	\item \textbf{Hashing Vectorization:} Em detrimento do tradicional TF-IDF (que armazena o vocabulário em memória), optou-se pela vetorização via \textit{hashing}. Esta técnica torna o processamento mais rápido e "leve" para grandes volumes de dados textual.
+\end{itemize}
+
+\subsubsection{Análise de Anomalias}
+% TODO: Inserir processo quando estiver concluído.
+% Sugestão: "Para este módulo, focou-se na representação vetorial densa (Embeddings) dos artigos reais..."
+
+\subsubsection{Análise de Stance (FNC-1)}
+O conjunto de dados FNC-1 apresenta a maior complexidade de pré-processamento, exigindo adaptações para capturar a relação semântica entre duas sequências de texto (Título e Corpo):
+
+\begin{itemize}
+	\item \textbf{Tratamento de Stopwords:} Ao contrário da abordagem padrão, \textbf{não} foram removidas as \textit{stop words}. Palavras de ligação e negação (ex: "not", "but", "however") são cruciais para inverter o sentido de uma frase e detetar desacordo (\textit{disagree});
+	\item \textbf{Fusão de Atributos:} Criação de uma nova \textit{feature} (\textit{"combined\_text"}) resultante da concatenação do título com o corpo da notícia;
+	\item \textbf{Codificação de Variáveis:} Mapeamento das classes categóricas (\textit{agree, disagree, discuss, unrelated}) para valores numéricos;
+	\item \textbf{Gestão de Desbalanceamento:} Cálculo e aplicação de pesos às classes (\textit{class weights}) durante o treino, de modo a mitigar o forte desequilíbrio entre a classe maioritária e as classes de concordância/discordância.
+\end{itemize}
+
+\subsubsection{Análise de Clickbait (Clickbait Dataset)}
+Dada a natureza sintética e direta das manchetes presentes neste \textit{dataset}, o pré-processamento foi mantido intencionalmente minimalista. A estrutura linguística dos títulos \textit{clickbait} (ex: uso de imperativos, exageros) é capturada eficazmente pela \textit{pipeline} padrão de tokenização e vetorização, não justificando engenharia de atributos adicional que pudesse introduzir ruído desnecessário.
