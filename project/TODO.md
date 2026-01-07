@@ -21,4 +21,5 @@
 * [x] Improve caching
 * [x] Support unsupervised algorithms in EMS
 * [x] Support dimensionality reduction in EMS
-* [ ] Option to skip full data training
+* [x] Option to skip full data training
+* [ ] Inference motor

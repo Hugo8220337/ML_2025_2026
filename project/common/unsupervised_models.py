@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from sklearn.cluster import KMeans, DBSCAN
+from sklearn.cluster import KMeans, DBSCAN, HDBSCAN
 from sklearn.mixture import GaussianMixture
 from .metrics import get_clustering_metrics
 
@@ -117,6 +117,78 @@ def train_dbscan(
     return {
         "model": model,
         "labels": labels,
+        "n_clusters": n_clusters,
+        "n_noise": n_noise,
+        "metrics": metrics
+    }
+
+def train_hdbscan(
+    X,
+    feature_columns=None,
+    min_cluster_size=5,
+    min_samples=None,
+    cluster_selection_epsilon=0.0,
+    metric='euclidean',
+    alpha=1.0,
+    algorithm='auto',
+    leaf_size=40,
+    cluster_selection_method='eom',
+    allow_single_cluster=False,
+    n_jobs=None,
+    **kwargs
+):
+    if isinstance(X, pd.DataFrame):
+        if feature_columns:
+            missing = [col for col in feature_columns if col not in X.columns]
+            if missing:
+                print(f"Error: Features {missing} not found in DataFrame.")
+                return None
+            X_data = X[feature_columns]
+        else:
+            X_data = X
+    else:
+        X_data = X
+
+    model = HDBSCAN(
+        min_cluster_size=min_cluster_size,
+        min_samples=min_samples,
+        cluster_selection_epsilon=cluster_selection_epsilon,
+        metric=metric,
+        alpha=alpha,
+        algorithm=algorithm,
+        leaf_size=leaf_size,
+        cluster_selection_method=cluster_selection_method,
+        allow_single_cluster=allow_single_cluster,
+        n_jobs=n_jobs
+    )
+
+    try:
+        model.fit(X_data)
+    except Exception as e:
+        print(f"Error during training: {e}")
+        return None
+
+    labels = model.labels_
+    probabilities = model.probabilities_
+    n_clusters = len(set(labels)) - (1 if -1 in labels else 0)
+    n_noise = list(labels).count(-1)
+
+    try:
+        metrics = get_clustering_metrics(X_data, labels, model)
+        metrics['n_clusters'] = n_clusters
+        metrics['n_noise'] = n_noise
+    except ValueError as e:
+        # Handle cases where silhouette score fails (e.g., 1 cluster)
+        metrics = {
+             'n_clusters': n_clusters,
+             'n_noise': n_noise,
+             'error': str(e)
+        }
+
+    return {
+        "model": model,
+        "labels": labels,
+        "probabilities": probabilities,
         "n_clusters": n_clusters,
         "n_noise": n_noise,
         "metrics": metrics

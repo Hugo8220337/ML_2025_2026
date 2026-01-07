@@ -32,6 +32,7 @@ SUPERVISED_MODELS = {
 UNSUPERVISED_MODELS = {
     'kmeans',
     'dbscan',
+    'hdbscan',
     'gmm',
 }
 
@@ -56,6 +57,7 @@ FUNCTION_REGISTRY = {
     # Unsupervised
     'kmeans': train_kmeans,
     'dbscan': train_dbscan,
+    'hdbscan': train_hdbscan,
     'gmm': train_gmm,
     # Dimensionality reduction
     'pca': apply_pca,
@@ -129,6 +131,13 @@ MODEL_BOUNDS = {
         (0, 3),        # metric: 0=euclidean, 1=manhattan, 2=cosine
         (10, 50),      # leaf_size
     ],
+    'hdbscan': [
+        (2, 50),       # min_cluster_size
+        (1, 40),       # min_samples
+        (0.0, 0.5),    # cluster_selection_epsilon
+        (0, 2),        # metric: 0=euclidean, 1=manhattan
+        (0.5, 1.5),    # alpha
+    ],
     'gmm': [
         (2, 20),       # n_components
         (0, 4),        # covariance_type: 0=full, 1=tied, 2=diag, 3=spherical
@@ -177,6 +186,10 @@ def get_default_genes(model_name):
     elif model_name == 'dbscan':
         # eps=0.5, min_samples=5, metric=euclidean(0), leaf_size=30
         defaults['genes'] = [0.5, 5.0, 0.0, 30.0]
+
+    elif model_name == 'hdbscan':
+        # min_cluster_size=5, min_samples=5, epsilon=0.0, metric=euclidean(0), alpha=1.0
+        defaults['genes'] = [5.0, 5.0, 0.0, 0.0, 1.0]
 
     elif model_name == 'gmm':
         # n_components=1, covariance_type=full(0), max_iter=100, n_init=1
@@ -315,6 +328,16 @@ def decode_params(model_name, genes):
         params['metric'] = metric_map.get(int(genes[2]), 'euclidean')
         
         params['leaf_size'] = int(genes[3])
+
+    elif model_name == 'hdbscan':
+        params['min_cluster_size'] = int(genes[0])
+        params['min_samples'] = int(genes[1])
+        params['cluster_selection_epsilon'] = float(genes[2])
+        
+        metric_map = {0: 'euclidean', 1: 'manhattan'}
+        params['metric'] = metric_map.get(int(genes[3]), 'euclidean')
+        
+        params['alpha'] = float(genes[4])
 
     elif model_name == 'gmm':
         params['n_components'] = int(genes[0])
