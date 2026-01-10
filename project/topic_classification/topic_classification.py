@@ -3,7 +3,7 @@ from common.tools import read_csv
 from evolutionary_model_selection.ems import ems
 from common.cache import CacheManager
 
-def topic_classification(models=['kmeans'], options='quick'):
+def topic_classification(models=['kmeans', 'hdbscan', 'gmm'], options='default'):
     cache = CacheManager(module_name='topic_classification')
     file_path = 'datasets/allthenews/all-the-news-2-1.csv'
 
@@ -35,4 +35,6 @@ def topic_classification(models=['kmeans'], options='quick'):
                             vectorizer_type='hashing'),
                            inputs=X)
 
-    print(json.dumps(result['info'], indent=4))
+    # print(json.dumps(result['info'], indent=4))
+    with open('log.txt', 'w') as f:
+        print(result, file=f)
