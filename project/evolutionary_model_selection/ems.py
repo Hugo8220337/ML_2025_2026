@@ -370,8 +370,7 @@ def preprocess_text(X_train, X_test=None, vectorizer_type='tfidf', **kwargs):
         is_text = True
     
     if not is_text:
-        return X_train, X_test
-
+        return X_train, X_test, None
     prep_keys = ['to_lower', 'remove_punctuation', 'remove_digits', 'tokenize', 'remove_stopwords', 'lemmatize']
     vect_keys = ['max_features', 'lowercase', 'stop_words']
     
@@ -493,10 +492,10 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
         run_options = presets['default']
 
     best_global_model = None
-    best_global_score = -float('inf')
     best_global_info = {}
     best_global_pipeline = {}
     all_models_results = {}
+    candidates = []
 
     if report:
         reports_dir = "files/ga_logs"
@@ -583,14 +582,14 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
         
         if cached_result is not None and isinstance(cached_result, dict) and 'score' in cached_result:
             print(f"[Cache] Loaded cached result for {model_name} with options='{options_key}'")
-            
-            is_better = (cached_result['score'] > best_global_score) if should_maximize else (cached_result['score'] < best_global_score)
-            if is_better:
-                best_global_score = cached_result['score']
-                best_global_model = cached_result['model']
-                best_global_info = cached_result['info']
-                best_global_pipeline = cached_result.get('pipeline', {})
-            
+            candidates.append({
+                'model_name': model_name,
+                'score': cached_result['score'],
+                'params': cached_result['info']['params'],
+                'is_cached': True,
+                'cached_result': cached_result
+            })
+
             all_models_results[model_name] = {
                 'model': cached_result['model'],
                 'info': cached_result['info'],
@@ -719,23 +718,79 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
             improved = ga_result['best_score'] > default_score if should_maximize else ga_result['best_score'] < default_score
             
             final_train_params = {}
-            final_params_info = 'default'
-            final_fallback_score = None
-            
+            best_run_score = ga_result['best_score'] if improved else default_score
+
             if improved:
                 print(f"   -> Model improved. Training final model on full data...")
                 final_train_params = decode_params(model_name, ga_result['best_solution'])
-                final_params_info = final_train_params
-                final_fallback_score = ga_result['best_score']
             else:
-                print(f"   -> Default params are optimal. Training final model on full data...")
-                final_fallback_score = default_score
+                print(f"   -> Default params are optimal. Keeping defaults for final selection...")
+                final_train_params = {} 
+
+            candidates.append({
+                'model_name': model_name,
+                'score': best_run_score,
+                'params': final_train_params,
+                'is_cached': False
+            })
+
+            all_models_results[model_name] = {
+                'model': None,
+                'info': {'score': best_run_score, 'params': final_train_params},
+                'pipeline': {}
+            }
 
         else:
             print(f"   -> Running default training for {model_name}...")
-            final_train_params = {}
-            final_params_info = 'default'
-            final_fallback_score = None
+            try:
+                result = train_func(X_train_processed, y_train, X_test=X_test_processed, y_test=y_test)
+                score = result['metrics'].get(target_metric, -float('inf') if should_maximize else float('inf'))
+                print(f"   -> Score: {score:.4f}")
+                
+                candidates.append({
+                    'model_name': model_name,
+                    'score': score,
+                    'params': {},
+                    'is_cached': False
+                })
+                
+                all_models_results[model_name] = {
+                    'model': None, 
+                    'info': {'score': score, 'params': 'default'},
+                    'pipeline': {}
+                }
+            except Exception as e:
+                print(f"   -> Error evaluating {model_name}: {e}")
+
+
+    if not candidates:
+        raise ValueError("No successful model evaluations.")
+    
+
+    if should_maximize:
+        best_candidate = max(candidates, key=lambda x: x['score'])
+    else:
+        best_candidate = min(candidates, key=lambda x: x['score'])
+    
+    print(f"\n-> Best model selected: {best_candidate['model_name']} (Score: {best_candidate['score']:.4f})")
+    
+    if best_candidate['is_cached']:
+        print("   -> Using cached model.")
+        cached = best_candidate['cached_result']
+        best_global_model = cached['model']
+        best_global_info = cached['info']
+        best_global_pipeline = cached.get('pipeline', {})
+    
+    else:
+        model_name = best_candidate['model_name']
+        print(f"   -> Training final {model_name} with full data...")
+        
+        cache_task_name = model_name
+        cache_inputs = {'X': X, 'y': y, 'nlp_params': nlp_params, 'target_metric': target_metric}
+        
+        train_func = FUNCTION_REGISTRY.get(model_name)
+        final_train_params = best_candidate['params']
+        final_params_info = final_train_params if final_train_params else 'default'
 
         try:
             X_final, _, final_vectorizer = preprocess_text(X_final_train, vectorizer_type=vectorizer_type, **nlp_params)
@@ -752,11 +807,8 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
             
             final_run = train_func(*run_inputs, **final_train_params)
             
-            if final_fallback_score is not None:
-                final_score = final_run['metrics'].get(target_metric, final_fallback_score)
-            else:
-                final_score = final_run['metrics'].get(target_metric)
-                print(f"   -> Score: {final_score:.4f}")
+            final_score = final_run['metrics'].get(target_metric, best_candidate['score'])
+            print(f"   -> Final Score: {final_score:.4f}")
 
             model_info = {
                 'model_name': model_name,
@@ -776,6 +828,7 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
                 'info': model_info,
                 'pipeline': pipeline_dict
             }
+            
             model_cache.execute(
                 task_name=cache_task_name,
                 func=lambda r=cache_result: r,
@@ -785,21 +838,19 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
             )
             print(f"[Cache] Saved {model_name} with options='{options_key}' to cache")
             
-            is_better = (final_score > best_global_score) if should_maximize else (final_score < best_global_score)
-            if is_better:
-                best_global_score = final_score
-                best_global_model = final_run['model']
-                best_global_info = model_info
-                best_global_pipeline = pipeline_dict
+            best_global_model = final_run['model']
+            best_global_info = model_info
+            best_global_pipeline = pipeline_dict
             
             all_models_results[model_name] = {
-                'model': cache_result['model'],
-                'info': cache_result['info'],
-                'pipeline': cache_result['pipeline']
+                'model': final_run['model'],
+                'info': model_info,
+                'pipeline': pipeline_dict
             }
 
         except Exception as e:
-            print(f"   -> Error training {model_name}: {e}")
+            print(f"   -> Error during final training of {model_name}: {e}")
+            pass
 
     if report and report_data:
         with open(report_file, "w") as f:
