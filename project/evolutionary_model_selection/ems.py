@@ -842,11 +842,7 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
             best_global_info = model_info
             best_global_pipeline = pipeline_dict
             
-            all_models_results[model_name] = {
-                'model': final_run['model'],
-                'info': model_info,
-                'pipeline': pipeline_dict
-            }
+            all_models_results[model_name] = cache_result
 
         except Exception as e:
             print(f"   -> Error during final training of {model_name}: {e}")
