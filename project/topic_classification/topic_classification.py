@@ -8,7 +8,7 @@ from evolutionary_model_selection.ems import ems
 from common.cache import CacheManager
 from common.visualizations import plot_model_comparison, plot_clusters
 
-def topic_classification(models=['kmeans', 'hdbscan', 'gmm'], options='default', visualizations=True):
+def topic_classification(models=['kmeans', 'hdbscan', 'gmm'], reduction='lsa',options='default', vectorizer_type='hashing', visualizations=True):
     cache = CacheManager(module_name='topic_classification')
     file_path = 'datasets/allthenews/all-the-news-2-1.csv'
 
@@ -36,9 +36,10 @@ def topic_classification(models=['kmeans', 'hdbscan', 'gmm'], options='default',
                             models=models,
                             report=True, 
                             options=options, 
-                            reduction='nmf', 
-                            vectorizer_type='hashing'),
-                           inputs=X)
+                            reduction=reduction, 
+                            vectorizer_type=vectorizer_type),
+                           inputs=X,
+                           params={'models': models, 'options': options, 'reduction': reduction, 'vectorizer_type': vectorizer_type})
 
 
     if visualizations:

@@ -1,0 +1,3984 @@
+[
+  {
+    "model": "kmeans",
+    "generation": 0,
+    "stats": {
+      "best_score": 0.3848,
+      "avg_score": 0.3492666666666667,
+      "min_score": 0.3197,
+      "max_score": 0.3848,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 2,
+      "score": 0.3848,
+      "parameters": {
+        "n_clusters": 4,
+        "init": "k-means++",
+        "max_iter": 412,
+        "algorithm": "lloyd"
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.3704,
+        "parameters": {
+          "n_clusters": 3,
+          "init": "k-means++",
+          "max_iter": 300,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.3508,
+        "parameters": {
+          "n_clusters": 7,
+          "init": "k-means++",
+          "max_iter": 253,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.3848,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.3511,
+        "parameters": {
+          "n_clusters": 9,
+          "init": "random",
+          "max_iter": 117,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.3344,
+        "parameters": {
+          "n_clusters": 11,
+          "init": "k-means++",
+          "max_iter": 143,
+          "algorithm": "elkan"
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.3504,
+        "parameters": {
+          "n_clusters": 6,
+          "init": "random",
+          "max_iter": 445,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.3366,
+        "parameters": {
+          "n_clusters": 10,
+          "init": "k-means++",
+          "max_iter": 173,
+          "algorithm": "elkan"
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.3336,
+        "parameters": {
+          "n_clusters": 12,
+          "init": "k-means++",
+          "max_iter": 223,
+          "algorithm": "elkan"
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.3197,
+        "parameters": {
+          "n_clusters": 11,
+          "init": "k-means++",
+          "max_iter": 243,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.3843,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 241,
+          "algorithm": "elkan"
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.352,
+        "parameters": {
+          "n_clusters": 8,
+          "init": "k-means++",
+          "max_iter": 165,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.3714,
+        "parameters": {
+          "n_clusters": 3,
+          "init": "random",
+          "max_iter": 147,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.3249,
+        "parameters": {
+          "n_clusters": 19,
+          "init": "random",
+          "max_iter": 440,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.3237,
+        "parameters": {
+          "n_clusters": 16,
+          "init": "k-means++",
+          "max_iter": 164,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.3509,
+        "parameters": {
+          "n_clusters": 7,
+          "init": "random",
+          "max_iter": 157,
+          "algorithm": "elkan"
+        }
+      }
+    ]
+  },
+  {
+    "model": "kmeans",
+    "generation": 1,
+    "stats": {
+      "best_score": 0.3848,
+      "avg_score": 0.36141333333333325,
+      "min_score": 0.3339,
+      "max_score": 0.3848,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 5,
+      "score": 0.3848,
+      "parameters": {
+        "n_clusters": 4,
+        "init": "k-means++",
+        "max_iter": 412,
+        "algorithm": "lloyd"
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.3842,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.3688,
+        "parameters": {
+          "n_clusters": 2,
+          "init": "random",
+          "max_iter": 117,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.3495,
+        "parameters": {
+          "n_clusters": 10,
+          "init": "k-means++",
+          "max_iter": 374,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.3527,
+        "parameters": {
+          "n_clusters": 8,
+          "init": "k-means++",
+          "max_iter": 253,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.3714,
+        "parameters": {
+          "n_clusters": 3,
+          "init": "random",
+          "max_iter": 147,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.3848,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.3497,
+        "parameters": {
+          "n_clusters": 9,
+          "init": "random",
+          "max_iter": 147,
+          "algorithm": "elkan"
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.3504,
+        "parameters": {
+          "n_clusters": 7,
+          "init": "k-means++",
+          "max_iter": 241,
+          "algorithm": "elkan"
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.3524,
+        "parameters": {
+          "n_clusters": 8,
+          "init": "random",
+          "max_iter": 157,
+          "algorithm": "elkan"
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.3843,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.3339,
+        "parameters": {
+          "n_clusters": 8,
+          "init": "k-means++",
+          "max_iter": 157,
+          "algorithm": "elkan"
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.351,
+        "parameters": {
+          "n_clusters": 7,
+          "init": "random",
+          "max_iter": 165,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.35,
+        "parameters": {
+          "n_clusters": 7,
+          "init": "k-means++",
+          "max_iter": 253,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.3538,
+        "parameters": {
+          "n_clusters": 9,
+          "init": "random",
+          "max_iter": 117,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.3843,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 117,
+          "algorithm": "lloyd"
+        }
+      }
+    ]
+  },
+  {
+    "model": "kmeans",
+    "generation": 2,
+    "stats": {
+      "best_score": 0.3843,
+      "avg_score": 0.36810000000000004,
+      "min_score": 0.3497,
+      "max_score": 0.3843,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 0,
+      "score": 0.3843,
+      "parameters": {
+        "n_clusters": 4,
+        "init": "k-means++",
+        "max_iter": 412,
+        "algorithm": "lloyd"
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.3843,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.3685,
+        "parameters": {
+          "n_clusters": 2,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.3842,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.3688,
+        "parameters": {
+          "n_clusters": 2,
+          "init": "k-means++",
+          "max_iter": 117,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.355,
+        "parameters": {
+          "n_clusters": 9,
+          "init": "k-means++",
+          "max_iter": 358,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.3497,
+        "parameters": {
+          "n_clusters": 6,
+          "init": "k-means++",
+          "max_iter": 117,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.3713,
+        "parameters": {
+          "n_clusters": 3,
+          "init": "random",
+          "max_iter": 206,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.3704,
+        "parameters": {
+          "n_clusters": 3,
+          "init": "random",
+          "max_iter": 147,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.3688,
+        "parameters": {
+          "n_clusters": 2,
+          "init": "k-means++",
+          "max_iter": 112,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.3528,
+        "parameters": {
+          "n_clusters": 9,
+          "init": "random",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.3688,
+        "parameters": {
+          "n_clusters": 2,
+          "init": "random",
+          "max_iter": 117,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.3711,
+        "parameters": {
+          "n_clusters": 2,
+          "init": "k-means++",
+          "max_iter": 117,
+          "algorithm": "elkan"
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.3522,
+        "parameters": {
+          "n_clusters": 8,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.3842,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 253,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.3714,
+        "parameters": {
+          "n_clusters": 3,
+          "init": "k-means++",
+          "max_iter": 500,
+          "algorithm": "lloyd"
+        }
+      }
+    ]
+  },
+  {
+    "model": "kmeans",
+    "generation": 3,
+    "stats": {
+      "best_score": 0.3848,
+      "avg_score": 0.3717133333333333,
+      "min_score": 0.351,
+      "max_score": 0.3848,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 0,
+      "score": 0.3848,
+      "parameters": {
+        "n_clusters": 4,
+        "init": "k-means++",
+        "max_iter": 412,
+        "algorithm": "lloyd"
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.3848,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.3714,
+        "parameters": {
+          "n_clusters": 3,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.3848,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.3842,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "elkan"
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.3744,
+        "parameters": {
+          "n_clusters": 2,
+          "init": "k-means++",
+          "max_iter": 117,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.3845,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.3684,
+        "parameters": {
+          "n_clusters": 2,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.3521,
+        "parameters": {
+          "n_clusters": 8,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.3529,
+        "parameters": {
+          "n_clusters": 9,
+          "init": "random",
+          "max_iter": 117,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.3741,
+        "parameters": {
+          "n_clusters": 2,
+          "init": "k-means++",
+          "max_iter": 500,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.351,
+        "parameters": {
+          "n_clusters": 6,
+          "init": "k-means++",
+          "max_iter": 500,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.3845,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "random",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.3687,
+        "parameters": {
+          "n_clusters": 2,
+          "init": "k-means++",
+          "max_iter": 226,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.3685,
+        "parameters": {
+          "n_clusters": 2,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.3714,
+        "parameters": {
+          "n_clusters": 3,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "elkan"
+        }
+      }
+    ]
+  },
+  {
+    "model": "kmeans",
+    "generation": 4,
+    "stats": {
+      "best_score": 0.3848,
+      "avg_score": 0.37310666666666664,
+      "min_score": 0.34,
+      "max_score": 0.3848,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 0,
+      "score": 0.3848,
+      "parameters": {
+        "n_clusters": 4,
+        "init": "k-means++",
+        "max_iter": 412,
+        "algorithm": "lloyd"
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.3848,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.3845,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "random",
+          "max_iter": 189,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.3847,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 117,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.3421,
+        "parameters": {
+          "n_clusters": 9,
+          "init": "random",
+          "max_iter": 500,
+          "algorithm": "elkan"
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.3521,
+        "parameters": {
+          "n_clusters": 9,
+          "init": "k-means++",
+          "max_iter": 326,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.3848,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.34,
+        "parameters": {
+          "n_clusters": 12,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "elkan"
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.3704,
+        "parameters": {
+          "n_clusters": 3,
+          "init": "k-means++",
+          "max_iter": 476,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.3843,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 500,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.3704,
+        "parameters": {
+          "n_clusters": 3,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.3847,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.3739,
+        "parameters": {
+          "n_clusters": 2,
+          "init": "k-means++",
+          "max_iter": 472,
+          "algorithm": "elkan"
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.3842,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.3714,
+        "parameters": {
+          "n_clusters": 3,
+          "init": "k-means++",
+          "max_iter": 351,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.3843,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "elkan"
+        }
+      }
+    ]
+  },
+  {
+    "model": "kmeans",
+    "generation": 5,
+    "stats": {
+      "best_score": 0.3847,
+      "avg_score": 0.36847333333333326,
+      "min_score": 0.3231,
+      "max_score": 0.3847,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 0,
+      "score": 0.3847,
+      "parameters": {
+        "n_clusters": 4,
+        "init": "k-means++",
+        "max_iter": 412,
+        "algorithm": "lloyd"
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.3847,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.3704,
+        "parameters": {
+          "n_clusters": 3,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.3828,
+        "parameters": {
+          "n_clusters": 5,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.3325,
+        "parameters": {
+          "n_clusters": 11,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.3445,
+        "parameters": {
+          "n_clusters": 9,
+          "init": "k-means++",
+          "max_iter": 411,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.3845,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 233,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.3231,
+        "parameters": {
+          "n_clusters": 18,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.3688,
+        "parameters": {
+          "n_clusters": 2,
+          "init": "random",
+          "max_iter": 326,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.3843,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "elkan"
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.3739,
+        "parameters": {
+          "n_clusters": 2,
+          "init": "k-means++",
+          "max_iter": 472,
+          "algorithm": "elkan"
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.3525,
+        "parameters": {
+          "n_clusters": 9,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.3847,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 208,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.3714,
+        "parameters": {
+          "n_clusters": 3,
+          "init": "k-means++",
+          "max_iter": 476,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.3843,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 489,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.3847,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      }
+    ]
+  },
+  {
+    "model": "kmeans",
+    "generation": 6,
+    "stats": {
+      "best_score": 0.3848,
+      "avg_score": 0.3708733333333333,
+      "min_score": 0.318,
+      "max_score": 0.3848,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 4,
+      "score": 0.3848,
+      "parameters": {
+        "n_clusters": 4,
+        "init": "k-means++",
+        "max_iter": 100,
+        "algorithm": "lloyd"
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.3842,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.3714,
+        "parameters": {
+          "n_clusters": 3,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.3688,
+        "parameters": {
+          "n_clusters": 2,
+          "init": "random",
+          "max_iter": 498,
+          "algorithm": "elkan"
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.3741,
+        "parameters": {
+          "n_clusters": 2,
+          "init": "k-means++",
+          "max_iter": 259,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.3848,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.3741,
+        "parameters": {
+          "n_clusters": 2,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.3704,
+        "parameters": {
+          "n_clusters": 3,
+          "init": "k-means++",
+          "max_iter": 238,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.3848,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 233,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.3843,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 489,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.3739,
+        "parameters": {
+          "n_clusters": 2,
+          "init": "k-means++",
+          "max_iter": 465,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.3842,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 270,
+          "algorithm": "elkan"
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.3739,
+        "parameters": {
+          "n_clusters": 2,
+          "init": "k-means++",
+          "max_iter": 489,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.3685,
+        "parameters": {
+          "n_clusters": 2,
+          "init": "k-means++",
+          "max_iter": 147,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.3477,
+        "parameters": {
+          "n_clusters": 6,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.318,
+        "parameters": {
+          "n_clusters": 2,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      }
+    ]
+  },
+  {
+    "model": "kmeans",
+    "generation": 7,
+    "stats": {
+      "best_score": 0.3848,
+      "avg_score": 0.3742,
+      "min_score": 0.322,
+      "max_score": 0.3848,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 1,
+      "score": 0.3848,
+      "parameters": {
+        "n_clusters": 4,
+        "init": "k-means++",
+        "max_iter": 100,
+        "algorithm": "lloyd"
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.3847,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 233,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.3848,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.3847,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 233,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.3847,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.3848,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.3845,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 489,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.3704,
+        "parameters": {
+          "n_clusters": 3,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.3847,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 233,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.3527,
+        "parameters": {
+          "n_clusters": 8,
+          "init": "k-means++",
+          "max_iter": 500,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.3847,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.3687,
+        "parameters": {
+          "n_clusters": 2,
+          "init": "k-means++",
+          "max_iter": 177,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.322,
+        "parameters": {
+          "n_clusters": 8,
+          "init": "k-means++",
+          "max_iter": 489,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.3688,
+        "parameters": {
+          "n_clusters": 2,
+          "init": "k-means++",
+          "max_iter": 500,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.3685,
+        "parameters": {
+          "n_clusters": 2,
+          "init": "k-means++",
+          "max_iter": 489,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.3843,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 366,
+          "algorithm": "lloyd"
+        }
+      }
+    ]
+  },
+  {
+    "model": "kmeans",
+    "generation": 8,
+    "stats": {
+      "best_score": 0.3848,
+      "avg_score": 0.37744666666666665,
+      "min_score": 0.3508,
+      "max_score": 0.3848,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 2,
+      "score": 0.3848,
+      "parameters": {
+        "n_clusters": 4,
+        "init": "k-means++",
+        "max_iter": 233,
+        "algorithm": "lloyd"
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.3847,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.3551,
+        "parameters": {
+          "n_clusters": 9,
+          "init": "k-means++",
+          "max_iter": 218,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.3848,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 233,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.3685,
+        "parameters": {
+          "n_clusters": 2,
+          "init": "k-means++",
+          "max_iter": 233,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.3844,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 412,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.3714,
+        "parameters": {
+          "n_clusters": 3,
+          "init": "random",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.3847,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 500,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.3687,
+        "parameters": {
+          "n_clusters": 2,
+          "init": "random",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.3508,
+        "parameters": {
+          "n_clusters": 6,
+          "init": "k-means++",
+          "max_iter": 239,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.3848,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "random",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.3848,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.3847,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 423,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.3848,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.3848,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.3847,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      }
+    ]
+  },
+  {
+    "model": "kmeans",
+    "generation": 9,
+    "stats": {
+      "best_score": 0.3848,
+      "avg_score": 0.3816466666666667,
+      "min_score": 0.3687,
+      "max_score": 0.3848,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 7,
+      "score": 0.3848,
+      "parameters": {
+        "n_clusters": 4,
+        "init": "k-means++",
+        "max_iter": 100,
+        "algorithm": "elkan"
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.3842,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.3847,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.3842,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 500,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.3687,
+        "parameters": {
+          "n_clusters": 2,
+          "init": "random",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.3704,
+        "parameters": {
+          "n_clusters": 3,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.3844,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.3847,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.3848,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "elkan"
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.3846,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 390,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.3843,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.3845,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "random",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.3848,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.3848,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.3714,
+        "parameters": {
+          "n_clusters": 3,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.3842,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 233,
+          "algorithm": "lloyd"
+        }
+      }
+    ]
+  },
+  {
+    "model": "kmeans",
+    "generation": 10,
+    "stats": {
+      "best_score": 0.3848,
+      "avg_score": 0.37598666666666664,
+      "min_score": 0.3369,
+      "max_score": 0.3848,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 1,
+      "score": 0.3848,
+      "parameters": {
+        "n_clusters": 4,
+        "init": "k-means++",
+        "max_iter": 100,
+        "algorithm": "lloyd"
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.3842,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.3848,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.3744,
+        "parameters": {
+          "n_clusters": 2,
+          "init": "k-means++",
+          "max_iter": 202,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.3843,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.3842,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.3842,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "elkan"
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.3714,
+        "parameters": {
+          "n_clusters": 3,
+          "init": "k-means++",
+          "max_iter": 228,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.3846,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "random",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.3369,
+        "parameters": {
+          "n_clusters": 5,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.3847,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.3847,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.3848,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.3846,
+        "parameters": {
+          "n_clusters": 4,
+          "init": "random",
+          "max_iter": 100,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.3747,
+        "parameters": {
+          "n_clusters": 2,
+          "init": "k-means++",
+          "max_iter": 107,
+          "algorithm": "lloyd"
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.3373,
+        "parameters": {
+          "n_clusters": 5,
+          "init": "k-means++",
+          "max_iter": 100,
+          "algorithm": "elkan"
+        }
+      }
+    ]
+  },
+  {
+    "model": "hdbscan",
+    "generation": 0,
+    "stats": {
+      "best_score": 0.449,
+      "avg_score": 0.1770857142857143,
+      "min_score": -0.1684,
+      "max_score": 0.449,
+      "failed_evals": 1
+    },
+    "best": {
+      "index": 1,
+      "score": 0.449,
+      "parameters": {
+        "min_cluster_size": 2,
+        "min_samples": 4,
+        "cluster_selection_epsilon": 0.03352297289864675,
+        "metric": "euclidean",
+        "alpha": 0.8439304555038942
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": -0.1621,
+        "parameters": {
+          "min_cluster_size": 5,
+          "min_samples": 5,
+          "cluster_selection_epsilon": 0.0,
+          "metric": "euclidean",
+          "alpha": 1.0
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.449,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.3032,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.0,
+          "metric": "euclidean",
+          "alpha": 0.7767190509265111
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.2366,
+        "parameters": {
+          "min_cluster_size": 25,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.22805931606868657,
+          "metric": "manhattan",
+          "alpha": 1.341087735422041
+        }
+      },
+      {
+        "index": 4,
+        "score": -Infinity,
+        "parameters": {
+          "min_cluster_size": 37,
+          "min_samples": 37,
+          "cluster_selection_epsilon": 0.3410153299285672,
+          "metric": "euclidean",
+          "alpha": 1.0937197911947556
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.1908,
+        "parameters": {
+          "min_cluster_size": 47,
+          "min_samples": 22,
+          "cluster_selection_epsilon": 0.3887481860171469,
+          "metric": "manhattan",
+          "alpha": 0.9218261332225967
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.3486,
+        "parameters": {
+          "min_cluster_size": 29,
+          "min_samples": 6,
+          "cluster_selection_epsilon": 0.10055976571750314,
+          "metric": "manhattan",
+          "alpha": 0.7478178484998247
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.292,
+        "parameters": {
+          "min_cluster_size": 4,
+          "min_samples": 23,
+          "cluster_selection_epsilon": 0.1716673161820667,
+          "metric": "euclidean",
+          "alpha": 0.868132811132523
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.1955,
+        "parameters": {
+          "min_cluster_size": 44,
+          "min_samples": 16,
+          "cluster_selection_epsilon": 0.11653500143914142,
+          "metric": "manhattan",
+          "alpha": 0.7677800540000491
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.0277,
+        "parameters": {
+          "min_cluster_size": 6,
+          "min_samples": 29,
+          "cluster_selection_epsilon": 0.03311440047061531,
+          "metric": "manhattan",
+          "alpha": 0.6606460734510784
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.1938,
+        "parameters": {
+          "min_cluster_size": 21,
+          "min_samples": 24,
+          "cluster_selection_epsilon": 0.09856669369452359,
+          "metric": "manhattan",
+          "alpha": 0.6824083596489097
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.1506,
+        "parameters": {
+          "min_cluster_size": 12,
+          "min_samples": 20,
+          "cluster_selection_epsilon": 0.4394861474843369,
+          "metric": "euclidean",
+          "alpha": 1.1173062877121058
+        }
+      },
+      {
+        "index": 12,
+        "score": -0.1684,
+        "parameters": {
+          "min_cluster_size": 26,
+          "min_samples": 36,
+          "cluster_selection_epsilon": 0.3182403606484645,
+          "metric": "euclidean",
+          "alpha": 1.4472001866289648
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.1881,
+        "parameters": {
+          "min_cluster_size": 34,
+          "min_samples": 11,
+          "cluster_selection_epsilon": 0.3210529597759575,
+          "metric": "euclidean",
+          "alpha": 1.2236405842915434
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.2338,
+        "parameters": {
+          "min_cluster_size": 17,
+          "min_samples": 15,
+          "cluster_selection_epsilon": 0.18085931718910314,
+          "metric": "manhattan",
+          "alpha": 0.8078050318916764
+        }
+      }
+    ]
+  },
+  {
+    "model": "hdbscan",
+    "generation": 1,
+    "stats": {
+      "best_score": 0.449,
+      "avg_score": 0.2614533333333333,
+      "min_score": -0.1479,
+      "max_score": 0.449,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 0,
+      "score": 0.449,
+      "parameters": {
+        "min_cluster_size": 2,
+        "min_samples": 4,
+        "cluster_selection_epsilon": 0.03352297289864675,
+        "metric": "euclidean",
+        "alpha": 0.8439304555038942
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.449,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.2843,
+        "parameters": {
+          "min_cluster_size": 17,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.18085931718910314,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 2,
+        "score": -0.1259,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.0,
+          "metric": "euclidean",
+          "alpha": 1.2484438065582502
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.449,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.4418,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.39523586472669825,
+          "metric": "euclidean",
+          "alpha": 1.2236405842915434
+        }
+      },
+      {
+        "index": 5,
+        "score": -0.1479,
+        "parameters": {
+          "min_cluster_size": 34,
+          "min_samples": 11,
+          "cluster_selection_epsilon": 0.0,
+          "metric": "euclidean",
+          "alpha": 0.7767190509265111
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.3372,
+        "parameters": {
+          "min_cluster_size": 29,
+          "min_samples": 6,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.1492,
+        "parameters": {
+          "min_cluster_size": 11,
+          "min_samples": 18,
+          "cluster_selection_epsilon": 0.19537265892934574,
+          "metric": "manhattan",
+          "alpha": 0.7478178484998247
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.2389,
+        "parameters": {
+          "min_cluster_size": 21,
+          "min_samples": 24,
+          "cluster_selection_epsilon": 0.09856669369452359,
+          "metric": "manhattan",
+          "alpha": 0.5
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.2312,
+        "parameters": {
+          "min_cluster_size": 17,
+          "min_samples": 23,
+          "cluster_selection_epsilon": 0.18085931718910314,
+          "metric": "manhattan",
+          "alpha": 0.6824083596489097
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.302,
+        "parameters": {
+          "min_cluster_size": 4,
+          "min_samples": 23,
+          "cluster_selection_epsilon": 0.1716673161820667,
+          "metric": "manhattan",
+          "alpha": 0.7478178484998247
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.3502,
+        "parameters": {
+          "min_cluster_size": 29,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.10055976571750314,
+          "metric": "euclidean",
+          "alpha": 0.868132811132523
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.449,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.3486,
+        "parameters": {
+          "min_cluster_size": 29,
+          "min_samples": 6,
+          "cluster_selection_epsilon": 0.10055976571750314,
+          "metric": "manhattan",
+          "alpha": 0.7478178484998247
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.1652,
+        "parameters": {
+          "min_cluster_size": 4,
+          "min_samples": 40,
+          "cluster_selection_epsilon": 0.18797944160726585,
+          "metric": "euclidean",
+          "alpha": 1.0007988312748557
+        }
+      }
+    ]
+  },
+  {
+    "model": "hdbscan",
+    "generation": 2,
+    "stats": {
+      "best_score": 0.449,
+      "avg_score": 0.30258666666666667,
+      "min_score": 0.1876,
+      "max_score": 0.449,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 0,
+      "score": 0.449,
+      "parameters": {
+        "min_cluster_size": 2,
+        "min_samples": 4,
+        "cluster_selection_epsilon": 0.03352297289864675,
+        "metric": "euclidean",
+        "alpha": 0.8439304555038942
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.449,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.4224,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 1.087613143931033
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.2978,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 24,
+          "cluster_selection_epsilon": 0.09856669369452359,
+          "metric": "manhattan",
+          "alpha": 0.5
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.1903,
+        "parameters": {
+          "min_cluster_size": 29,
+          "min_samples": 23,
+          "cluster_selection_epsilon": 0.1716673161820667,
+          "metric": "manhattan",
+          "alpha": 0.879135187217511
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.4418,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 7,
+          "cluster_selection_epsilon": 0.09856669369452359,
+          "metric": "euclidean",
+          "alpha": 0.5
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.1876,
+        "parameters": {
+          "min_cluster_size": 21,
+          "min_samples": 24,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.2252,
+        "parameters": {
+          "min_cluster_size": 22,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.4567092964314643,
+          "metric": "euclidean",
+          "alpha": 1.2236405842915434
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.2234,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.3372,
+        "parameters": {
+          "min_cluster_size": 29,
+          "min_samples": 6,
+          "cluster_selection_epsilon": 0.10055976571750314,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.2967,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 17,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "manhattan",
+          "alpha": 1.3411752506892745
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.3502,
+        "parameters": {
+          "min_cluster_size": 28,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.3337906553531057,
+          "metric": "euclidean",
+          "alpha": 0.6933697074520864
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.2278,
+        "parameters": {
+          "min_cluster_size": 4,
+          "min_samples": 26,
+          "cluster_selection_epsilon": 0.14875504123228908,
+          "metric": "manhattan",
+          "alpha": 0.7478178484998247
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.3516,
+        "parameters": {
+          "min_cluster_size": 7,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.042417912737189596,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.3502,
+        "parameters": {
+          "min_cluster_size": 29,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.10055976571750314,
+          "metric": "euclidean",
+          "alpha": 0.868132811132523
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.1876,
+        "parameters": {
+          "min_cluster_size": 29,
+          "min_samples": 24,
+          "cluster_selection_epsilon": 0.10055976571750314,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      }
+    ]
+  },
+  {
+    "model": "hdbscan",
+    "generation": 3,
+    "stats": {
+      "best_score": 0.449,
+      "avg_score": 0.30500666666666665,
+      "min_score": 0.1681,
+      "max_score": 0.449,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 0,
+      "score": 0.449,
+      "parameters": {
+        "min_cluster_size": 2,
+        "min_samples": 4,
+        "cluster_selection_epsilon": 0.03352297289864675,
+        "metric": "euclidean",
+        "alpha": 0.8439304555038942
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.449,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.1917,
+        "parameters": {
+          "min_cluster_size": 29,
+          "min_samples": 9,
+          "cluster_selection_epsilon": 0.042417912737189596,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.3327,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 15,
+          "cluster_selection_epsilon": 0.10055976571750314,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.3591,
+        "parameters": {
+          "min_cluster_size": 29,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.09856669369452359,
+          "metric": "manhattan",
+          "alpha": 0.5
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.33,
+        "parameters": {
+          "min_cluster_size": 28,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "manhattan",
+          "alpha": 1.087613143931033
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.4418,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.3277333118082353,
+          "metric": "euclidean",
+          "alpha": 0.8703530696709978
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.3502,
+        "parameters": {
+          "min_cluster_size": 28,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.4567092964314643,
+          "metric": "euclidean",
+          "alpha": 1.2236405842915434
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.2828,
+        "parameters": {
+          "min_cluster_size": 17,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.3337906553531057,
+          "metric": "euclidean",
+          "alpha": 0.6933697074520864
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.1681,
+        "parameters": {
+          "min_cluster_size": 7,
+          "min_samples": 9,
+          "cluster_selection_epsilon": 0.11324901153296404,
+          "metric": "euclidean",
+          "alpha": 1.5
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.2234,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.227,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 17,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "manhattan",
+          "alpha": 0.5394864218495726
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.2222,
+        "parameters": {
+          "min_cluster_size": 4,
+          "min_samples": 26,
+          "cluster_selection_epsilon": 0.14875504123228908,
+          "metric": "euclidean",
+          "alpha": 1.0473950600709678
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.3502,
+        "parameters": {
+          "min_cluster_size": 28,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.3337906553531057,
+          "metric": "euclidean",
+          "alpha": 0.8995830001161365
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.2058,
+        "parameters": {
+          "min_cluster_size": 22,
+          "min_samples": 17,
+          "cluster_selection_epsilon": 0.4567092964314643,
+          "metric": "euclidean",
+          "alpha": 1.3386395540824343
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.4411,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.9787447472660155
+        }
+      }
+    ]
+  },
+  {
+    "model": "hdbscan",
+    "generation": 4,
+    "stats": {
+      "best_score": 0.449,
+      "avg_score": 0.26064,
+      "min_score": -0.0163,
+      "max_score": 0.449,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 0,
+      "score": 0.449,
+      "parameters": {
+        "min_cluster_size": 2,
+        "min_samples": 4,
+        "cluster_selection_epsilon": 0.03352297289864675,
+        "metric": "euclidean",
+        "alpha": 0.8439304555038942
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.449,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.3454,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 1.2236405842915434
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.3749,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.34376841774697187,
+          "metric": "euclidean",
+          "alpha": 0.7655670416911055
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.2234,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.0836,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.0,
+          "metric": "euclidean",
+          "alpha": 0.8703530696709978
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.4418,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.3277333118082353,
+          "metric": "euclidean",
+          "alpha": 0.9787447472660155
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.2234,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.1452,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.7867212059442183
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.0616,
+        "parameters": {
+          "min_cluster_size": 12,
+          "min_samples": 5,
+          "cluster_selection_epsilon": 0.09856669369452359,
+          "metric": "manhattan",
+          "alpha": 0.7784992690816672
+        }
+      },
+      {
+        "index": 9,
+        "score": -0.0163,
+        "parameters": {
+          "min_cluster_size": 29,
+          "min_samples": 2,
+          "cluster_selection_epsilon": 0.0,
+          "metric": "manhattan",
+          "alpha": 0.5394864218495726
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.3502,
+        "parameters": {
+          "min_cluster_size": 29,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.9787447472660155
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.314,
+        "parameters": {
+          "min_cluster_size": 4,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.3809491372260335,
+          "metric": "euclidean",
+          "alpha": 0.8995830001161365
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.4418,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.3277333118082353,
+          "metric": "euclidean",
+          "alpha": 1.1032980510724364
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.2828,
+        "parameters": {
+          "min_cluster_size": 17,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.3337906553531057,
+          "metric": "euclidean",
+          "alpha": 0.6933697074520864
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.1888,
+        "parameters": {
+          "min_cluster_size": 43,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "manhattan",
+          "alpha": 1.087613143931033
+        }
+      }
+    ]
+  },
+  {
+    "model": "hdbscan",
+    "generation": 5,
+    "stats": {
+      "best_score": 0.449,
+      "avg_score": 0.27319333333333334,
+      "min_score": -0.3058,
+      "max_score": 0.449,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 0,
+      "score": 0.449,
+      "parameters": {
+        "min_cluster_size": 2,
+        "min_samples": 4,
+        "cluster_selection_epsilon": 0.03352297289864675,
+        "metric": "euclidean",
+        "alpha": 0.8439304555038942
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.449,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.314,
+        "parameters": {
+          "min_cluster_size": 4,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.3809491372260335,
+          "metric": "euclidean",
+          "alpha": 0.8995830001161365
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.1501,
+        "parameters": {
+          "min_cluster_size": 15,
+          "min_samples": 18,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.4418,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.3337906553531057,
+          "metric": "euclidean",
+          "alpha": 0.6933697074520864
+        }
+      },
+      {
+        "index": 4,
+        "score": -0.3058,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 9,
+          "cluster_selection_epsilon": 0.0,
+          "metric": "manhattan",
+          "alpha": 0.7655670416911055
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.4448,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.5,
+          "metric": "euclidean",
+          "alpha": 0.8703530696709978
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.3454,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 1.2236405842915434
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.1097,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.0,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.3502,
+        "parameters": {
+          "min_cluster_size": 29,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.9787447472660155
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.1873,
+        "parameters": {
+          "min_cluster_size": 42,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.9787447472660155
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.2593,
+        "parameters": {
+          "min_cluster_size": 34,
+          "min_samples": 3,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.9787447472660155
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.1097,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.0,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.3516,
+        "parameters": {
+          "min_cluster_size": 7,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.16924172249267272,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.449,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.4418,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.2066149118559028,
+          "metric": "euclidean",
+          "alpha": 1.1032980510724364
+        }
+      }
+    ]
+  },
+  {
+    "model": "hdbscan",
+    "generation": 6,
+    "stats": {
+      "best_score": 0.449,
+      "avg_score": 0.35438,
+      "min_score": -0.0107,
+      "max_score": 0.449,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 0,
+      "score": 0.449,
+      "parameters": {
+        "min_cluster_size": 2,
+        "min_samples": 4,
+        "cluster_selection_epsilon": 0.03352297289864675,
+        "metric": "euclidean",
+        "alpha": 0.8439304555038942
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.449,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.2234,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.9787447472660155
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.3046,
+        "parameters": {
+          "min_cluster_size": 4,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.3809491372260335,
+          "metric": "euclidean",
+          "alpha": 0.9600347369772033
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.4418,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.2066149118559028,
+          "metric": "euclidean",
+          "alpha": 0.9119468298675445
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.4418,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.3337906553531057,
+          "metric": "euclidean",
+          "alpha": 0.6933697074520864
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.3301,
+        "parameters": {
+          "min_cluster_size": 19,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.5,
+          "metric": "euclidean",
+          "alpha": 0.9337425217148955
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.3511,
+        "parameters": {
+          "min_cluster_size": 7,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.16924172249267272,
+          "metric": "euclidean",
+          "alpha": 0.8703530696709978
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.3465,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 11,
+          "cluster_selection_epsilon": 0.5,
+          "metric": "manhattan",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.3903,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 17,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.449,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 10,
+        "score": -0.0107,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 6,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.6933697074520864
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.449,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.3337906553531057,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.449,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.4418,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.11328084145570214,
+          "metric": "euclidean",
+          "alpha": 0.7549472894185053
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.259,
+        "parameters": {
+          "min_cluster_size": 9,
+          "min_samples": 6,
+          "cluster_selection_epsilon": 0.0858642165267512,
+          "metric": "euclidean",
+          "alpha": 0.9787447472660155
+        }
+      }
+    ]
+  },
+  {
+    "model": "hdbscan",
+    "generation": 7,
+    "stats": {
+      "best_score": 0.449,
+      "avg_score": 0.3154799999999999,
+      "min_score": 0.0615,
+      "max_score": 0.449,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 0,
+      "score": 0.449,
+      "parameters": {
+        "min_cluster_size": 2,
+        "min_samples": 4,
+        "cluster_selection_epsilon": 0.03352297289864675,
+        "metric": "euclidean",
+        "alpha": 0.8439304555038942
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.449,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.449,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.3337906553531057,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.1097,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.0,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.2367,
+        "parameters": {
+          "min_cluster_size": 19,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.3337906553531057,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.0615,
+        "parameters": {
+          "min_cluster_size": 18,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.2066149118559028,
+          "metric": "manhattan",
+          "alpha": 0.9119468298675445
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.3406,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 16,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.5
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.2994,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 18,
+          "cluster_selection_epsilon": 0.2066149118559028,
+          "metric": "euclidean",
+          "alpha": 0.9119468298675445
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.4418,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.2066149118559028,
+          "metric": "euclidean",
+          "alpha": 0.9119468298675445
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.2234,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.449,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.2234,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.449,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.2717,
+        "parameters": {
+          "min_cluster_size": 11,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.29724821110191946,
+          "metric": "euclidean",
+          "alpha": 0.9119468298675445
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.4418,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.3536868624328894,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.2862,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.3337906553531057,
+          "metric": "euclidean",
+          "alpha": 0.8059050527645396
+        }
+      }
+    ]
+  },
+  {
+    "model": "hdbscan",
+    "generation": 8,
+    "stats": {
+      "best_score": 0.449,
+      "avg_score": 0.40636666666666665,
+      "min_score": 0.1097,
+      "max_score": 0.449,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 0,
+      "score": 0.449,
+      "parameters": {
+        "min_cluster_size": 2,
+        "min_samples": 4,
+        "cluster_selection_epsilon": 0.03352297289864675,
+        "metric": "euclidean",
+        "alpha": 0.8439304555038942
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.449,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.449,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.4418,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.19932521758045632,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.3228,
+        "parameters": {
+          "min_cluster_size": 5,
+          "min_samples": 2,
+          "cluster_selection_epsilon": 0.3337906553531057,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.4418,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.3536868624328894,
+          "metric": "euclidean",
+          "alpha": 0.9119468298675445
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.4418,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.2066149118559028,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.4418,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.2066149118559028,
+          "metric": "euclidean",
+          "alpha": 0.9119468298675445
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.1097,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.0,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.4304,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.3337906553531057,
+          "metric": "euclidean",
+          "alpha": 0.8390116349823367
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.449,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.4418,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.3536868624328894,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.4418,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.3536868624328894,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.341,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 19,
+          "cluster_selection_epsilon": 0.16970201667066373,
+          "metric": "euclidean",
+          "alpha": 0.7995285585270405
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.449,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.052105648978267236,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.4448,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.893198288646085
+        }
+      }
+    ]
+  },
+  {
+    "model": "hdbscan",
+    "generation": 9,
+    "stats": {
+      "best_score": 0.449,
+      "avg_score": 0.24910666666666673,
+      "min_score": -0.1351,
+      "max_score": 0.449,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 0,
+      "score": 0.449,
+      "parameters": {
+        "min_cluster_size": 2,
+        "min_samples": 4,
+        "cluster_selection_epsilon": 0.052105648978267236,
+        "metric": "euclidean",
+        "alpha": 0.8439304555038942
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.449,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.052105648978267236,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.2303,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 3,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.328,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 18,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 3,
+        "score": -0.1351,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 30,
+          "cluster_selection_epsilon": 0.010495514809943516,
+          "metric": "manhattan",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.2843,
+        "parameters": {
+          "min_cluster_size": 20,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.893198288646085
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.2033,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.0,
+          "metric": "euclidean",
+          "alpha": 0.7444027364050471
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.1466,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.0,
+          "metric": "euclidean",
+          "alpha": 0.8114085844254166
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.3159,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 21,
+          "cluster_selection_epsilon": 0.052105648978267236,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.4445,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.5,
+          "metric": "euclidean",
+          "alpha": 0.9119468298675445
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.4418,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.11858735815473169,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.3032,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.0,
+          "metric": "euclidean",
+          "alpha": 0.6342413722350382
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.4418,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.3536868624328894,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.3062,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 31,
+          "cluster_selection_epsilon": 0.2066149118559028,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 13,
+        "score": -0.1329,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 25,
+          "cluster_selection_epsilon": 0.0,
+          "metric": "euclidean",
+          "alpha": 1.4287627473600808
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.1097,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.0,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      }
+    ]
+  },
+  {
+    "model": "hdbscan",
+    "generation": 10,
+    "stats": {
+      "best_score": 0.449,
+      "avg_score": 0.30515333333333333,
+      "min_score": -0.0677,
+      "max_score": 0.449,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 0,
+      "score": 0.449,
+      "parameters": {
+        "min_cluster_size": 2,
+        "min_samples": 4,
+        "cluster_selection_epsilon": 0.052105648978267236,
+        "metric": "euclidean",
+        "alpha": 0.8439304555038942
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.449,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.052105648978267236,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.2303,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 3,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.2843,
+        "parameters": {
+          "min_cluster_size": 20,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.893198288646085
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.2953,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.5,
+          "metric": "euclidean",
+          "alpha": 1.1715752414781577
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.3188,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 24,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.4426,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.46988784084322593,
+          "metric": "euclidean",
+          "alpha": 0.8257298988569947
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.3159,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 21,
+          "cluster_selection_epsilon": 0.052105648978267236,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.4445,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.5,
+          "metric": "euclidean",
+          "alpha": 0.9119468298675445
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.449,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.052105648978267236,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      },
+      {
+        "index": 9,
+        "score": -0.0677,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.0,
+          "metric": "euclidean",
+          "alpha": 1.0454950469976536
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.1299,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.052105648978267236,
+          "metric": "euclidean",
+          "alpha": 0.5
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.4129,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 4,
+          "cluster_selection_epsilon": 0.34998324116545665,
+          "metric": "euclidean",
+          "alpha": 1.499192518591175
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.2795,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 31,
+          "cluster_selection_epsilon": 0.2066149118559028,
+          "metric": "euclidean",
+          "alpha": 0.8793370094422192
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.232,
+        "parameters": {
+          "min_cluster_size": 2,
+          "min_samples": 18,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.6612445583287836
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.361,
+        "parameters": {
+          "min_cluster_size": 10,
+          "min_samples": 1,
+          "cluster_selection_epsilon": 0.03352297289864675,
+          "metric": "euclidean",
+          "alpha": 0.8439304555038942
+        }
+      }
+    ]
+  }
+]

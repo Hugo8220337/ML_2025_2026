@@ -58,7 +58,6 @@ class CacheManager:
             target = os.path.join(self.base_dir, module_name)
 
         if os.path.exists(target):
-            print(f"[Cache|{self.module_name}] Deleting: {target}")
             shutil.rmtree(target)
 
     def _get_obj_hash(self, obj):

@@ -581,7 +581,6 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
         )
         
         if cached_result is not None and isinstance(cached_result, dict) and 'score' in cached_result:
-            print(f"[Cache] Loaded cached result for {model_name} with options='{options_key}'")
             candidates.append({
                 'model_name': model_name,
                 'score': cached_result['score'],
@@ -721,7 +720,7 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
             best_run_score = ga_result['best_score'] if improved else default_score
 
             if improved:
-                print(f"   -> Model improved. Training final model on full data...")
+                print(f"   -> Model improved...")
                 final_train_params = decode_params(model_name, ga_result['best_solution'])
             else:
                 print(f"   -> Default params are optimal. Keeping defaults for final selection...")
@@ -850,7 +849,6 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
                 params={'options_key': options_key},
                 strategy='overwrite'
             )
-            print(f"[Cache] Saved {model_name} with options='{options_key}' to cache")
             
             best_global_model = final_run['model']
             best_global_info = model_info
