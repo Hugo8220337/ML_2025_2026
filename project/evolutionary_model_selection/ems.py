@@ -192,8 +192,8 @@ def get_default_genes(model_name):
         defaults['genes'] = [5.0, 5.0, 0.0, 0.0, 1.0]
 
     elif model_name == 'gmm':
-        # n_components=1, covariance_type=full(0), max_iter=100, n_init=1
-        defaults['genes'] = [1.0, 0.0, 100.0, 1.0]
+        # n_components=2, covariance_type=full(0), max_iter=100, n_init=1
+        defaults['genes'] = [2.0, 0.0, 100.0, 1.0]
 
     return defaults.get('genes', [])
 
@@ -734,11 +734,24 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
                 'is_cached': False
             })
 
-            all_models_results[model_name] = {
-                'model': None,
-                'info': {'score': best_run_score, 'params': final_train_params},
-                'pipeline': {}
-            }
+            try:
+                partial_result = train_func(X_train_processed, y_train, X_test=X_test_processed, y_test=y_test, **final_train_params)
+                partial_model = partial_result.get('model')
+                partial_score = partial_result['metrics'].get(target_metric, best_run_score)
+                
+                all_models_results[model_name] = {
+                    'model': partial_model,
+                    'score': partial_score,
+                    'info': {'model_name': model_name, 'score': partial_score, 'params': final_train_params},
+                    'pipeline': {}  
+                }
+            except Exception as e:
+                print(f"   -> Error storing partial model for {model_name}: {e}")
+                all_models_results[model_name] = {
+                    'model': None,
+                    'info': {'score': best_run_score, 'params': final_train_params},
+                    'pipeline': {}
+                }
 
         else:
             print(f"   -> Running default training for {model_name}...")
@@ -755,9 +768,10 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
                 })
                 
                 all_models_results[model_name] = {
-                    'model': None, 
-                    'info': {'score': score, 'params': 'default'},
-                    'pipeline': {}
+                    'model': result.get('model'),
+                    'score': score,
+                    'info': {'model_name': model_name, 'score': score, 'params': {}},
+                    'pipeline': {}      
                 }
             except Exception as e:
                 print(f"   -> Error evaluating {model_name}: {e}")

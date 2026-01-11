@@ -178,7 +178,6 @@ def train_hdbscan(
         metrics['n_clusters'] = n_clusters
         metrics['n_noise'] = n_noise
     except ValueError as e:
-        # Handle cases where silhouette score fails (e.g., 1 cluster)
         metrics = {
              'n_clusters': n_clusters,
              'n_noise': n_noise,

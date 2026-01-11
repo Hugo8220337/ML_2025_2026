@@ -1,9 +1,14 @@
 import json
+import os
+import numpy as np
+import pandas as pd
+from common.nlp import preprocessing as nlp_preprocess
 from common.tools import read_csv
 from evolutionary_model_selection.ems import ems
 from common.cache import CacheManager
+from common.visualizations import plot_model_comparison, plot_clusters
 
-def topic_classification(models=['kmeans', 'hdbscan', 'gmm'], options='default'):
+def topic_classification(models=['kmeans', 'hdbscan', 'gmm'], options='default', visualizations=True):
     cache = CacheManager(module_name='topic_classification')
     file_path = 'datasets/allthenews/all-the-news-2-1.csv'
 
@@ -35,6 +40,44 @@ def topic_classification(models=['kmeans', 'hdbscan', 'gmm'], options='default')
                             vectorizer_type='hashing'),
                            inputs=X)
 
-    # print(json.dumps(result['info'], indent=4))
-    with open('log.txt', 'w') as f:
-        print(result, file=f)
+
+    if visualizations:
+        viz_dir = 'files/visualizations/topic_classification'
+        os.makedirs(viz_dir, exist_ok=True)
+
+        plot_model_comparison(result, save_path=os.path.join(viz_dir, 'model_comparison.png'))
+        
+        pipeline = result.get('pipeline', {})
+        other_models = result.get('other', {})
+        
+        if pipeline:
+            sample_size = min(5000, len(X))
+            sample_indices = np.random.RandomState(42).choice(len(X), sample_size, replace=False)
+            X_sample = X.iloc[sample_indices] if hasattr(X, 'iloc') else X[sample_indices]
+            
+            vectorizer = pipeline.get('vectorizer')
+            reduction_model = pipeline.get('reduction_model')
+            
+            if vectorizer is not None:
+                df_sample = pd.DataFrame({'data': X_sample})
+                df_sample = nlp_preprocess(df_sample)
+                corpus = df_sample['data'].apply(lambda x: ' '.join(x) if isinstance(x, list) else x)
+                X_vec = vectorizer.transform(corpus)
+                
+                if reduction_model is not None:
+                    X_reduced = reduction_model.transform(X_vec)
+                else:
+                    X_reduced = X_vec.toarray() if hasattr(X_vec, 'toarray') else X_vec
+                
+                for model_name, model_data in other_models.items():
+                    model = model_data.get('model')
+
+                    if hasattr(model, 'predict'):
+                        labels = model.predict(X_reduced)
+                    elif hasattr(model, 'fit_predict'):
+                        labels = model.fit_predict(X_reduced)
+                    else:
+                        raise AttributeError(f"Cannot get labels for {model_name}")
+                    
+                    plot_clusters(X_reduced, labels, model_name, 
+                                save_path=os.path.join(viz_dir, f'{model_name}_clusters.png'))
