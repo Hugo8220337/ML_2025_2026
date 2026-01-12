@@ -20,6 +20,39 @@ Nas subsecções seguintes, é descrito o ciclo de vida de desenvolvimento para 
 % Para cada modelo devo falar dos algoritmos testados e a justificação da escolha
 \subsection{Modelo 1: Classificação de Tópicos} \label{subsec:topic-classification}
 
+Inicialmente, a abordagem explorada consistiu numa \textit{pipeline} simples de \textit{Clustering} baseada em TF-IDF (\textit{Term Frequency-Inverse Document Frequency}), seguindo o fluxo: \textit{Pré-processamento} $\rightarrow$ \textit{TF-IDF} $\rightarrow$ \textit{Clustering}. Contudo, rapidamente tornou-se evidente a necessidade de reduzir a dimensionalidade da matriz resultante da vetorização para obter resultados mais robustos.
+
+Numa segunda iteração, optou-se pela utilização de \textit{Feature Hashing} (unsigned) como técnica de vetorização, devido à sua rapidez e otimização de memória em comparação com o TF-IDF tradicional. Para a redução de dimensionalidade, foram testadas e comparadas duas abordagens: LSA (\textit{Latent Semantic Analysis}) e NMF (\textit{Non-Negative Matrix Factorization}), resultando no fluxo: \textit{Pré-processamento} $\rightarrow$ \textit{Hashing} $\rightarrow$ \textit{NMF/LSA} $\rightarrow$ \textit{Clustering}.
+
+A análise dos resultados desta segunda abordagem revelou uma segmentação ineficiente dos \textit{clusters}. Frequentemente, os algoritmos identificavam apenas dois grandes grupos: um "Tópico A" muito específico (como desporto ou política) e um "Tópico B" que englobava o resto dos dados. Além disso, verificou-se que a otimização baseada no \textit{Silhouette Score} não era ideal, visto ser uma métrica puramente geométrica que não captura necessariamente a coerência semântica dos tópicos gerados. A Tabela \ref{tab:topic-clustering-comparison} resume os resultados quantitativos obtidos nestas experiências, comparando as diferentes configurações testadas.
+
+\begin{table}[h]
+	\centering
+	\small
+	\begin{tabular}{lcccc}
+		\hline
+		Configuração & KMeans (sil.) & HDBSCAN (sil.) & GMM (sil.) & NMF (coherence) \\
+		\hline
+		Hashing + redução & 0.3843 & 0.4490 & 0.5504 & -- \\
+		TF-IDF + redução & 0.5413 & 0.3772 & 0.5536 & -- \\
+		TF-IDF + NMF (final) & -- & -- & -- & 0.7279 \\
+		\hline
+	\end{tabular}
+	\caption{Comparação das métricas de qualidade obtidas nas diferentes abordagens testadas.}
+	\label{tab:topic-clustering-comparison}
+\end{table}
+
+Consequentemente, a metodologia final evoluiu para o uso de NMF diretamente sobre TF-IDF como técnica de modelação de tópicos, em vez de apenas redução para clustering (\textit{Pré-processamento} $\rightarrow$ \textit{TF-IDF} $\rightarrow$ \textit{NMF}). A escolha do NMF justifica-se pela sua capacidade de criar "clusters probabilísticos", onde um documento não pertence apenas a um grupo de forma binária, mas possui um peso de pertença (ex: Tópico A: 0.9, Tópico B: 0.1), o que é mais representativo da realidade das notícias.
+
+Para a avaliação e otimização final, substituiu-se o critério geométrico (\textit{Silhouette Score}) pelo \textit{Coherence Score}, uma métrica mais indicada para avaliar a qualidade semântica e a interpretabilidade humana dos tópicos extraídos. A distribuição final dos tópicos, resultante desta abordagem otimizada, pode ser visualizada na Figura \ref{fig:nmfclusters}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{imagens/nmf_clusters}
+	\caption{Visualização da distribuição dos tópicos obtidos com a abordagem final utilizando NMF.}
+	\label{fig:nmfclusters}
+\end{figure}
+
 \subsection{Modelo 2: Análise de Anomalias} \label{subsec:anomaly-analysis}
 
 \subsection{Modelo 3: Deteção de Stance (Postura)} \label{subsec:stance-detection}

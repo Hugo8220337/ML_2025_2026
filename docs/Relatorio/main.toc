@@ -1,33 +1,34 @@
 \babel@toc {portuguese}{}\relax 
-\contentsline {section}{\numberline {1}Introdução}{4}{section.1}%
-\contentsline {subsection}{\numberline {1.1}Contextualização}{4}{subsection.1.1}%
-\contentsline {subsection}{\numberline {1.2}Objetivos}{4}{subsection.1.2}%
-\contentsline {subsection}{\numberline {1.3}Estrutura do Relatório}{5}{subsection.1.3}%
-\contentsline {section}{\numberline {2}Arquitetura da Solução}{6}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Fluxo de Dados e Processamento}{6}{subsection.2.1}%
-\contentsline {paragraph}{1. Entrada e Pré-processamento:}{6}{paragraph*.2}%
-\contentsline {paragraph}{2. Nível 1: Modelos Especialistas (Extração de \textit {Features}):}{6}{paragraph*.3}%
-\contentsline {paragraph}{3. Nível 2: Meta-Classificador:}{7}{paragraph*.4}%
-\contentsline {section}{\numberline {3}Dados e Analise Exploratória dos Dados}{8}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Seleção dos Datasets}{8}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Análise e Tratamento de Dados}{9}{subsection.3.2}%
-\contentsline {subsubsection}{\numberline {3.2.1}Classificação de Tópicos (AllTheNews)}{10}{subsubsection.3.2.1}%
-\contentsline {subsubsection}{\numberline {3.2.2}Análise de Anomalias}{10}{subsubsection.3.2.2}%
-\contentsline {subsubsection}{\numberline {3.2.3}Análise de Stance (FNC-1)}{10}{subsubsection.3.2.3}%
-\contentsline {subsubsection}{\numberline {3.2.4}Análise de Clickbait (Clickbait Dataset)}{11}{subsubsection.3.2.4}%
-\contentsline {section}{\numberline {4}Desenvolvimento dos Modelos (Metodologia)}{12}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Modelo 1: Classificação de Tópicos}{12}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Modelo 2: Análise de Anomalias}{12}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Modelo 3: Deteção de Stance (Postura)}{12}{subsection.4.3}%
-\contentsline {subsection}{\numberline {4.4}Modelo 4: Deteção de Clickbait}{12}{subsection.4.4}%
-\contentsline {subsection}{\numberline {4.5}Modelo Final: Fake News Meta-Classifier}{12}{subsection.4.5}%
-\contentsline {section}{\numberline {5}Resultados e Análise Crítica}{13}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Avaliação dos Modelos Intermédios}{13}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Avaliação do Modelo Final}{13}{subsection.5.2}%
-\contentsline {subsection}{\numberline {5.3}Discussão}{13}{subsection.5.3}%
-\contentsline {section}{\numberline {6}Interface de Utilização}{14}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Descrição da Aplicação}{14}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}Exemplo de Utilização}{14}{subsection.6.2}%
-\contentsline {section}{\numberline {7}Conclusões e Trabalho Futuro}{15}{section.7}%
-\contentsline {subsection}{\numberline {7.1}Reflexão Crítica dos Resultados}{15}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2}Conclusões e Trabalho Futuro}{15}{subsection.7.2}%
+\contentsline {section}{Índice de Tabelas}{4}{Doc-Start}%
+\contentsline {section}{\numberline {1}Introdução}{5}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Contextualização}{5}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Objetivos}{5}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Estrutura do Relatório}{6}{subsection.1.3}%
+\contentsline {section}{\numberline {2}Arquitetura da Solução}{7}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Fluxo de Dados e Processamento}{7}{subsection.2.1}%
+\contentsline {paragraph}{1. Entrada e Pré-processamento:}{7}{paragraph*.2}%
+\contentsline {paragraph}{2. Nível 1: Modelos Especialistas (Extração de \textit {Features}):}{7}{paragraph*.3}%
+\contentsline {paragraph}{3. Nível 2: Meta-Classificador:}{8}{paragraph*.4}%
+\contentsline {section}{\numberline {3}Dados e Analise Exploratória dos Dados}{9}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Seleção dos Datasets}{9}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Análise e Tratamento de Dados}{10}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Classificação de Tópicos (AllTheNews)}{11}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}Análise de Anomalias (ISOT)}{11}{subsubsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.3}Análise de Stance (FNC-1)}{11}{subsubsection.3.2.3}%
+\contentsline {subsubsection}{\numberline {3.2.4}Análise de Clickbait (Clickbait Dataset)}{12}{subsubsection.3.2.4}%
+\contentsline {section}{\numberline {4}Desenvolvimento dos Modelos (Metodologia)}{13}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Modelo 1: Classificação de Tópicos}{13}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Modelo 2: Análise de Anomalias}{15}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Modelo 3: Deteção de Stance (Postura)}{15}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Modelo 4: Deteção de Clickbait}{15}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Modelo Final: Fake News Meta-Classifier}{15}{subsection.4.5}%
+\contentsline {section}{\numberline {5}Resultados e Análise Crítica}{16}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Avaliação dos Modelos Intermédios}{16}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Avaliação do Modelo Final}{16}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Discussão}{16}{subsection.5.3}%
+\contentsline {section}{\numberline {6}Interface de Utilização}{17}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Descrição da Aplicação}{17}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Exemplo de Utilização}{17}{subsection.6.2}%
+\contentsline {section}{\numberline {7}Conclusões e Trabalho Futuro}{18}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Reflexão Crítica dos Resultados}{18}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Conclusões e Trabalho Futuro}{18}{subsection.7.2}%
