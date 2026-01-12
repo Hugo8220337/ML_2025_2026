@@ -26,19 +26,33 @@ Numa segunda iteração, optou-se pela utilização de \textit{Feature Hashing} 
 
 A análise dos resultados desta segunda abordagem revelou uma segmentação ineficiente dos \textit{clusters}. Frequentemente, os algoritmos identificavam apenas dois grandes grupos: um "Tópico A" muito específico (como desporto ou política) e um "Tópico B" que englobava o resto dos dados. Além disso, verificou-se que a otimização baseada no \textit{Silhouette Score} não era ideal, visto ser uma métrica puramente geométrica que não captura necessariamente a coerência semântica dos tópicos gerados. A Tabela \ref{tab:topic-clustering-comparison} resume os resultados quantitativos obtidos nestas experiências, comparando as diferentes configurações testadas.
 
+
 \begin{table}[h]
 	\centering
 	\small
-	\begin{tabular}{lcccc}
-		\hline
-		Configuração & KMeans (sil.) & HDBSCAN (sil.) & GMM (sil.) & NMF (coherence) \\
-		\hline
-		Hashing + redução & 0.3843 & 0.4490 & 0.5504 & -- \\
-		TF-IDF + redução & 0.5413 & 0.3772 & 0.5536 & -- \\
-		TF-IDF + NMF (final) & -- & -- & -- & 0.7279 \\
-		\hline
+	\renewcommand{\arraystretch}{1.2}
+	\begin{tabular}{lllr}
+		\toprule % Linha grossa no topo
+		\textbf{Redução} & \textbf{Modelo} & \textbf{Métrica} & \textbf{Score} \\
+		\midrule % Linha média separando o cabeçalho
+		
+		LSA & KMeans  & Silhouette & 0.3843 \\
+		& HDBSCAN & Silhouette & 0.4490 \\
+		& GMM     & Silhouette & 0.5504 \\
+		
+		\addlinespace 
+		
+		NMF & KMeans  & Silhouette & 0.5413 \\
+		& HDBSCAN & Silhouette & 0.3772 \\
+		& GMM     & Silhouette & \textbf{0.5536} \\
+		
+		\midrule % Separação final para a conclusão
+		
+		\multicolumn{2}{l}{\textit{Modelagem de Tópicos (Sem redução)}} & & \\
+		--  & NMF (TF-IDF) & Coerência & \textbf{0.7279} \\
+		\bottomrule % Linha grossa no final
 	\end{tabular}
-	\caption{Comparação das métricas de qualidade obtidas nas diferentes abordagens testadas.}
+	\caption{Comparação das métricas de qualidade obtidas nas diferentes abordagens testadas para classificação de tópicos.}
 	\label{tab:topic-clustering-comparison}
 \end{table}
 
