@@ -34,6 +34,7 @@ UNSUPERVISED_MODELS = {
     'dbscan',
     'hdbscan',
     'gmm',
+    'nmf',
 }
 
 DIMENSIONALITY_REDUCTION = {
@@ -44,7 +45,7 @@ DIMENSIONALITY_REDUCTION = {
 }
 
 
-FUNCTION_REGISTRY = {
+MODEL_REGISTRY = {
     # Supervised
     'linear_regression': train_linear_regression,
     'logistic_regression': train_logistic_regression,
@@ -59,12 +60,15 @@ FUNCTION_REGISTRY = {
     'dbscan': train_dbscan,
     'hdbscan': train_hdbscan,
     'gmm': train_gmm,
-    # Dimensionality reduction
+    'nmf': train_nmf,
+}
+
+REDUCTION_REGISTRY = {
     'pca': apply_pca,
     'nmf': apply_nmf,
     'lda': apply_lda,
     'lsa': apply_lsa,
-    }
+}
 
 MODEL_BOUNDS = {
     'logistic_regression': [
@@ -144,6 +148,13 @@ MODEL_BOUNDS = {
         (50, 300),     # max_iter
         (1, 10),       # n_init
     ],
+    'nmf': [
+        (2, 20),       # n_components
+        (0, 2),        # init: 0=nndsvd, 1=random
+        (0, 2),        # solver: 0=cd, 1=mu
+        (0.0, 1.0),    # alpha_W
+        (0.0, 1.0),    # l1_ratio
+    ],
 }
 
 def get_default_genes(model_name):
@@ -194,6 +205,10 @@ def get_default_genes(model_name):
     elif model_name == 'gmm':
         # n_components=2, covariance_type=full(0), max_iter=100, n_init=1
         defaults['genes'] = [2.0, 0.0, 100.0, 1.0]
+
+    elif model_name == 'nmf':
+        # n_components=2, init=nndsvd(0), solver=cd(0), alpha_W=0.0, l1_ratio=0.0
+        defaults['genes'] = [2.0, 0.0, 0.0, 0.0, 0.0]
 
     return defaults.get('genes', [])
 
@@ -348,6 +363,18 @@ def decode_params(model_name, genes):
         params['max_iter'] = int(genes[2])
         params['n_init'] = int(genes[3])
 
+    elif model_name == 'nmf':
+        params['n_components'] = int(genes[0])
+        
+        init_map = {0: 'nndsvd', 1: 'random'}
+        params['init'] = init_map.get(int(genes[1]), 'nndsvd')
+        
+        solver_map = {0: 'cd', 1: 'mu'}
+        params['solver'] = solver_map.get(int(genes[2]), 'cd')
+        
+        params['alpha_W'] = float(genes[3])
+        params['l1_ratio'] = float(genes[4])
+
     return params
 
 def reduce_dimensions(X, method, **kwargs):
@@ -359,7 +386,7 @@ def reduce_dimensions(X, method, **kwargs):
             f"Available methods: {list(DIMENSIONALITY_REDUCTION)}"
         )
     
-    return FUNCTION_REGISTRY[method](X, **kwargs)
+    return REDUCTION_REGISTRY[method](X, **kwargs)
 
 
 def preprocess_text(X_train, X_test=None, vectorizer_type='tfidf', **kwargs):
@@ -392,6 +419,7 @@ def preprocess_text(X_train, X_test=None, vectorizer_type='tfidf', **kwargs):
         df_train = to_df(X_train)
         df_train = preprocessing(df_train, **prep_kwargs)
 
+        tokens_train = df_train['data'].tolist()
 
         if vectorizer_type == 'hashing':
             X_train_vec, vectorizer = hashing_vectorize(df_train, col_name='data', **vect_kwargs)
@@ -399,14 +427,21 @@ def preprocess_text(X_train, X_test=None, vectorizer_type='tfidf', **kwargs):
             X_train_vec, vectorizer = tfidf_vectorize(df_train, col_name='data', **vect_kwargs)
         
         X_test_vec = None
+        tokens_test = None
         if X_test is not None:
             df_test = to_df(X_test)
             df_test = preprocessing(df_test, **prep_kwargs)
+            tokens_test = df_test['data'].tolist()
             corpus_test = df_test['data'].apply(lambda x: ' '.join(x) if isinstance(x, list) else x)
             X_test_vec = vectorizer.transform(corpus_test)
-            return X_train_vec, X_test_vec, vectorizer
-        
-        return X_train_vec, None, vectorizer
+            
+        return {
+            'X_train_vec': X_train_vec, 
+            'X_test_vec': X_test_vec, 
+            'vectorizer': vectorizer, 
+            'tokens_train': tokens_train, 
+            'tokens_test': tokens_test
+        }
 
     return cm.execute(
         task_name="text_preprocessing",
@@ -517,7 +552,10 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
         else:
             X_sub = X
         
-        X_train_processed, _, _ = preprocess_text(X_sub, vectorizer_type=vectorizer_type, **nlp_params)
+        preproc_result = preprocess_text(X_sub, vectorizer_type=vectorizer_type, **nlp_params)
+        X_train_processed = preproc_result['X_train_vec']
+        vectorizer = preproc_result['vectorizer']
+        tokens_train = preproc_result['tokens_train']
         
         if reduction is not None:
             print(f"-> Applying dimensionality reduction: {reduction}")
@@ -541,7 +579,11 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
             X_sub, y_sub, test_size=0.2, random_state=42
         )
         
-        X_train_processed, X_test_processed, _ = preprocess_text(X_train, X_test, vectorizer_type=vectorizer_type, **nlp_params)
+        preproc_result = preprocess_text(X_train, X_test, vectorizer_type=vectorizer_type, **nlp_params)
+        X_train_processed = preproc_result['X_train_vec']
+        X_test_processed = preproc_result['X_test_vec']
+        vectorizer = preproc_result['vectorizer']
+        tokens_train = preproc_result['tokens_train']
         if reduction is not None:
             print(f"-> Applying dimensionality reduction: {reduction}")
             reduction_result = reduce_dimensions(X_train_processed, method=reduction)
@@ -591,6 +633,7 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
 
             all_models_results[model_name] = {
                 'model': cached_result['model'],
+                'score': cached_result['score'],
                 'info': cached_result['info'],
                 'pipeline': cached_result.get('pipeline', {})
             }
@@ -598,7 +641,7 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
         
         print(f"Training {model_name}...")
         
-        train_func = FUNCTION_REGISTRY.get(model_name)
+        train_func = MODEL_REGISTRY.get(model_name)
         bounds = MODEL_BOUNDS.get(model_name, [])
 
         if bounds:
@@ -609,8 +652,12 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
             
             worst_score = -float('inf') if should_maximize else float('inf')
             
+            feature_names = None
+            if hasattr(vectorizer, 'get_feature_names_out'):
+                feature_names = vectorizer.get_feature_names_out()
+            
             try:
-                default_result = train_func(X_train_processed, y_train, X_test=X_test_processed, y_test=y_test)
+                default_result = train_func(X_train_processed, y_train, X_test=X_test_processed, y_test=y_test, target_metric=target_metric, texts=tokens_train, feature_names=feature_names)
                 if default_result and 'metrics' in default_result:
                     default_score = default_result['metrics'].get(target_metric, worst_score)
                     print(f"   -> Default Score ({target_metric}): {default_score:.4f}")
@@ -626,7 +673,7 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
                 params = decode_params(model_name, individual)
                 
                 try:
-                    result = train_func(X_train_processed, y_train, X_test=X_test_processed, y_test=y_test, **params)
+                    result = train_func(X_train_processed, y_train, X_test=X_test_processed, y_test=y_test, target_metric=target_metric, texts=tokens_train, feature_names=feature_names, **params)
                     if result and 'metrics' in result:
                         score = result['metrics'].get(target_metric, worst_score)
                         print(f"   [Eval {eval_counter[0]}] Score: {score:.4f}", end='\r')
@@ -734,7 +781,7 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
             })
 
             try:
-                partial_result = train_func(X_train_processed, y_train, X_test=X_test_processed, y_test=y_test, **final_train_params)
+                partial_result = train_func(X_train_processed, y_train, X_test=X_test_processed, y_test=y_test, target_metric=target_metric, texts=tokens_train, feature_names=feature_names, **final_train_params)
                 partial_model = partial_result.get('model')
                 partial_score = partial_result['metrics'].get(target_metric, best_run_score)
                 
@@ -755,7 +802,7 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
         else:
             print(f"   -> Running default training for {model_name}...")
             try:
-                result = train_func(X_train_processed, y_train, X_test=X_test_processed, y_test=y_test)
+                result = train_func(X_train_processed, y_train, X_test=X_test_processed, y_test=y_test, target_metric=target_metric, texts=tokens_train, feature_names=feature_names)
                 score = result['metrics'].get(target_metric, -float('inf') if should_maximize else float('inf'))
                 print(f"   -> Score: {score:.4f}")
                 
@@ -801,12 +848,15 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
         cache_task_name = model_name
         cache_inputs = {'X': X, 'y': y, 'nlp_params': nlp_params, 'target_metric': target_metric}
         
-        train_func = FUNCTION_REGISTRY.get(model_name)
+        train_func = MODEL_REGISTRY.get(model_name)
         final_train_params = best_candidate['params']
         final_params_info = final_train_params if final_train_params else 'default'
 
         try:
-            X_final, _, final_vectorizer = preprocess_text(X_final_train, vectorizer_type=vectorizer_type, **nlp_params)
+            preproc_result = preprocess_text(X_final_train, vectorizer_type=vectorizer_type, **nlp_params)
+            X_final = preproc_result['X_train_vec']
+            final_vectorizer = preproc_result['vectorizer']
+            final_tokens = preproc_result['tokens_train']
             
             final_reduction_model = None
             if reduction is not None:
@@ -818,7 +868,11 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
             if y is not None:
                 run_inputs.append(y_final_train)
             
-            final_run = train_func(*run_inputs, **final_train_params)
+            final_feature_names = None
+            if hasattr(final_vectorizer, 'get_feature_names_out'):
+                final_feature_names = final_vectorizer.get_feature_names_out()
+
+            final_run = train_func(*run_inputs, target_metric=target_metric, texts=final_tokens, feature_names=final_feature_names, **final_train_params)
             
             final_score = final_run['metrics'].get(target_metric, best_candidate['score'])
             print(f"   -> Final Score: {final_score:.4f}")
@@ -876,9 +930,9 @@ def models_validation(models, is_unsupervised=False):
     if not models:
         raise ValueError("Models list cannot be empty.")
     
-    if not all(model in FUNCTION_REGISTRY for model in models):
-        invalid = [m for m in models if m not in FUNCTION_REGISTRY]
-        raise ValueError(f"Unknown model(s): {invalid}. Valid models: {list(FUNCTION_REGISTRY.keys())}")
+    if not all(model in MODEL_REGISTRY for model in models):
+        invalid = [m for m in models if m not in MODEL_REGISTRY]
+        raise ValueError(f"Unknown model(s): {invalid}. Valid models: {list(MODEL_REGISTRY.keys())}")
     
     has_supervised = any(model in SUPERVISED_MODELS for model in models)
     has_unsupervised = any(model in UNSUPERVISED_MODELS for model in models)

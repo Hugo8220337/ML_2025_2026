@@ -2,13 +2,14 @@ import json
 import os
 import numpy as np
 import pandas as pd
+import umap
 from common.nlp import preprocessing as nlp_preprocess
 from common.tools import read_csv
 from evolutionary_model_selection.ems import ems
 from common.cache import CacheManager
 from common.visualizations import plot_model_comparison, plot_clusters
 
-def topic_classification(models=['kmeans', 'hdbscan', 'gmm'], reduction='lsa',options='default', vectorizer_type='hashing', visualizations=True):
+def topic_classification(models=['nmf'], reduction=None, options='default', vectorizer_type='tfidf', visualizations=True):
     cache = CacheManager(module_name='topic_classification')
     file_path = 'datasets/allthenews/all-the-news-2-1.csv'
 
@@ -34,6 +35,7 @@ def topic_classification(models=['kmeans', 'hdbscan', 'gmm'], reduction='lsa',op
                            func=lambda: ems(
                             X, 
                             models=models,
+                            target_metric='coherence',
                             report=True, 
                             options=options, 
                             reduction=reduction, 
@@ -71,14 +73,41 @@ def topic_classification(models=['kmeans', 'hdbscan', 'gmm'], reduction='lsa',op
                     X_reduced = X_vec.toarray() if hasattr(X_vec, 'toarray') else X_vec
                 
                 for model_name, model_data in other_models.items():
-                    model = model_data.get('model')
+                    try:
+                        model = model_data.get('model')
+                        labels = None
+                        components = None
 
-                    if hasattr(model, 'predict'):
-                        labels = model.predict(X_reduced)
-                    elif hasattr(model, 'fit_predict'):
-                        labels = model.fit_predict(X_reduced)
-                    else:
-                        raise AttributeError(f"Cannot get labels for {model_name}")
-                    
-                    plot_clusters(X_reduced, labels, model_name, 
-                                save_path=os.path.join(viz_dir, f'{model_name}_clusters.png'))
+                        if hasattr(model, 'components_'):
+                             components = model.components_
+                        elif hasattr(model, 'cluster_centers_'):
+                             components = model.cluster_centers_
+
+                        if model_name == 'nmf' or (hasattr(model, 'components_') and not hasattr(model, 'predict')):
+                            W = model.transform(X_reduced)
+                            labels = W.argmax(axis=1)
+                            
+                            
+                            reducer = umap.UMAP(n_components=2, random_state=42)
+                            X_plot = reducer.fit_transform(W)
+                            
+                        elif hasattr(model, 'predict'):
+                            labels = model.predict(X_reduced)
+                            X_plot = X_reduced
+                        elif hasattr(model, 'fit_predict'):
+                            labels = model.fit_predict(X_reduced)
+                            X_plot = X_reduced
+                        else:
+                            print(f"Warning: Cannot get labels for {model_name}")
+                            continue
+                        
+                        if components is not None and vectorizer is not None:
+                             feature_names = vectorizer.get_feature_names_out()
+                             for topic_idx, topic in enumerate(components):
+                                top_n = [feature_names[i] for i in topic.argsort()[:-11:-1]]
+
+                        if labels is not None:
+                            plot_clusters(X_plot, labels, model_name, 
+                                        save_path=os.path.join(viz_dir, f'{model_name}_clusters.png'))
+                    except Exception as e:
+                        raise Exception(f"Error validating/visualizing model {model_name}: {e}") from e

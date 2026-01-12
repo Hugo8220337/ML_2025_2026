@@ -1,8 +1,10 @@
 import pandas as pd
 import numpy as np
 from sklearn.cluster import KMeans, DBSCAN, HDBSCAN
+from sklearn.decomposition import NMF
 from sklearn.mixture import GaussianMixture
 from .metrics import get_clustering_metrics
+
 
 
 
@@ -53,7 +55,7 @@ def train_kmeans(
     labels = model.labels_
     centroids = model.cluster_centers_
 
-    metrics = get_clustering_metrics(X_data, labels, model)
+    metrics = get_clustering_metrics(X_data, labels, model, **kwargs)
 
     return {
         "model": model,
@@ -110,7 +112,7 @@ def train_dbscan(
     n_clusters = len(set(labels)) - (1 if -1 in labels else 0)
     n_noise = list(labels).count(-1)
 
-    metrics = get_clustering_metrics(X_data, labels, model)
+    metrics = get_clustering_metrics(X_data, labels, model, **kwargs)
     metrics['n_clusters'] = n_clusters
     metrics['n_noise'] = n_noise
 
@@ -174,7 +176,7 @@ def train_hdbscan(
     n_noise = list(labels).count(-1)
 
     try:
-        metrics = get_clustering_metrics(X_data, labels, model)
+        metrics = get_clustering_metrics(X_data, labels, model, **kwargs)
         metrics['n_clusters'] = n_clusters
         metrics['n_noise'] = n_noise
     except ValueError as e:
@@ -251,7 +253,7 @@ def train_gmm(
     labels = model.predict(X_data)
     probabilities = model.predict_proba(X_data)
 
-    metrics = get_clustering_metrics(X_data, labels, model)
+    metrics = get_clustering_metrics(X_data, labels, model, **kwargs)
     metrics['bic'] = model.bic(X_data)
     metrics['aic'] = model.aic(X_data)
 
@@ -265,4 +267,78 @@ def train_gmm(
         "metrics": metrics,
         "bic": metrics['bic'],
         "aic": metrics['aic']
+    }
+
+
+def train_nmf(
+    X,
+    feature_columns=None,
+    n_components=2,
+    init=None,
+    solver='cd',
+    beta_loss='frobenius',
+    tol=1e-4,
+    max_iter=200,
+    random_state=None,
+    alpha_W=0.0,
+    alpha_H='same',
+    l1_ratio=0.0,
+    verbose=0,
+    shuffle=False,
+    **kwargs
+):
+    if isinstance(X, pd.DataFrame):
+        if feature_columns:
+            missing = [col for col in feature_columns if col not in X.columns]
+            if missing:
+                print(f"Error: Features {missing} not found in DataFrame.")
+                return None
+            X_data = X[feature_columns]
+        else:
+            X_data = X
+    else:
+        X_data = X
+
+    if (hasattr(X_data, 'min') and X_data.min() < 0) or (hasattr(X_data, 'values') and X_data.values.min() < 0):
+        if hasattr(X_data, 'data') and X_data.data.min() < 0:
+             return None
+        elif not hasattr(X_data, 'data') and np.min(X_data) < 0:
+             return None
+
+    model = NMF(
+        n_components=n_components,
+        init=init,
+        solver=solver,
+        beta_loss=beta_loss,
+        tol=tol,
+        max_iter=max_iter,
+        random_state=random_state,
+        alpha_W=alpha_W,
+        alpha_H=alpha_H,
+        l1_ratio=l1_ratio,
+        verbose=verbose,
+        shuffle=shuffle
+    )
+
+    try:
+        W = model.fit_transform(X_data)
+    except Exception as e:
+        print(f"Error during training: {e}")
+        return None
+    
+    if np.all(model.components_ == 0):
+        return None
+
+    
+    labels = W.argmax(axis=1)
+    metrics = get_clustering_metrics(X_data, labels, model, **kwargs)
+    metrics['reconstruction_err'] = model.reconstruction_err_
+
+    return {
+        "model": model,
+        "labels": labels,
+        "W": W,
+        "H": model.components_,
+        "metrics": metrics,
+        "reconstruction_err": model.reconstruction_err_
     }

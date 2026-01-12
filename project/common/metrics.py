@@ -45,7 +45,7 @@ def get_regression_metrics(y_true, y_pred):
     }
     return metrics
 
-def get_clustering_metrics(X, labels, model=None):
+def get_clustering_metrics(X, labels, model=None, **kwargs):
     metrics = {}
     if model and hasattr(model, 'inertia_'):
         metrics['inertia'] = round(model.inertia_, 4)
@@ -59,9 +59,66 @@ def get_clustering_metrics(X, labels, model=None):
         else:
             metrics['silhouette_score'] = round(silhouette_score(X, labels), 4)
     else:
-        raise ValueError("Silhouette score cannot be calculated with only 1 cluster.")
+        metrics['silhouette_score'] = -1.0
         
+
+    target_metric = kwargs.get('target_metric')
+    texts = kwargs.get('texts')
+    feature_names = kwargs.get('feature_names')
+    dictionary = kwargs.get('dictionary')
+
+    if target_metric == 'coherence' and texts is not None:
+         topics = None
+         
+         if hasattr(model, 'components_'):
+             components = model.components_
+         elif hasattr(model, 'cluster_centers_'):
+             components = model.cluster_centers_
+         else:
+             components = None
+
+         if components is not None:
+             if feature_names is not None:
+                topics = []
+                for topic_idx, topic in enumerate(components):
+                    top_n_indices = topic.argsort()[:-11:-1]
+                    top_words = [feature_names[i] for i in top_n_indices]
+                    topics.append(top_words)
+
+         if topics:
+             metrics['coherence'] = get_coherence_score(topics, texts, dictionary=dictionary, coherence='c_v')
+         else:
+             metrics['coherence'] = 0.0
+
     return metrics
+
+def get_coherence_score(topics, texts, dictionary=None, coherence='c_v'):
+    from gensim.models.coherencemodel import CoherenceModel
+    from gensim.corpora.dictionary import Dictionary
+
+    if texts and isinstance(texts[0], str):
+        from nltk.tokenize import word_tokenize
+        try:
+             import nltk
+             try:
+                 nltk.data.find('tokenizers/punkt_tab')
+             except LookupError:
+                 nltk.download('punkt_tab', quiet=True)
+        except ImportError:
+             pass
+        texts = [word_tokenize(text) for text in texts]
+
+    if dictionary is None:
+        dictionary = Dictionary(texts)
+
+    coherence_model = CoherenceModel(
+        topics=topics, 
+        texts=texts, 
+        dictionary=dictionary, 
+        coherence=coherence,
+        processes=1
+    )
+    return round(coherence_model.get_coherence(), 4)
 
 def evaluate_model(model, X_test, y_test=None):
     
