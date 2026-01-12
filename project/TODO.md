@@ -23,3 +23,12 @@
 * [x] Support dimensionality reduction in EMS
 * [x] Option to skip full data training
 * [ ] Inference motor
+
+
+# Models
+* [x] Modelo 1: Topic Classification | All The News
+* [ ] Modelo 2: Analise de Anomalias | ISOT Fake News Dataset
+* [ ] Modelo 3: Detecao de Stance (Postura) |  FNC-1
+* [ ] Modelo 4: Detecao de Clickbait | Clickbait Dataset
+* [ ] Modelo Final: Fake News Meta-Classifier | FakeNewsNet
+

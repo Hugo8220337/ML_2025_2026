@@ -13,6 +13,11 @@ from sklearn.metrics import (
     r2_score,
     silhouette_score
 )
+from gensim.models.coherencemodel import CoherenceModel
+from gensim.corpora.dictionary import Dictionary
+from nltk.tokenize import word_tokenize
+import nltk
+
 
 def get_classification_metrics(y_true, y_pred, y_prob=None):
     metrics = {
@@ -93,13 +98,8 @@ def get_clustering_metrics(X, labels, model=None, **kwargs):
     return metrics
 
 def get_coherence_score(topics, texts, dictionary=None, coherence='c_v'):
-    from gensim.models.coherencemodel import CoherenceModel
-    from gensim.corpora.dictionary import Dictionary
-
     if texts and isinstance(texts[0], str):
-        from nltk.tokenize import word_tokenize
         try:
-             import nltk
              try:
                  nltk.data.find('tokenizers/punkt_tab')
              except LookupError:

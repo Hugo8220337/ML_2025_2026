@@ -19,4 +19,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     os.environ["CACHE_STRATEGY"] = args.cache_data
 
-    tc()
+    # tc(models=['kmeans', 'hdbscan', 'gmm'], reduction='nmf', options='default', vectorizer_type='hashing', visualizations=True)
+    # tc(models=['nmf'], reduction=None, options='default', vectorizer_type='tfidf', visualizations=True)
+
+    
