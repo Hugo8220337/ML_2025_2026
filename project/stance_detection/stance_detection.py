@@ -10,7 +10,7 @@ from common.cache import CacheManager
 from common.visualizations import plot_model_comparison, plot_stance_confusion_matrix
 
 
-def stance_detection(models=['logistic_regression'], target_metric='accuracy', reduction='lsa', options='quick', vectorizer_type='tfidf', visualizations=False):
+def stance_detection(models=['logistic_regression'], target_metric='accuracy', reduction=None, options='quick', vectorizer_type='tfidf', visualizations=False):
     cache = CacheManager(module_name='stance_detection')
     file_path = 'datasets/fnc1/'
 
