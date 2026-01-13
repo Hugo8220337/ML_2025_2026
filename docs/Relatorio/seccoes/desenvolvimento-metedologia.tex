@@ -31,6 +31,8 @@ A análise dos resultados desta segunda abordagem revelou uma segmentação inef
 	\centering
 	\small
 	\renewcommand{\arraystretch}{1.2}
+	\caption{Comparação das métricas de qualidade obtidas nas diferentes abordagens testadas para classificação de tópicos.}
+	\label{tab:topic-clustering-comparison}
 	\begin{tabular}{lllr}
 		\toprule % Linha grossa no topo
 		\textbf{Redução} & \textbf{Modelo} & \textbf{Métrica} & \textbf{Score} \\
@@ -52,8 +54,6 @@ A análise dos resultados desta segunda abordagem revelou uma segmentação inef
 		--  & NMF (TF-IDF) & Coerência & \textbf{0.7279} \\
 		\bottomrule % Linha grossa no final
 	\end{tabular}
-	\caption{Comparação das métricas de qualidade obtidas nas diferentes abordagens testadas para classificação de tópicos.}
-	\label{tab:topic-clustering-comparison}
 \end{table}
 
 Consequentemente, a metodologia final evoluiu para o uso de NMF diretamente sobre TF-IDF como técnica de modelação de tópicos, em vez de apenas redução para clustering (\textit{Pré-processamento} $\rightarrow$ \textit{TF-IDF} $\rightarrow$ \textit{NMF}). A escolha do NMF justifica-se pela sua capacidade de criar "clusters probabilísticos", onde um documento não pertence apenas a um grupo de forma binária, mas possui um peso de pertença (ex: Tópico A: 0.9, Tópico B: 0.1), o que é mais representativo da realidade das notícias.
@@ -68,6 +68,36 @@ Para a avaliação e otimização final, substituiu-se o critério geométrico (
 \end{figure}
 
 \subsection{Modelo 2: Análise de Anomalias} \label{subsec:anomaly-analysis}
+Para a deteção de anomalias, assumiu-se que notícias falsas divergem estruturalmente das verdadeiras, comportando-se como \textit{outliers}. Utilizou-se o \textit{dataset} ISOT unificado (com coluna de classe adicionada), adotando-se uma estratégia de deteção de novidade com contaminação controlada: os modelos foram treinados maioritariamente com notícias verdadeiras, mas com uma contaminação de 5\% de dados falsos para aumentar a robustez a ruído.
+
+Foram comparados dois algoritmos: \textit{Isolation Forest}, pela sua eficiência em isolar anomalias em alta dimensionalidade, e \textit{Dense Autoencoder}, pela capacidade de detetar erros de reconstrução em padrões não aprendidos. Como demonstra a Tabela \ref{tab:anomaly-results}, ambos obtiveram uma performance muito semelhante, com o \textit{Isolation Forest} a apresentar uma vantagem marginal no F1-Score, validando qualquer um dos modelos para a solução.
+
+\begin{table}[h]
+	\centering
+	\small
+	\renewcommand{\arraystretch}{1.2}
+	\caption{Comparação do desempenho (F1-Score) entre os modelos de deteção de anomalias.}
+	\label{tab:anomaly-results}
+	\begin{tabular}{lc}
+		\toprule % Linha grossa no topo
+		\textbf{Modelo} & \textbf{F1-Score-Weighted} \\
+		\midrule % Linha média separando o cabeçalho
+		
+		Isolation Forest & 0.9226 \\
+		Dense Autoencoder & 0.9175 \\
+		
+		\bottomrule % Linha grossa no final
+	\end{tabular}
+\end{table}
+
+A análise visual da dispersão (Figura \ref{fig:anomaly-scatter}) revela que ambos os modelos identificam mais anomalias do que a classificação original. No entanto, o \textit{Dense Autoencoder} demonstra um comportamento mais conservador do que o \textit{Isolation Forest}, apresentando uma densidade de pontos anómalos (vermelhos) visualmente mais próxima da distribuição real, sugerindo a existência de padrões latentes no texto que transcendem a rotulagem binária original.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{imagens/anomaly_scatterplot}
+	\caption{Comparação visual da distribuição de anomalias: (Esquerda) Classificação real; (Centro) Predição Isolation Forest; (Direita) Predição Dense Autoencoder.}
+	\label{fig:anomaly-scatter}
+\end{figure}
 
 \subsection{Modelo 3: Deteção de Stance (Postura)} \label{subsec:stance-detection}
 

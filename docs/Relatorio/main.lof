@@ -1,3 +1,4 @@
 \babel@toc {portuguese}{}\relax 
 \contentsline {figure}{\numberline {1}{\ignorespaces Diagrama da Arquitetura Hierárquica do Sistema}}{7}{figure.caption.1}%
 \contentsline {figure}{\numberline {2}{\ignorespaces Visualização da distribuição dos tópicos obtidos com a abordagem final utilizando NMF.}}{15}{figure.caption.6}%
+\contentsline {figure}{\numberline {3}{\ignorespaces Comparação visual da distribuição de anomalias: (Esquerda) Classificação real; (Centro) Predição Isolation Forest; (Direita) Predição Dense Autoencoder.}}{16}{figure.caption.8}%
