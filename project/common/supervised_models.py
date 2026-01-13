@@ -9,6 +9,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from sklearn.naive_bayes import GaussianNB, MultinomialNB
 from .metrics import evaluate_model, get_classification_metrics
+from xgboost import XGBClassifier
 
 def train_linear_regression(
     X,
@@ -461,4 +462,60 @@ def train_isolation_forest(
         "model": model,
         "metrics": metrics,
         "test_data": {"y_test": y_test, "predictions": preds_mapped if 'preds_mapped' in locals() else None}
+    }
+
+def train_xgboost(
+    X,
+    y,
+    X_test=None,
+    y_test=None,
+    test_size=0.2,
+    split_random_state=42,
+    n_estimators=100,
+    max_depth=3,
+    learning_rate=0.1,
+    subsample=1.0,
+    colsample_bytree=1.0,
+    gamma=0,
+    n_jobs=-1,
+    random_state=42,
+    use_label_encoder=False,
+    eval_metric='logloss',
+    **kwargs
+):
+    if X_test is None or y_test is None:
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=test_size, random_state=split_random_state
+        )
+    else:
+        X_train, y_train = X, y
+
+    model = XGBClassifier(
+        n_estimators=n_estimators,
+        max_depth=max_depth,
+        learning_rate=learning_rate,
+        subsample=subsample,
+        colsample_bytree=colsample_bytree,
+        gamma=gamma,
+        n_jobs=n_jobs,
+        random_state=random_state,
+        use_label_encoder=use_label_encoder,
+        eval_metric=eval_metric,
+        **kwargs
+    )
+
+    try:
+        model.fit(X_train, y_train)
+    except Exception as e:
+        print(f"Error during XGBoost training: {e}")
+        return None
+
+    predictions = model.predict(X_test)
+    evaluation = evaluate_model(model, X_test, y_test)
+
+    return {
+        "model": model,
+        "metrics": evaluation['metrics'],
+        "test_data": {"y_test": y_test, "predictions": predictions},
+        "feature_importances": model.feature_importances_
     }

@@ -7,6 +7,8 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 from topic_classification.topic_classification import topic_classification as tc
 from anomaly_detection.anomaly_detection import anomaly_detection as ad
 from stance_detection.stance_detection import stance_detection as sd
+from clickbait_detection.clickbait_detection import clickbait_detection as cd
+
 
 
 
@@ -28,4 +30,4 @@ if __name__ == "__main__":
     # tc(models=['nmf'], target_metric='coherence', reduction=None, options='default', vectorizer_type='tfidf', visualizations=True)
     # ad(models=['isolation_forest', 'dense_autoencoder'], target_metric='f1_weighted', reduction=None, options='quick', vectorizer_type='tfidf', visualizations=True)
     # sd(models=['svm', 'random_forest'], target_metric='f1_macro', reduction=None, options='default', vectorizer_type='tfidf', visualizations=True)
-
+    cd(models=['xgboost', 'cnn'], target_metric='f1_weighted', reduction=None, options='default', vectorizer_type='tfidf', visualizations=True)

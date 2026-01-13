@@ -1,55 +1,57 @@
 import json
-from pathlib import Path
-
+import os
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
 from common.nlp import tfidf_vectorize
-from common.supervised_models import (
-    train_logistic_regression,
-    train_svm,
-)
-from common.tools import export_model_results_csv, load, read_csv
-
-# DATA_PATH = 'datasets/clickbait/clickbait_data.csv'
-DATA_PATH = (
-    Path(__file__).resolve().parents[1]
-    / "datasets"
-    / "clickbait"
-    / "clickbait_data.csv"
-)
+from common.tools import read_csv
+from evolutionary_model_selection.ems import ems
+from common.cache import CacheManager
+from common.visualizations import plot_model_comparison, plot_confusion_matrices
 
 
-def _train_setence_detection_logistic_regression(X, y):
-    with load("Train Logistic Regression Model..."):
-        logistic_regression_results = train_logistic_regression(X, y)
-    print("Logistic Regression model training complete.")
-    print(json.dumps(logistic_regression_results["metrics"]["accuracy"], indent=4))
+def clickbait_detection(models=['xgboost'], target_metric='f1_weighted', reduction=None, options='default', vectorizer_type='tfidf', visualizations=False):
+    cache = CacheManager(module_name='clickbait_detection')
+    file_path = 'datasets/clickbait/'
 
-    return logistic_regression_results
+    
 
-
-def _train_setence_detection_svm(X, y):
-    with load("Train SVM Model..."):
-        svm_results = train_svm(X, y)
-    print("SVM model training complete.")
-    print(json.dumps(svm_results["metrics"]["accuracy"], indent=4))
-
-    return svm_results
+    def preprocessing(file_path):
+        df = read_csv(file_path+'clickbait_data.csv')
+        return df
 
 
-def clickbait_detection():
-    df = read_csv(DATA_PATH)
-    if df is None:
-        raise FileNotFoundError(f"CSV não encontrado em {DATA_PATH}")
 
-    dx = df["headline"]
-    dy = df["clickbait"]
+    df = cache.execute(task_name='read_csv',
+                       func=lambda: preprocessing(file_path),
+                       inputs=file_path)
 
-    X, vectorizer = tfidf_vectorize(df, col_name="headline")
-    logistic_regression_results = _train_setence_detection_logistic_regression(X, dy)
-    svm_results = _train_setence_detection_svm(X, dy)
+    X = df['headline']
+    y = df['clickbait']
 
-    all_results = {
-        "Logistic Regression": logistic_regression_results,
-        "SVM": svm_results,
-    }
 
-    export_model_results_csv(all_results, "setence_detection_results.csv")
+    result = cache.execute(task_name='ems',
+                           func=lambda: ems(
+                            X=X,
+                            y=y, 
+                            models=models,
+                            target_metric=target_metric,
+                            report=True, 
+                            options=options, 
+                            reduction=reduction, 
+                            vectorizer_type=vectorizer_type),
+                           inputs=[X, y],
+                           params={'models': models, 'options': options, 'reduction': reduction, 'vectorizer_type': vectorizer_type})
+
+    with open('output.txt', 'w') as f:
+        print(result, file=f)
+
+
+    if visualizations:
+        viz_dir = 'files/visualizations/clickbait_detection'
+        os.makedirs(viz_dir, exist_ok=True)
+
+        plot_model_comparison(result, save_path=os.path.join(viz_dir, 'model_comparison.png'))
+
+        plot_confusion_matrices(result, save_path=os.path.join(viz_dir, 'confusion_matrices.png'))
+        

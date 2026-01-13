@@ -1,3 +1,4 @@
+import math
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
@@ -106,6 +107,51 @@ def plot_clusters(X_reduced, labels, model_name, save_path=None, title=None):
         plt.savefig(save_path, dpi=150, bbox_inches='tight')
     
     plt.close()
+
+
+def plot_confusion_matrices(results, save_path=None):
+    models_data = results.get('other', {})
+    if not models_data:
+        print("No model results found to plot.")
+        return
+
+    n_models = len(models_data)
+    cols = 3
+    rows = math.ceil(n_models / cols)
+    
+    fig, axes = plt.subplots(rows, cols, figsize=(cols * 5, rows * 4))
+    axes = axes.flatten() if n_models > 1 else [axes]
+
+    for i, (model_name, data) in enumerate(models_data.items()):
+        ax = axes[i]
+        
+        cm = np.array(data['metrics']['confusion_matrix'])
+        
+        # Calculate percentages
+        cm_sum = np.sum(cm, axis=1, keepdims=True)
+        cm_perc = cm / cm_sum.astype(float) * 100
+        
+        annot = [f"{val}\n({perc:.1f}%)" for val, perc in zip(cm.flatten(), cm_perc.flatten())]
+        annot = np.array(annot).reshape(cm.shape)
+
+        sns.heatmap(cm, annot=annot, fmt='', cmap='Blues', ax=ax, cbar=False)
+        
+        ax.set_title(f"{model_name}\n(Score: {data['score']:.4f})")
+        ax.set_ylabel('True Label')
+        ax.set_xlabel('Predicted Label')
+
+    for j in range(i + 1, len(axes)):
+        axes[j].axis('off')
+
+    plt.tight_layout()
+    
+    if save_path:
+        plt.savefig(save_path, dpi=300, bbox_inches='tight')
+        print(f"Confusion matrices saved to {save_path}")
+        plt.close()
+    else:
+        plt.show()
+        
 
 def _get_test_data(model_data):
     if 'test_data' in model_data:

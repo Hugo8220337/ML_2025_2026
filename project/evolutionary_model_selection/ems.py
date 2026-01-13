@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 from evolutionary_model_selection.genetic_algorithm import run_genetic_algorithm
 from common.supervised_models import *
 from common.unsupervised_models import *
-from common.deep_learning import train_dense_autoencoder
+from common.deep_learning import train_dense_autoencoder, train_cnn
 from common.dimensionality_reduction import apply_pca, apply_nmf, apply_lda, apply_lsa
 from common.nlp import preprocessing, tfidf_vectorize, hashing_vectorize
 from common.cache import CacheManager
@@ -16,6 +16,7 @@ import datetime
 
 warnings.filterwarnings('ignore', category=UserWarning, module='sklearn')
 warnings.filterwarnings('ignore', category=FutureWarning, module='sklearn')
+warnings.filterwarnings('ignore', category=UserWarning, module='xgboost')
 
 
 SUPERVISED_MODELS = {
@@ -28,7 +29,9 @@ SUPERVISED_MODELS = {
     'svm',
     'naive_bayes',
     'isolation_forest',
-    'dense_autoencoder'
+    'xgboost',
+    'dense_autoencoder',
+    'cnn'
 }
 
 UNSUPERVISED_MODELS = {
@@ -58,7 +61,9 @@ MODEL_REGISTRY = {
     'svm': train_svm,
     'naive_bayes': train_naive_bayes,
     'isolation_forest': train_isolation_forest,
+    'xgboost': train_xgboost,
     'dense_autoencoder': train_dense_autoencoder,
+    'cnn': train_cnn,
     # Unsupervised
     'kmeans': train_kmeans,
     'dbscan': train_dbscan,
@@ -131,6 +136,22 @@ MODEL_BOUNDS = {
         (0.01, 0.1),   # contamination
         (0, 2),        # max_features: 0=1.0, 1=0.8, 2=0.5
         (0, 2),        # bootstrap: 0=False, 1=True
+    ],
+    'xgboost': [
+        (50, 300),     # 0: n_estimators
+        (3, 10),       # 1: max_depth
+        (-3.0, -0.5),  # 2: learning_rate (Log scale: 0.001 to 0.3)
+        (0.5, 1.0),    # 3: subsample
+        (0.5, 1.0),    # 4: colsample_bytree
+        (0.0, 0.5),    # 5: gamma
+    ],
+    'cnn': [
+        (32, 128),     # 0: filters
+        (2, 5),        # 1: kernel_size
+        (16, 100),     # 2: embedding_dim
+        (16, 64),      # 3: dense_units
+        (0.0, 0.5),    # 4: dropout
+        (-4.0, -2.0),  # 5: learning_rate (log scale)
     ],
     'dense_autoencoder': [
         (16, 128),     # encoding_dim: Size of the bottleneck
@@ -208,10 +229,18 @@ def get_default_genes(model_name):
     elif model_name == 'isolation_forest':
         # n_estimators=100, contamination=0.1, max_features=sqrt(0), bootstrap=False(0),
         defaults['genes'] = [100.0, 0.1, 0.0, 0.0]
+
+    elif model_name == 'xgboost':
+        # n_est=100, depth=3, lr=0.1 (-1.0), sub=1.0, col=1.0, gamma=0
+        defaults['genes'] = [100.0, 3.0, -1.0, 1.0, 1.0, 0.0]
         
     elif model_name == 'dense_autoencoder':
         # Default: 32 dim, 1e-3 lr, 0.1 dropout, 64 batch
         defaults['genes'] = [32.0, -3.0, 0.1, 1.0]
+
+    elif model_name == 'cnn':
+        # filters=64, kernel=3, embed=50, dense=32, drop=0.2, lr=0.001(-3.0)
+        defaults['genes'] = [64.0, 3.0, 50.0, 32.0, 0.2, -3.0]
 
     # Unsupervised models
     elif model_name == 'kmeans':
@@ -355,6 +384,15 @@ def decode_params(model_name, genes):
         params['bootstrap'] = True if int(genes[3]) == 1 else False
         params['n_jobs'] = -1
 
+    elif model_name == 'xgboost':
+        params['n_estimators'] = int(genes[0])
+        params['max_depth'] = int(genes[1])
+        params['learning_rate'] = float(10 ** genes[2])
+        params['subsample'] = float(genes[3])
+        params['colsample_bytree'] = float(genes[4])
+        params['gamma'] = float(genes[5])
+        params['n_jobs'] = -1  # Force CPU parallelization
+
     elif model_name == 'dense_autoencoder':
         params['encoding_dim'] = int(genes[0])
         params['learning_rate'] = float(10 ** genes[1])
@@ -362,6 +400,15 @@ def decode_params(model_name, genes):
         batch_map = {0: 32, 1: 64, 2: 128}
         params['batch_size'] = batch_map.get(int(genes[3]), 64)
         params['epochs'] = 5 
+
+    elif model_name == 'cnn':
+        params['filters'] = int(genes[0])
+        params['kernel_size'] = int(genes[1])
+        params['embedding_dim'] = int(genes[2])
+        params['dense_units'] = int(genes[3])
+        params['dropout'] = float(genes[4])
+        params['learning_rate'] = float(10 ** genes[5])
+        params['epochs'] = 5
 
     # Unsupervised models
     elif model_name == 'kmeans':
@@ -624,6 +671,7 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
         X_test_processed = preproc_result['X_test_vec']
         vectorizer = preproc_result['vectorizer']
         tokens_train = preproc_result['tokens_train']
+        tokens_test = preproc_result['tokens_test']
         if reduction is not None:
             print(f"-> Applying dimensionality reduction: {reduction}")
             reduction_result = reduce_dimensions(X_train_processed, method=reduction)
@@ -697,7 +745,16 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
                 feature_names = vectorizer.get_feature_names_out()
             
             try:
-                default_result = train_func(X_train_processed, y_train, X_test=X_test_processed, y_test=y_test, target_metric=target_metric, texts=tokens_train, feature_names=feature_names)
+                default_result = train_func(
+                    X_train_processed,
+                    y_train,
+                    X_test=X_test_processed,
+                    y_test=y_test,
+                    target_metric=target_metric,
+                    texts=tokens_train,
+                    texts_test=tokens_test,
+                    feature_names=feature_names
+                    )
                 if default_result and 'metrics' in default_result:
                     default_score = default_result['metrics'].get(target_metric, worst_score)
                     print(f"   -> Default Score ({target_metric}): {default_score:.4f}")
@@ -713,7 +770,16 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
                 params = decode_params(model_name, individual)
                 
                 try:
-                    result = train_func(X_train_processed, y_train, X_test=X_test_processed, y_test=y_test, target_metric=target_metric, texts=tokens_train, feature_names=feature_names, **params)
+                    result = train_func(
+                        X_train_processed,
+                        y_train,
+                        X_test=X_test_processed,
+                        y_test=y_test,
+                        target_metric=target_metric,
+                        texts=tokens_train,
+                        texts_test=tokens_test,
+                        feature_names=feature_names,
+                        **params)
                     if result and 'metrics' in result:
                         score = result['metrics'].get(target_metric, worst_score)
                         print(f"   [Eval {eval_counter[0]}] Score: {score:.4f}", end='\r')
@@ -821,7 +887,16 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
             })
 
             try:
-                partial_result = train_func(X_train_processed, y_train, X_test=X_test_processed, y_test=y_test, target_metric=target_metric, texts=tokens_train, feature_names=feature_names, **final_train_params)
+                partial_result = train_func(
+                    X_train_processed,
+                    y_train,
+                    X_test=X_test_processed,
+                    y_test=y_test,
+                    target_metric=target_metric,
+                    texts=tokens_train,
+                    texts_test=tokens_test,
+                    feature_names=feature_names,
+                    **final_train_params)
                 partial_model = partial_result.get('model')
                 partial_score = partial_result['metrics'].get(target_metric, best_run_score)
                 
@@ -829,7 +904,8 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
                     'model': partial_model,
                     'score': partial_score,
                     'info': {'model_name': model_name, 'score': partial_score, 'params': final_train_params},
-                    'pipeline': {}  
+                    'pipeline': {},
+                    'metrics': partial_result.get('metrics', {})
                 }
             except Exception as e:
                 print(f"   -> Error storing partial model for {model_name}: {e}")
@@ -842,7 +918,16 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
         else:
             print(f"   -> Running default training for {model_name}...")
             try:
-                result = train_func(X_train_processed, y_train, X_test=X_test_processed, y_test=y_test, target_metric=target_metric, texts=tokens_train, feature_names=feature_names)
+                result = train_func(
+                    X_train_processed,
+                    y_train,
+                    X_test=X_test_processed,
+                    y_test=y_test,
+                    target_metric=target_metric,
+                    texts=tokens_train,
+                    texts_test=tokens_test,
+                    feature_names=feature_names
+                    )
                 score = result['metrics'].get(target_metric, -float('inf') if should_maximize else float('inf'))
                 print(f"   -> Score: {score:.4f}")
                 
@@ -857,7 +942,8 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
                     'model': result.get('model'),
                     'score': score,
                     'info': {'model_name': model_name, 'score': score, 'params': {}},
-                    'pipeline': {}      
+                    'pipeline': {},
+                    'metrics': result.get('metrics', {})
                 }
             except Exception as e:
                 print(f"   -> Error evaluating {model_name}: {e}")
@@ -912,7 +998,14 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
             if hasattr(final_vectorizer, 'get_feature_names_out'):
                 final_feature_names = final_vectorizer.get_feature_names_out()
 
-            final_run = train_func(*run_inputs, target_metric=target_metric, texts=final_tokens, feature_names=final_feature_names, **final_train_params)
+            final_run = train_func(
+                                *run_inputs, 
+                                target_metric=target_metric,
+                                texts=final_tokens,
+                                texts_test=None,
+                                feature_names=final_feature_names,
+                                **final_train_params
+                                )
             
             final_score = final_run['metrics'].get(target_metric, best_candidate['score'])
             print(f"   -> Final Score: {final_score:.4f}")
@@ -933,7 +1026,8 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
                 'model': final_run['model'], 
                 'score': final_score, 
                 'info': model_info,
-                'pipeline': pipeline_dict
+                'pipeline': pipeline_dict,
+                'metrics': final_run['metrics']
             }
             
             model_cache.execute(
