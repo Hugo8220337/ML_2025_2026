@@ -38,7 +38,7 @@ def plot_model_comparison(results, save_path=None, title="Model Performance Comp
                 ha='center', va='bottom', fontsize=11, fontweight='bold')
     
     plt.xlabel('Model', fontsize=12)
-    plt.ylabel('Silhouette Score', fontsize=12)
+    plt.ylabel('Score', fontsize=12)
     plt.title(title, fontsize=14, fontweight='bold')
     plt.ylim(0, max(scores) * 1.15)
     plt.grid(axis='y', alpha=0.3)
