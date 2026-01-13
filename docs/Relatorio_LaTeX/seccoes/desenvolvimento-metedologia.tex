@@ -94,12 +94,38 @@ A análise visual da dispersão (Figura \ref{fig:anomaly-scatter}) revela que am
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.8\linewidth]{imagens/anomaly_scatterplot}
+	\includegraphics[width=1.0\linewidth]{imagens/anomaly_scatterplot}
 	\caption{Comparação visual da distribuição de anomalias: (Esquerda) Classificação real; (Centro) Predição Isolation Forest; (Direita) Predição Dense Autoencoder.}
 	\label{fig:anomaly-scatter}
 \end{figure}
 
 \subsection{Modelo 3: Deteção de Stance (Postura)} \label{subsec:stance-detection}
+
+O objetivo deste modelo é identificar a relação de concordância entre o título da notícia e o seu corpo, assumindo que notícias falsas apresentam frequentemente incoerências ou títulos "clickbait" que não correspondem ao conteúdo textual.
+
+O principal desafio encontrado no desenvolvimento deste modelo foi o  desequilíbrio do \textit{dataset}. A classe maioritária ("unrelated" ou neutro) dominava as restantes, enviesando o modelo. Para mitigar este problema, aplicou-se uma técnica de \textit{undersampling}, reduzindo aleatoriamente o número de exemplos da classe dominante até se obter uma distribuição equilibrada entre as classes, permitindo ao modelo aprender padrões distintivos de todas as categorias.
+
+Na fase de vetorização, optou-se por aumentar a complexidade da representação TF-IDF para capturar melhor o contexto semântico. O parâmetro \texttt{max\_features} foi aumentado para expandir o vocabulário considerado, e o intervalo de \textit{n-grams} foi configurado para $(1, 3)$. Isto significa que o modelo passou a analisar não apenas palavras isoladas (unigramas), mas também sequências de duas e três palavras (bigramas e trigramas), capturando expressões compostas essenciais para determinar a postura do texto.
+
+Contrariamente aos módulos anteriores, não foi aplicada qualquer redução de dimensionalidade. As experiências realizadas demonstraram que a compressão do espaço vetorial resultava numa perda significativa de qualidade, indicando que a dispersão original dos dados era necessária para uma classificação eficaz. Dada a simplicidade e a alta dimensionalidade dos dados resultantes, comparou-se o desempenho de uma \textit{Support Vector Machine} (SVM) e de uma \textit{Random Forest}.
+
+\begin{table}[h]
+	\centering
+	\small
+	\renewcommand{\arraystretch}{1.2}
+	\caption{Comparação do desempenho (F1-Score Macro) para a deteção de Stance.}
+	\label{tab:stance-results}
+	\begin{tabular}{lc}
+		\toprule
+		\textbf{Modelo} & \textbf{F1-Score (Macro)} \\
+		\midrule
+		SVM & 0.8430 \\
+		Random Forest & 0.5021 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+Os resultados, apresentados na Tabela \ref{tab:stance-results}, revelam uma grande diferença de desempenho. A SVM obteve um F1-Score de 0.8430, demonstrando uma capacidade muito superior para lidar com a alta dimensionalidade dos vetores de texto gerados pelos \textit{n-grams}, enquanto o \textit{Random Forest} revelou-se ineficaz para este nível de complexidade vetorial.
 
 \subsection{Modelo 4: Deteção de Clickbait} \label{subsec:clickbait-detection}
 
