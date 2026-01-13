@@ -6,6 +6,8 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 from topic_classification.topic_classification import topic_classification as tc
 from anomaly_detection.anomaly_detection import anomaly_detection as ad
+from stance_detection.stance_detection import stance_detection as sd
+
 
 
 if __name__ == "__main__":
@@ -24,6 +26,6 @@ if __name__ == "__main__":
 
     # tc(models=['kmeans', 'hdbscan', 'gmm'], target_metric='silhouette_score' reduction='nmf', options='default', vectorizer_type='hashing', visualizations=True)
     # tc(models=['nmf'], target_metric='coherence', reduction=None, options='default', vectorizer_type='tfidf', visualizations=True)
-    ad(models=['isolation_forest', 'dense_autoencoder'], target_metric='f1_weighted', reduction=None, options='quick', vectorizer_type='tfidf', visualizations=True)
-
-    
+    # ad(models=['isolation_forest', 'dense_autoencoder'], target_metric='f1_weighted', reduction=None, options='quick', vectorizer_type='tfidf', visualizations=True)
+    # sd(models=['logistic_regression', 'random_forest', 'svm', 'naive_bayes'], target_metric='f1_macro', reduction='lsa', options='default', vectorizer_type='tfidf', visualizations=True)
+    sd()

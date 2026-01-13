@@ -4,9 +4,8 @@
 * [x] Implement Naive Bayes
 * [x] Implement DBSCAN and GMM
 * [x] Implement Dimensionality reduction
-* [ ] Study use case for isolation forest
-* [ ] Study use case for elastic net instead of linear regression
-* [ ] Study use case for CNN, LSTM and Bi-LSTM
+* [x] Study use case for isolation forest
+* [x] Study use case for CNN, LSTM and Bi-LSTM
 * [ ] Streamlit front end [Implementation Plan](Dashboard.md)
 * [ ] Deploy
 * [ ] Write documentation <!-- ahahahahahhahahaha  -->
@@ -27,7 +26,7 @@
 
 # Models
 * [x] Modelo 1: Topic Classification | All The News
-* [ ] Modelo 2: Analise de Anomalias | ISOT Fake News Dataset
+* [x] Modelo 2: Analise de Anomalias | ISOT Fake News Dataset
 * [ ] Modelo 3: Detecao de Stance (Postura) |  FNC-1
 * [ ] Modelo 4: Detecao de Clickbait | Clickbait Dataset
 * [ ] Modelo Final: Fake News Meta-Classifier | FakeNewsNet

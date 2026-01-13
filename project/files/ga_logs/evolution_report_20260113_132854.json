@@ -1,0 +1,1732 @@
+[
+  {
+    "model": "logistic_regression",
+    "generation": 0,
+    "stats": {
+      "best_score": -Infinity,
+      "avg_score": -Infinity,
+      "min_score": null,
+      "max_score": null,
+      "failed_evals": 15
+    },
+    "best": {
+      "index": 0,
+      "score": -Infinity,
+      "parameters": {
+        "C": 1.0,
+        "solver": "lbfgs",
+        "penalty": "l2",
+        "class_weight": null
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": -Infinity,
+        "parameters": {
+          "C": 1.0,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 1,
+        "score": -Infinity,
+        "parameters": {
+          "C": 2.4812290686034917,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 2,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.0201428003282002,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 3,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.6339999788118006,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 4,
+        "score": -Infinity,
+        "parameters": {
+          "C": 79.51911993397279,
+          "solver": "lbfgs",
+          "penalty": null,
+          "class_weight": "balanced"
+        }
+      },
+      {
+        "index": 5,
+        "score": -Infinity,
+        "parameters": {
+          "C": 6.355360223891856,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 6,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.1434964056002359,
+          "solver": "lbfgs",
+          "penalty": null,
+          "class_weight": null
+        }
+      },
+      {
+        "index": 7,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.027581855231679726,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 8,
+        "score": -Infinity,
+        "parameters": {
+          "C": 219.9205129748452,
+          "solver": "lbfgs",
+          "penalty": null,
+          "class_weight": "balanced"
+        }
+      },
+      {
+        "index": 9,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.417045213986148,
+          "solver": "saga",
+          "penalty": "l2",
+          "class_weight": "balanced"
+        }
+      },
+      {
+        "index": 10,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.04160863324803119,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 11,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.00047241086069045303,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 12,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.00020806635904636162,
+          "solver": "saga",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 13,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.0031971842207240185,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 14,
+        "score": -Infinity,
+        "parameters": {
+          "C": 1.8087471838765625,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": "balanced"
+        }
+      }
+    ]
+  },
+  {
+    "model": "logistic_regression",
+    "generation": 1,
+    "stats": {
+      "best_score": -Infinity,
+      "avg_score": -Infinity,
+      "min_score": null,
+      "max_score": null,
+      "failed_evals": 15
+    },
+    "best": {
+      "index": 0,
+      "score": -Infinity,
+      "parameters": {
+        "C": 1.8087471838765625,
+        "solver": "lbfgs",
+        "penalty": "l2",
+        "class_weight": "balanced"
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": -Infinity,
+        "parameters": {
+          "C": 1.8087471838765625,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": "balanced"
+        }
+      },
+      {
+        "index": 1,
+        "score": -Infinity,
+        "parameters": {
+          "C": 79.51911993397279,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 2,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.1434964056002359,
+          "solver": "saga",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 3,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.00020806635904636162,
+          "solver": "lbfgs",
+          "penalty": null,
+          "class_weight": null
+        }
+      },
+      {
+        "index": 4,
+        "score": -Infinity,
+        "parameters": {
+          "C": 503.5406536233344,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 5,
+        "score": -Infinity,
+        "parameters": {
+          "C": 2.369796818830348,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 6,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.04160863324803119,
+          "solver": "lbfgs",
+          "penalty": null,
+          "class_weight": "balanced"
+        }
+      },
+      {
+        "index": 7,
+        "score": -Infinity,
+        "parameters": {
+          "C": 219.9205129748452,
+          "solver": "lbfgs",
+          "penalty": null,
+          "class_weight": null
+        }
+      },
+      {
+        "index": 8,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.6339999788118006,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": "balanced"
+        }
+      },
+      {
+        "index": 9,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.6339999788118006,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 10,
+        "score": -Infinity,
+        "parameters": {
+          "C": 1.0,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": "balanced"
+        }
+      },
+      {
+        "index": 11,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.03183812906576913,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 12,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 13,
+        "score": -Infinity,
+        "parameters": {
+          "C": 7190.51700365979,
+          "solver": "lbfgs",
+          "penalty": null,
+          "class_weight": null
+        }
+      },
+      {
+        "index": 14,
+        "score": -Infinity,
+        "parameters": {
+          "C": 90.59940828337508,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      }
+    ]
+  },
+  {
+    "model": "logistic_regression",
+    "generation": 2,
+    "stats": {
+      "best_score": -Infinity,
+      "avg_score": -Infinity,
+      "min_score": null,
+      "max_score": null,
+      "failed_evals": 15
+    },
+    "best": {
+      "index": 0,
+      "score": -Infinity,
+      "parameters": {
+        "C": 90.59940828337508,
+        "solver": "lbfgs",
+        "penalty": "l2",
+        "class_weight": null
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": -Infinity,
+        "parameters": {
+          "C": 90.59940828337508,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 1,
+        "score": -Infinity,
+        "parameters": {
+          "C": 219.9205129748452,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 2,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "saga",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 3,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.1434964056002359,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 4,
+        "score": -Infinity,
+        "parameters": {
+          "C": 1.4729709187590723,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 5,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.6339999788118006,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 6,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.0001,
+          "solver": "lbfgs",
+          "penalty": null,
+          "class_weight": null
+        }
+      },
+      {
+        "index": 7,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 8,
+        "score": -Infinity,
+        "parameters": {
+          "C": 79.51911993397279,
+          "solver": "saga",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 9,
+        "score": -Infinity,
+        "parameters": {
+          "C": 79.51911993397279,
+          "solver": "saga",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 10,
+        "score": -Infinity,
+        "parameters": {
+          "C": 503.5406536233344,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 11,
+        "score": -Infinity,
+        "parameters": {
+          "C": 219.9205129748452,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 12,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": "balanced"
+        }
+      },
+      {
+        "index": 13,
+        "score": -Infinity,
+        "parameters": {
+          "C": 79.51911993397279,
+          "solver": "lbfgs",
+          "penalty": null,
+          "class_weight": null
+        }
+      },
+      {
+        "index": 14,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      }
+    ]
+  },
+  {
+    "model": "logistic_regression",
+    "generation": 3,
+    "stats": {
+      "best_score": -Infinity,
+      "avg_score": -Infinity,
+      "min_score": null,
+      "max_score": null,
+      "failed_evals": 15
+    },
+    "best": {
+      "index": 0,
+      "score": -Infinity,
+      "parameters": {
+        "C": 10000.0,
+        "solver": "lbfgs",
+        "penalty": "l2",
+        "class_weight": null
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 1,
+        "score": -Infinity,
+        "parameters": {
+          "C": 503.5406536233344,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 2,
+        "score": -Infinity,
+        "parameters": {
+          "C": 43.896171668629485,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 3,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.0001,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 4,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 5,
+        "score": -Infinity,
+        "parameters": {
+          "C": 79.51911993397279,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 6,
+        "score": -Infinity,
+        "parameters": {
+          "C": 219.9205129748452,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 7,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.0002528103810078011,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 8,
+        "score": -Infinity,
+        "parameters": {
+          "C": 503.5406536233344,
+          "solver": "saga",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 9,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.6339999788118006,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 10,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 11,
+        "score": -Infinity,
+        "parameters": {
+          "C": 70.32017904799022,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 12,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.1434964056002359,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 13,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 14,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.00015724500019420585,
+          "solver": "lbfgs",
+          "penalty": null,
+          "class_weight": null
+        }
+      }
+    ]
+  },
+  {
+    "model": "logistic_regression",
+    "generation": 4,
+    "stats": {
+      "best_score": -Infinity,
+      "avg_score": -Infinity,
+      "min_score": null,
+      "max_score": null,
+      "failed_evals": 15
+    },
+    "best": {
+      "index": 0,
+      "score": -Infinity,
+      "parameters": {
+        "C": 0.00015724500019420585,
+        "solver": "lbfgs",
+        "penalty": null,
+        "class_weight": null
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.00015724500019420585,
+          "solver": "lbfgs",
+          "penalty": null,
+          "class_weight": null
+        }
+      },
+      {
+        "index": 1,
+        "score": -Infinity,
+        "parameters": {
+          "C": 43.896171668629485,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 2,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.1434964056002359,
+          "solver": "saga",
+          "penalty": null,
+          "class_weight": null
+        }
+      },
+      {
+        "index": 3,
+        "score": -Infinity,
+        "parameters": {
+          "C": 219.9205129748452,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 4,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 5,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 6,
+        "score": -Infinity,
+        "parameters": {
+          "C": 503.5406536233344,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 7,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 8,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 9,
+        "score": -Infinity,
+        "parameters": {
+          "C": 503.5406536233344,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 10,
+        "score": -Infinity,
+        "parameters": {
+          "C": 219.9205129748452,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 11,
+        "score": -Infinity,
+        "parameters": {
+          "C": 43.896171668629485,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 12,
+        "score": -Infinity,
+        "parameters": {
+          "C": 43.896171668629485,
+          "solver": "saga",
+          "penalty": null,
+          "class_weight": null
+        }
+      },
+      {
+        "index": 13,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.17997651750189506,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 14,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      }
+    ]
+  },
+  {
+    "model": "logistic_regression",
+    "generation": 5,
+    "stats": {
+      "best_score": -Infinity,
+      "avg_score": -Infinity,
+      "min_score": null,
+      "max_score": null,
+      "failed_evals": 15
+    },
+    "best": {
+      "index": 0,
+      "score": -Infinity,
+      "parameters": {
+        "C": 10000.0,
+        "solver": "saga",
+        "penalty": "l1",
+        "class_weight": null
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 1,
+        "score": -Infinity,
+        "parameters": {
+          "C": 219.9205129748452,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 2,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.1434964056002359,
+          "solver": "lbfgs",
+          "penalty": null,
+          "class_weight": null
+        }
+      },
+      {
+        "index": 3,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "saga",
+          "penalty": "l2",
+          "class_weight": "balanced"
+        }
+      },
+      {
+        "index": 4,
+        "score": -Infinity,
+        "parameters": {
+          "C": 219.9205129748452,
+          "solver": "saga",
+          "penalty": null,
+          "class_weight": null
+        }
+      },
+      {
+        "index": 5,
+        "score": -Infinity,
+        "parameters": {
+          "C": 219.9205129748452,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 6,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.16162993839926768,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 7,
+        "score": -Infinity,
+        "parameters": {
+          "C": 219.9205129748452,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 8,
+        "score": -Infinity,
+        "parameters": {
+          "C": 219.9205129748452,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 9,
+        "score": -Infinity,
+        "parameters": {
+          "C": 43.896171668629485,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 10,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 11,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": "balanced"
+        }
+      },
+      {
+        "index": 12,
+        "score": -Infinity,
+        "parameters": {
+          "C": 43.896171668629485,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 13,
+        "score": -Infinity,
+        "parameters": {
+          "C": 9.058935224536945,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 14,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.00015724500019420585,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": "balanced"
+        }
+      }
+    ]
+  },
+  {
+    "model": "logistic_regression",
+    "generation": 6,
+    "stats": {
+      "best_score": -Infinity,
+      "avg_score": -Infinity,
+      "min_score": null,
+      "max_score": null,
+      "failed_evals": 15
+    },
+    "best": {
+      "index": 0,
+      "score": -Infinity,
+      "parameters": {
+        "C": 0.00015724500019420585,
+        "solver": "lbfgs",
+        "penalty": "l2",
+        "class_weight": "balanced"
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.00015724500019420585,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": "balanced"
+        }
+      },
+      {
+        "index": 1,
+        "score": -Infinity,
+        "parameters": {
+          "C": 591.1210905387827,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 2,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 3,
+        "score": -Infinity,
+        "parameters": {
+          "C": 219.9205129748452,
+          "solver": "saga",
+          "penalty": "l2",
+          "class_weight": "balanced"
+        }
+      },
+      {
+        "index": 4,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 5,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.16162993839926768,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 6,
+        "score": -Infinity,
+        "parameters": {
+          "C": 219.9205129748452,
+          "solver": "saga",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 7,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "saga",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 8,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.1434964056002359,
+          "solver": "lbfgs",
+          "penalty": null,
+          "class_weight": null
+        }
+      },
+      {
+        "index": 9,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 10,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 11,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.16162993839926768,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 12,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 13,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": "balanced"
+        }
+      },
+      {
+        "index": 14,
+        "score": -Infinity,
+        "parameters": {
+          "C": 219.9205129748452,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      }
+    ]
+  },
+  {
+    "model": "logistic_regression",
+    "generation": 7,
+    "stats": {
+      "best_score": -Infinity,
+      "avg_score": -Infinity,
+      "min_score": null,
+      "max_score": null,
+      "failed_evals": 15
+    },
+    "best": {
+      "index": 0,
+      "score": -Infinity,
+      "parameters": {
+        "C": 219.9205129748452,
+        "solver": "saga",
+        "penalty": "l1",
+        "class_weight": null
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": -Infinity,
+        "parameters": {
+          "C": 219.9205129748452,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 1,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 2,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.1434964056002359,
+          "solver": "lbfgs",
+          "penalty": null,
+          "class_weight": null
+        }
+      },
+      {
+        "index": 3,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "saga",
+          "penalty": null,
+          "class_weight": null
+        }
+      },
+      {
+        "index": 4,
+        "score": -Infinity,
+        "parameters": {
+          "C": 148.67075709607235,
+          "solver": "saga",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 5,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 6,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.009966065275756343,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 7,
+        "score": -Infinity,
+        "parameters": {
+          "C": 219.9205129748452,
+          "solver": "saga",
+          "penalty": "l2",
+          "class_weight": "balanced"
+        }
+      },
+      {
+        "index": 8,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.00018789177987164776,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 9,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "lbfgs",
+          "penalty": null,
+          "class_weight": "balanced"
+        }
+      },
+      {
+        "index": 10,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "saga",
+          "penalty": "l2",
+          "class_weight": "balanced"
+        }
+      },
+      {
+        "index": 11,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "saga",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 12,
+        "score": -Infinity,
+        "parameters": {
+          "C": 1.262353538545166,
+          "solver": "saga",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 13,
+        "score": -Infinity,
+        "parameters": {
+          "C": 219.9205129748452,
+          "solver": "lbfgs",
+          "penalty": null,
+          "class_weight": "balanced"
+        }
+      },
+      {
+        "index": 14,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.36946252928293205,
+          "solver": "saga",
+          "penalty": null,
+          "class_weight": null
+        }
+      }
+    ]
+  },
+  {
+    "model": "logistic_regression",
+    "generation": 8,
+    "stats": {
+      "best_score": -Infinity,
+      "avg_score": -Infinity,
+      "min_score": null,
+      "max_score": null,
+      "failed_evals": 15
+    },
+    "best": {
+      "index": 0,
+      "score": -Infinity,
+      "parameters": {
+        "C": 0.36946252928293205,
+        "solver": "saga",
+        "penalty": null,
+        "class_weight": null
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.36946252928293205,
+          "solver": "saga",
+          "penalty": null,
+          "class_weight": null
+        }
+      },
+      {
+        "index": 1,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.0064442737200432485,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": "balanced"
+        }
+      },
+      {
+        "index": 2,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.36946252928293205,
+          "solver": "lbfgs",
+          "penalty": null,
+          "class_weight": null
+        }
+      },
+      {
+        "index": 3,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.00030581046830386086,
+          "solver": "saga",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 4,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "lbfgs",
+          "penalty": null,
+          "class_weight": "balanced"
+        }
+      },
+      {
+        "index": 5,
+        "score": -Infinity,
+        "parameters": {
+          "C": 219.9205129748452,
+          "solver": "saga",
+          "penalty": null,
+          "class_weight": null
+        }
+      },
+      {
+        "index": 6,
+        "score": -Infinity,
+        "parameters": {
+          "C": 27.264624910039547,
+          "solver": "saga",
+          "penalty": "l2",
+          "class_weight": "balanced"
+        }
+      },
+      {
+        "index": 7,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.013300673249774094,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 8,
+        "score": -Infinity,
+        "parameters": {
+          "C": 219.9205129748452,
+          "solver": "lbfgs",
+          "penalty": null,
+          "class_weight": null
+        }
+      },
+      {
+        "index": 9,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": "balanced"
+        }
+      },
+      {
+        "index": 10,
+        "score": -Infinity,
+        "parameters": {
+          "C": 1110.6709838444567,
+          "solver": "lbfgs",
+          "penalty": null,
+          "class_weight": null
+        }
+      },
+      {
+        "index": 11,
+        "score": -Infinity,
+        "parameters": {
+          "C": 148.67075709607235,
+          "solver": "saga",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 12,
+        "score": -Infinity,
+        "parameters": {
+          "C": 219.9205129748452,
+          "solver": "lbfgs",
+          "penalty": null,
+          "class_weight": "balanced"
+        }
+      },
+      {
+        "index": 13,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "saga",
+          "penalty": "l2",
+          "class_weight": "balanced"
+        }
+      },
+      {
+        "index": 14,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.0001,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      }
+    ]
+  },
+  {
+    "model": "logistic_regression",
+    "generation": 9,
+    "stats": {
+      "best_score": -Infinity,
+      "avg_score": -Infinity,
+      "min_score": null,
+      "max_score": null,
+      "failed_evals": 15
+    },
+    "best": {
+      "index": 0,
+      "score": -Infinity,
+      "parameters": {
+        "C": 0.0001,
+        "solver": "saga",
+        "penalty": "l1",
+        "class_weight": null
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.0001,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 1,
+        "score": -Infinity,
+        "parameters": {
+          "C": 219.9205129748452,
+          "solver": "saga",
+          "penalty": null,
+          "class_weight": null
+        }
+      },
+      {
+        "index": 2,
+        "score": -Infinity,
+        "parameters": {
+          "C": 219.9205129748452,
+          "solver": "saga",
+          "penalty": null,
+          "class_weight": null
+        }
+      },
+      {
+        "index": 3,
+        "score": -Infinity,
+        "parameters": {
+          "C": 148.67075709607235,
+          "solver": "saga",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 4,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.0001,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 5,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.001265231977852132,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 6,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 7,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": "balanced"
+        }
+      },
+      {
+        "index": 8,
+        "score": -Infinity,
+        "parameters": {
+          "C": 148.67075709607235,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 9,
+        "score": -Infinity,
+        "parameters": {
+          "C": 1.1477906598498095,
+          "solver": "saga",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 10,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.0001,
+          "solver": "saga",
+          "penalty": "l1",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 11,
+        "score": -Infinity,
+        "parameters": {
+          "C": 10000.0,
+          "solver": "saga",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 12,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.00030581046830386086,
+          "solver": "lbfgs",
+          "penalty": "l2",
+          "class_weight": null
+        }
+      },
+      {
+        "index": 13,
+        "score": -Infinity,
+        "parameters": {
+          "C": 1110.6709838444567,
+          "solver": "lbfgs",
+          "penalty": null,
+          "class_weight": null
+        }
+      },
+      {
+        "index": 14,
+        "score": -Infinity,
+        "parameters": {
+          "C": 0.36946252928293205,
+          "solver": "saga",
+          "penalty": null,
+          "class_weight": null
+        }
+      }
+    ]
+  }
+]

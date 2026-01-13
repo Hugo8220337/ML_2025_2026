@@ -1,101 +1,64 @@
 import json
-from pathlib import Path
-
+import os
 import numpy as np
 import pandas as pd
-from common.nlp import preprocessing, tfidf_vectorize
-from common.supervised_models import train_logistic_regression, train_svm
-from common.tools import export_model_results_csv, load, read_csv
-from sklearn.utils.class_weight import compute_class_weight
-
-BODY_DATA_PATH = (
-    Path(__file__).resolve().parents[1] / "datasets" / "fnc1" / "fnc1_train_bodies.csv"
-)
-STANCES_DATA_PATH = (
-    Path(__file__).resolve().parents[1] / "datasets" / "fnc1" / "fnc1_train_stances.csv"
-)
+from sklearn.model_selection import train_test_split
+from common.nlp import tfidf_vectorize
+from common.tools import read_csv
+from evolutionary_model_selection.ems import ems
+from common.cache import CacheManager
+from common.visualizations import plot_anomaly_confusion_matrix, plot_anomaly_scatter, plot_model_comparison, plot_clusters
 
 
-def _train_consistency_logistic(X, y, class_weights_dict):
-    """Train Logistic Regression accepting class weights."""
-    with load("Train Semantic Logistic Regression..."):
-        # Passed 'class_weight' to the model to give importance to rare classes
-        results = train_logistic_regression(
-            X,
-            y,
-            class_weight=class_weights_dict,
-            max_iter=1000,  # Increase iterations because the problem is difficult
-        )
-    print("Logistic Regression training complete.")
+def stance_detection(models=['logistic_regression'], target_metric='accuracy', reduction='lsa', options='quick', vectorizer_type='tfidf', visualizations=False):
+    cache = CacheManager(module_name='stance_detection')
+    file_path = 'datasets/fnc1/'
 
-    # Print F1 or Accuracy for debugging
-    if results and "metrics" in results:
-        print(json.dumps(results["metrics"].get("f1_weighted", "N/A"), indent=4))
-    return results
+    
 
-
-def _train_consistency_svm(X, y, class_weights_dict):
-    """Train SVM accepting class weights."""
-    with load("Train Semantic SVM..."):
-        results = train_svm(X, y, class_weight=class_weights_dict)
-    print("SVM training complete.")
-    if results and "metrics" in results:
-        print(json.dumps(results["metrics"].get("f1_weighted", "N/A"), indent=4))
-    return results
+    def preprocessing(file_path):
+        stances_df = read_csv(file_path+'fnc1_train_stances.csv')
+        body_df = read_csv(file_path+'fnc1_train_bodies.csv')
+        df = pd.merge(stances_df, body_df, on='Body ID')
+        df = df.drop(columns=['Body ID'])
+        df['data'] = df['Headline'] + ' ' + df['articleBody']
+        df = df.drop(columns=['Headline', 'articleBody'])
+        df_unrelated = df[df['Stance'] == 'unrelated']
+        df_others = df[df['Stance'] != 'unrelated']
+        df_downsample = df_unrelated.sample(n=12000, random_state=42)
+        df_balanced = pd.concat([df_downsample, df_others])
+        df_balanced = df_balanced.sample(frac=1, random_state=42)
 
 
-def stance_detection():
-    bodies = read_csv(BODY_DATA_PATH)
-    stances = read_csv(STANCES_DATA_PATH)
+        return df_balanced
 
-    # Ensure the CSV reads succeeded before attempting to merge
-    if bodies is None:
-        raise RuntimeError(f"Failed to read bodies data from {BODY_DATA_PATH}")
-    if stances is None:
-        raise RuntimeError(f"Failed to read stances data from {STANCES_DATA_PATH}")
 
-    df = pd.merge(stances, bodies, on="Body ID")  # Merge on Body ID
 
-    # Map labels to numbers
-    label_mapping = {"agree": 0, "disagree": 1, "discuss": 2, "unrelated": 3}
-    # Use replace to avoid type-checking issues with map overloads
-    df["label"] = df["Stance"].replace(label_mapping)
+    df = cache.execute(task_name='read_csv',
+                       func=lambda: preprocessing(file_path),
+                       inputs=file_path)
 
-    # Verify if there are any unmapped labels (NaN values), remove them if found
-    if bool(df["label"].isnull().any()):
-        df = df.dropna(subset=["label"])
+    X = df['data']
+    y = df['Stance']
 
-    # Fuse Title + Body
-    df["combined_text"] = df["Headline"].fillna("") + " " + df["articleBody"].fillna("")
 
-    # NLP Preprocessing: Tokenization, Lemmatization
-    print("Applying NLP Preprocessing (Tokenization, Lemmatization)...")
-    df["combined_text"] = preprocessing(df["combined_text"], remove_stopwords=False)
-    print("Preprocessing complete.")
+    result = cache.execute(task_name='ems',
+                           func=lambda: ems(
+                            X=X,
+                            y=y, 
+                            models=models,
+                            target_metric=target_metric,
+                            report=True, 
+                            options=options, 
+                            reduction=reduction, 
+                            vectorizer_type=vectorizer_type),
+                           inputs=[X, y],
+                           params={'models': models, 'options': options, 'reduction': reduction, 'vectorizer_type': vectorizer_type})
 
-    # Vectorization, TF-IDF. It creates a matrix of features from the text data.
-    print("Vectorizing data (TF-IDF)...")
-    X, _vectorizer = tfidf_vectorize(
-        df, col_name="combined_text", max_features=5000, lowercase=True
-    )
-    y = df["label"].astype(int)
-    print("Vectorization complete.")
 
-    # Compute class weights to handle class imbalance
-    print("Computing class weights...")
-    classes = np.unique(y)
-    weights = compute_class_weight(class_weight="balanced", classes=classes, y=y)
-    class_weights_dict = dict(zip(classes, weights))
-    print(f"Applied weights: {class_weights_dict}")
 
-    # Train models
-    logistic_results = _train_consistency_logistic(X, y, class_weights_dict)
-    svm_results = _train_consistency_svm(X, y, class_weights_dict)
+    with open('output.txt', 'w') as f:
+        print(result, file=f)
 
-    # Export results
-    all_results = {
-        "Semantic Logistic Regression": logistic_results,
-        "Semantic SVM": svm_results,
-    }
-    output_path = Path(__file__).resolve().parent / "semantic_consistency_results.csv"
-    export_model_results_csv(all_results, str(output_path))
+
+
