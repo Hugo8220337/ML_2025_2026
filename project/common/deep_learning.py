@@ -2,13 +2,13 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, LabelEncoder
+import tensorflow as tf
 from tensorflow.keras.models import Sequential, Model
-from tensorflow.keras.layers import Dense, Conv2D, Flatten, MaxPooling2D, Input
+from tensorflow.keras.layers import Dense, Conv2D, Flatten, MaxPooling2D, Input, Dropout
 from tensorflow.keras.utils import to_categorical
+from .metrics import get_classification_metrics 
 
-
-
-def train_keras_dense_network(
+def train_dense_network(
     df,
     target_column,
     feature_columns,
@@ -79,66 +79,12 @@ def train_keras_dense_network(
         "scaler": scaler
     }
 
-def train_keras_autoencoder(
-    df,
-    feature_columns,
-    test_size=0.2,
-    random_state=42,
-    encoding_dim=32, 
-    activation='relu',
-    optimizer='adam',
-    loss='mse',
-    epochs=50,
-    batch_size=256,
-    shuffle=True,
-    verbose=1
-):
 
-    X = df[feature_columns].values
-    
-    scaler = StandardScaler()
-    X = scaler.fit_transform(X)
-
-    X_train, X_test = train_test_split(X, test_size=test_size, random_state=random_state)
-
-    input_dim = X_train.shape[1]
-    input_layer = Input(shape=(input_dim,))
-    
-    encoded = Dense(encoding_dim, activation=activation)(input_layer)
-    
-    decoded = Dense(input_dim, activation='sigmoid')(encoded) # sigmoid outputs 0-1 (matches scaled data)
-
-    autoencoder = Model(input_layer, decoded)
-    
-    encoder = Model(input_layer, encoded)
-
-    autoencoder.compile(optimizer=optimizer, loss=loss)
-
-    try:
-        history = autoencoder.fit(
-            X_train, X_train, # X is both input and ground truth
-            epochs=epochs,
-            batch_size=batch_size,
-            shuffle=shuffle,
-            validation_data=(X_test, X_test),
-            verbose=verbose
-        )
-    except Exception as e:
-        print(f"Error during training: {e}")
-        return None
-
-    return {
-        "model": autoencoder,
-        "encoder_model": encoder,
-        "history": history.history,
-        "scaler": scaler
-    }
-
-def train_keras_cnn(
+def train_cnn(
     df,
     target_column,
     feature_columns,
-    reshape_dims, # Tuple required: (height, width, channels) e.g., (28, 28, 1)
+    reshape_dims, 
     test_size=0.2,
     random_state=42,
     filters=32,
@@ -207,4 +153,67 @@ def train_keras_cnn(
         "model": model,
         "history": history.history,
         "metrics": {"test_loss": loss_val, "test_accuracy": accuracy_val}
+    }
+
+
+def train_dense_autoencoder(X, y, X_test=None, y_test=None, test_size=0.2, random_state=42, **kwargs):
+    encoding_dim = kwargs.get('encoding_dim', 32)
+    learning_rate = kwargs.get('learning_rate', 0.001)
+    batch_size = kwargs.get('batch_size', 64)
+    epochs = kwargs.get('epochs', 5)
+    dropout = kwargs.get('dropout', 0.1)
+    threshold_sigma = kwargs.get('threshold_sigma', 2.0)
+
+    if X_test is None or y_test is None:
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
+    else:
+        X_train, y_train = X, y
+
+    if hasattr(X_train, 'toarray'):
+        real_indices = np.where(y_train == 0)[0]
+        X_train_clean = X_train[real_indices].toarray()
+        X_test_dense = X_test.toarray()
+    else:
+        X_train_clean = X_train[y_train == 0]
+        X_test_dense = X_test
+
+    input_dim = X_train_clean.shape[1]
+
+    model = Sequential([
+        Input(shape=(input_dim,)),
+        Dense(128, activation='relu'),
+        Dropout(dropout),
+        Dense(encoding_dim, activation='relu'),
+        Dropout(dropout),
+        Dense(128, activation='relu'),
+        Dense(input_dim, activation='linear')   
+    ])
+    
+    model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate), loss='mse')
+    
+    try:
+        model.fit(X_train_clean, X_train_clean, epochs=epochs, batch_size=batch_size, verbose=0)
+    except Exception as e:
+        print(f"Error training Dense AE: {e}")
+        return None
+
+    train_preds = model.predict(X_train_clean, verbose=0)
+    train_mse = np.mean(np.power(X_train_clean - train_preds, 2), axis=1)
+    
+    threshold = np.mean(train_mse) + (threshold_sigma * np.std(train_mse))
+    
+    model.threshold_ = threshold
+
+    test_preds_raw = model.predict(X_test_dense, verbose=0)
+    test_mse = np.mean(np.power(X_test_dense - test_preds_raw, 2), axis=1)
+    
+    y_pred_binary = (test_mse > threshold).astype(int)
+
+    metrics = get_classification_metrics(y_test, y_pred_binary)
+
+    return {
+        "model": model, 
+        "metrics": metrics,
+        "test_data": {"y_test": y_test, "predictions": y_pred_binary},
+        "threshold": threshold
     }

@@ -9,6 +9,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_extraction.text import HashingVectorizer
 
 
+
 # Verify and download necessary NLTK resources (quietly)
 try:
     nltk.data.find('tokenizers/punkt_tab')
@@ -24,6 +25,13 @@ try:
     nltk.data.find('taggers/averaged_perceptron_tagger_eng')
 except LookupError:
     nltk.download('averaged_perceptron_tagger_eng', quiet=True)
+
+try:
+    nltk.data.find('corpora/stopwords')
+except LookupError:
+    nltk.download('stopwords', quiet=True)
+
+
 
 
 

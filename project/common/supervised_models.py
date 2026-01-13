@@ -1,13 +1,14 @@
+import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.neural_network import MLPClassifier
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import IsolationForest, RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from sklearn.naive_bayes import GaussianNB, MultinomialNB
-from .metrics import evaluate_model
+from .metrics import evaluate_model, get_classification_metrics
 
 def train_linear_regression(
     X,
@@ -399,4 +400,57 @@ def train_naive_bayes(
         "model": model,
         "metrics": evaluation['metrics'],
         "test_data": {"y_test": y_test, "predictions": predictions}
+    }
+
+def train_isolation_forest(
+    X,
+    y,
+    X_test=None,
+    y_test=None,
+    test_size=0.2,
+    random_state=42,
+    n_estimators=100,
+    contamination='auto',
+    max_features=1.0,
+    bootstrap=False,
+    n_jobs=None,
+    **kwargs
+):
+    if X_test is None or y_test is None:
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=test_size, random_state=random_state
+        )
+    else:
+        X_train, y_train = X, y
+
+
+    if hasattr(X_train, 'toarray'):
+        real_indices = np.where(y_train == 0)[0]
+        X_train_clean = X_train[real_indices]
+    else:
+        X_train_clean = X_train[y_train == 0]
+
+    model = IsolationForest(
+        n_estimators=n_estimators,
+        contamination=contamination,
+        max_features=max_features,
+        bootstrap=bootstrap,
+        n_jobs=n_jobs,
+        random_state=random_state
+    )
+    
+    model.fit(X_train_clean)
+
+    metrics = {}
+    if X_test is not None and y_test is not None:
+        raw_preds = model.predict(X_test)
+        
+        preds_mapped = np.where(raw_preds == 1, 0, 1)
+        
+        metrics = get_classification_metrics(y_test, preds_mapped)
+
+    return {
+        "model": model,
+        "metrics": metrics,
+        "test_data": {"y_test": y_test, "predictions": preds_mapped if 'preds_mapped' in locals() else None}
     }

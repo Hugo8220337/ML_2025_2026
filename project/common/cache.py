@@ -22,6 +22,9 @@ class CacheManager:
     def execute(self, task_name, func, inputs=None, params=None, strategy=None):
         strategy = strategy or self.default_strategy
         
+        if strategy == 'no_cache':
+            return func()
+        
         input_hash = self._get_obj_hash(inputs)
         param_hash = self._get_obj_hash(params) if params else "default"
         

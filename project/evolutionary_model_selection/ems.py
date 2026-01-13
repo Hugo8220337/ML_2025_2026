@@ -8,10 +8,11 @@ from sklearn.model_selection import train_test_split
 from evolutionary_model_selection.genetic_algorithm import run_genetic_algorithm
 from common.supervised_models import *
 from common.unsupervised_models import *
-from common.deep_learning import *
+from common.deep_learning import train_dense_autoencoder
 from common.dimensionality_reduction import apply_pca, apply_nmf, apply_lda, apply_lsa
 from common.nlp import preprocessing, tfidf_vectorize, hashing_vectorize
 from common.cache import CacheManager
+from tensorflow.keras.preprocessing.sequence import pad_sequences
 import datetime
 
 warnings.filterwarnings('ignore', category=UserWarning, module='sklearn')
@@ -27,6 +28,8 @@ SUPERVISED_MODELS = {
     'knn',
     'svm',
     'naive_bayes',
+    'isolation_forest',
+    'dense_autoencoder'
 }
 
 UNSUPERVISED_MODELS = {
@@ -55,6 +58,8 @@ MODEL_REGISTRY = {
     'knn': train_knn,
     'svm': train_svm,
     'naive_bayes': train_naive_bayes,
+    'isolation_forest': train_isolation_forest,
+    'dense_autoencoder': train_dense_autoencoder,
     # Unsupervised
     'kmeans': train_kmeans,
     'dbscan': train_dbscan,
@@ -122,6 +127,18 @@ MODEL_BOUNDS = {
         (-3.0, 1.0),   # alpha: 10^-3 to 10^1 (Log Scale)
         (0, 2),        # fit_prior: 0=True, 1=False
     ],
+    'isolation_forest': [
+        (50, 300),     # n_estimators
+        (0.01, 0.1),   # contamination
+        (0, 2),        # max_features: 0=1.0, 1=0.8, 2=0.5
+        (0, 2),        # bootstrap: 0=False, 1=True
+    ],
+    'dense_autoencoder': [
+        (16, 128),     # encoding_dim: Size of the bottleneck
+        (-4.0, -2.0),  # learning_rate: 1e-4 to 1e-2
+        (0.0, 0.5),    # dropout
+        (0, 2),        # batch_size: 0=32, 1=64, 2=128
+    ],
     # Unsupervised models
     'kmeans': [
         (2, 20),       # n_clusters
@@ -188,6 +205,14 @@ def get_default_genes(model_name):
     elif model_name == 'naive_bayes':
         # distribution=gaussian(0), var_smoothing=1e-9(-9.0), alpha=1.0(0.0), fit_prior=True(0)
         defaults['genes'] = [0.0, -9.0, 0.0, 0.0]
+
+    elif model_name == 'isolation_forest':
+        # n_estimators=100, contamination=0.1, max_features=sqrt(0), bootstrap=False(0),
+        defaults['genes'] = [100.0, 0.1, 0.0, 0.0]
+        
+    elif model_name == 'dense_autoencoder':
+        # Default: 32 dim, 1e-3 lr, 0.1 dropout, 64 batch
+        defaults['genes'] = [32.0, -3.0, 0.1, 1.0]
 
     # Unsupervised models
     elif model_name == 'kmeans':
@@ -322,6 +347,22 @@ def decode_params(model_name, genes):
         elif distribution == 'multinomial':
             params['alpha'] = float(10 ** genes[2])
             params['fit_prior'] = True if int(genes[3]) == 0 else False
+
+    elif model_name == 'isolation_forest':
+        params['n_estimators'] = int(genes[0])
+        params['contamination'] = float(genes[1])
+        feat_map = {0: 1.0, 1: 0.8, 2: 0.5}
+        params['max_features'] = feat_map.get(int(genes[2]), 1.0)
+        params['bootstrap'] = True if int(genes[3]) == 1 else False
+        params['n_jobs'] = -1
+
+    elif model_name == 'dense_autoencoder':
+        params['encoding_dim'] = int(genes[0])
+        params['learning_rate'] = float(10 ** genes[1])
+        params['dropout'] = float(genes[2])
+        batch_map = {0: 32, 1: 64, 2: 128}
+        params['batch_size'] = batch_map.get(int(genes[3]), 64)
+        params['epochs'] = 5 
 
     # Unsupervised models
     elif model_name == 'kmeans':
@@ -901,7 +942,6 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
                 func=lambda r=cache_result: r,
                 inputs=cache_inputs,
                 params={'options_key': options_key},
-                strategy='overwrite'
             )
             
             best_global_model = final_run['model']

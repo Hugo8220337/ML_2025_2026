@@ -9,7 +9,7 @@ from evolutionary_model_selection.ems import ems
 from common.cache import CacheManager
 from common.visualizations import plot_model_comparison, plot_clusters
 
-def topic_classification(models=['nmf'], reduction=None, options='default', vectorizer_type='tfidf', visualizations=True):
+def topic_classification(models=['nmf'], target_metric='coherence', reduction=None, options='default', vectorizer_type='tfidf', visualizations=False):
     cache = CacheManager(module_name='topic_classification')
     file_path = 'datasets/allthenews/all-the-news-2-1.csv'
 
@@ -35,7 +35,7 @@ def topic_classification(models=['nmf'], reduction=None, options='default', vect
                            func=lambda: ems(
                             X, 
                             models=models,
-                            target_metric='coherence',
+                            target_metric=target_metric,
                             report=True, 
                             options=options, 
                             reduction=reduction, 

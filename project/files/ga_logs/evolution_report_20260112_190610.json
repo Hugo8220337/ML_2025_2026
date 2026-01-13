@@ -1,0 +1,371 @@
+[
+  {
+    "model": "lstm_autoencoder",
+    "generation": 0,
+    "stats": {
+      "best_score": -Infinity,
+      "avg_score": -Infinity,
+      "min_score": null,
+      "max_score": null,
+      "failed_evals": 10
+    },
+    "best": {
+      "index": 0,
+      "score": -Infinity,
+      "parameters": {
+        "latent_dim": 32,
+        "learning_rate": 0.001,
+        "batch_size": 32,
+        "epochs": 5
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": -Infinity,
+        "parameters": {
+          "latent_dim": 32,
+          "learning_rate": 0.001,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 1,
+        "score": -Infinity,
+        "parameters": {
+          "latent_dim": 57,
+          "learning_rate": 0.0002581725272574001,
+          "batch_size": 16,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 2,
+        "score": -Infinity,
+        "parameters": {
+          "latent_dim": 39,
+          "learning_rate": 0.002023603125588608,
+          "batch_size": 16,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 3,
+        "score": -Infinity,
+        "parameters": {
+          "latent_dim": 18,
+          "learning_rate": 0.001120522400324456,
+          "batch_size": 16,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 4,
+        "score": -Infinity,
+        "parameters": {
+          "latent_dim": 21,
+          "learning_rate": 0.00017867174226712543,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 5,
+        "score": -Infinity,
+        "parameters": {
+          "latent_dim": 47,
+          "learning_rate": 0.0006062026921113989,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 6,
+        "score": -Infinity,
+        "parameters": {
+          "latent_dim": 54,
+          "learning_rate": 0.00017371457911819887,
+          "batch_size": 16,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 7,
+        "score": -Infinity,
+        "parameters": {
+          "latent_dim": 104,
+          "learning_rate": 0.00014902928114667578,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 8,
+        "score": -Infinity,
+        "parameters": {
+          "latent_dim": 44,
+          "learning_rate": 0.00037981586684813373,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 9,
+        "score": -Infinity,
+        "parameters": {
+          "latent_dim": 39,
+          "learning_rate": 0.001916887088440526,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      }
+    ]
+  },
+  {
+    "model": "lstm_autoencoder",
+    "generation": 1,
+    "stats": {
+      "best_score": -Infinity,
+      "avg_score": -Infinity,
+      "min_score": null,
+      "max_score": null,
+      "failed_evals": 10
+    },
+    "best": {
+      "index": 0,
+      "score": -Infinity,
+      "parameters": {
+        "latent_dim": 39,
+        "learning_rate": 0.001916887088440526,
+        "batch_size": 32,
+        "epochs": 5
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": -Infinity,
+        "parameters": {
+          "latent_dim": 39,
+          "learning_rate": 0.001916887088440526,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 1,
+        "score": -Infinity,
+        "parameters": {
+          "latent_dim": 39,
+          "learning_rate": 0.002123753770559868,
+          "batch_size": 16,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 2,
+        "score": -Infinity,
+        "parameters": {
+          "latent_dim": 39,
+          "learning_rate": 0.001916887088440526,
+          "batch_size": 16,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 3,
+        "score": -Infinity,
+        "parameters": {
+          "latent_dim": 39,
+          "learning_rate": 0.002023603125588608,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 4,
+        "score": -Infinity,
+        "parameters": {
+          "latent_dim": 54,
+          "learning_rate": 0.00017371457911819887,
+          "batch_size": 16,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 5,
+        "score": -Infinity,
+        "parameters": {
+          "latent_dim": 32,
+          "learning_rate": 0.0016843443452017916,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 6,
+        "score": -Infinity,
+        "parameters": {
+          "latent_dim": 54,
+          "learning_rate": 0.00017371457911819887,
+          "batch_size": 16,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 7,
+        "score": -Infinity,
+        "parameters": {
+          "latent_dim": 104,
+          "learning_rate": 0.0001,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 8,
+        "score": -Infinity,
+        "parameters": {
+          "latent_dim": 44,
+          "learning_rate": 0.0002581725272574001,
+          "batch_size": 16,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 9,
+        "score": -Infinity,
+        "parameters": {
+          "latent_dim": 74,
+          "learning_rate": 0.0025478619442688955,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      }
+    ]
+  },
+  {
+    "model": "lstm_autoencoder",
+    "generation": 2,
+    "stats": {
+      "best_score": -Infinity,
+      "avg_score": -Infinity,
+      "min_score": null,
+      "max_score": null,
+      "failed_evals": 10
+    },
+    "best": {
+      "index": 0,
+      "score": -Infinity,
+      "parameters": {
+        "latent_dim": 74,
+        "learning_rate": 0.0025478619442688955,
+        "batch_size": 32,
+        "epochs": 5
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": -Infinity,
+        "parameters": {
+          "latent_dim": 74,
+          "learning_rate": 0.0025478619442688955,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 1,
+        "score": -Infinity,
+        "parameters": {
+          "latent_dim": 32,
+          "learning_rate": 0.001766117839803769,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 2,
+        "score": -Infinity,
+        "parameters": {
+          "latent_dim": 58,
+          "learning_rate": 0.002123753770559868,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 3,
+        "score": -Infinity,
+        "parameters": {
+          "latent_dim": 74,
+          "learning_rate": 0.0025478619442688955,
+          "batch_size": 16,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 4,
+        "score": -Infinity,
+        "parameters": {
+          "latent_dim": 54,
+          "learning_rate": 0.00017371457911819887,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 5,
+        "score": -Infinity,
+        "parameters": {
+          "latent_dim": 74,
+          "learning_rate": 0.0025478619442688955,
+          "batch_size": 16,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 6,
+        "score": -Infinity,
+        "parameters": {
+          "latent_dim": 104,
+          "learning_rate": 0.0001,
+          "batch_size": 16,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 7,
+        "score": -Infinity,
+        "parameters": {
+          "latent_dim": 39,
+          "learning_rate": 0.0025398708712427234,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 8,
+        "score": -Infinity,
+        "parameters": {
+          "latent_dim": 58,
+          "learning_rate": 0.001916887088440526,
+          "batch_size": 16,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 9,
+        "score": -Infinity,
+        "parameters": {
+          "latent_dim": 39,
+          "learning_rate": 0.001916887088440526,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      }
+    ]
+  }
+]
