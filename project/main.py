@@ -27,5 +27,5 @@ if __name__ == "__main__":
     # tc(models=['kmeans', 'hdbscan', 'gmm'], target_metric='silhouette_score' reduction='nmf', options='default', vectorizer_type='hashing', visualizations=True)
     # tc(models=['nmf'], target_metric='coherence', reduction=None, options='default', vectorizer_type='tfidf', visualizations=True)
     # ad(models=['isolation_forest', 'dense_autoencoder'], target_metric='f1_weighted', reduction=None, options='quick', vectorizer_type='tfidf', visualizations=True)
-    # sd(models=['logistic_regression', 'random_forest', 'svm', 'naive_bayes'], target_metric='f1_macro', reduction='lsa', options='default', vectorizer_type='tfidf', visualizations=True)
-    sd()
+    sd(models=['svm', 'random_forest'], target_metric='f1_macro', reduction=None, options='default', vectorizer_type='tfidf', visualizations=True)
+

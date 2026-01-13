@@ -228,3 +228,25 @@ def plot_anomaly_scatter(X, results, save_path=None):
     if save_path:
         plt.savefig(save_path, dpi=150, bbox_inches='tight')
     plt.close()
+
+
+def plot_stance_confusion_matrix(y_true, y_pred, model_name, save_path=None):
+    labels = ['agree', 'disagree', 'discuss', 'unrelated']
+    
+    cm = confusion_matrix(y_true, y_pred, labels=labels)
+    
+    plt.figure(figsize=(9, 7))
+    
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', cbar=False,
+                xticklabels=labels, yticklabels=labels, annot_kws={"size": 12})
+    
+    plt.title(f'{model_name.upper()} - Stance Confusion Matrix', fontsize=14, fontweight='bold')
+    plt.ylabel('Actual Stance', fontsize=12, fontweight='bold')
+    plt.xlabel('Predicted Stance', fontsize=12, fontweight='bold')
+    
+    plt.tight_layout()
+    
+    if save_path:
+        plt.savefig(save_path, dpi=150, bbox_inches='tight')
+    
+    plt.close()

@@ -99,7 +99,7 @@ def preprocessing(
 
     return df
 
-def tfidf_vectorize(df, col_name='data', max_features=5000, lowercase=False, stop_words=None):
+def tfidf_vectorize(df, col_name='data', max_features=5000, lowercase=False, stop_words=None, ngram_range=(1, 2)):
     """
     Perform TF-IDF vectorization on the specified column of the DataFrame.
     Serves as a feature extraction method for text data. 
@@ -117,7 +117,7 @@ def tfidf_vectorize(df, col_name='data', max_features=5000, lowercase=False, sto
     
     vectorizer = TfidfVectorizer(
         max_features=max_features,
-        ngram_range=(1, 2),
+        ngram_range=ngram_range,
         lowercase=lowercase,
         stop_words=stop_words
     )

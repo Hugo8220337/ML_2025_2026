@@ -20,7 +20,8 @@ def train_linear_regression(
     fit_intercept=True,
     copy_X=True,
     n_jobs=None,
-    positive=False
+    positive=False,
+    **kwargs
 ):
     if X_test is None or y_test is None:
         X_train, X_test, y_train, y_test = train_test_split(
@@ -69,7 +70,8 @@ def train_logistic_regression(
     verbose=0,
     warm_start=False,
     n_jobs=None,
-    l1_ratio=None
+    l1_ratio=None,
+    **kwargs
 ):
     if X_test is None or y_test is None:
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=split_random_state)
@@ -130,7 +132,8 @@ def train_neural_network(
     beta_2=0.999,
     epsilon=1e-8,
     n_iter_no_change=10,
-    max_fun=15000
+    max_fun=15000,
+    **kwargs
 ):
     if X_test is None or y_test is None:
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=split_random_state)
@@ -180,7 +183,8 @@ def train_decision_tree(
     max_leaf_nodes=None,
     min_impurity_decrease=0.0,
     class_weight=None,
-    ccp_alpha=0.0
+    ccp_alpha=0.0,
+    **kwargs
 ):
     if X_test is None or y_test is None:
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=split_random_state)
@@ -234,7 +238,8 @@ def train_random_forest(
     warm_start=False,
     class_weight=None,
     ccp_alpha=0.0,
-    max_samples=None
+    max_samples=None,
+    **kwargs
 ):
     if X_test is None or y_test is None:
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=split_random_state)
@@ -279,7 +284,8 @@ def train_knn(
     p=2,
     metric='minkowski',
     metric_params=None,
-    n_jobs=None
+    n_jobs=None,
+    **kwargs
 ):
     if X_test is None or y_test is None:
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=split_random_state)
@@ -328,7 +334,8 @@ def train_svm(
     max_iter=-1,
     decision_function_shape='ovr',
     break_ties=False,
-    random_state=None
+    random_state=None,
+    **kwargs
 ):
     if X_test is None or y_test is None:
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=split_random_state)
@@ -371,7 +378,8 @@ def train_naive_bayes(
     priors=None,
     var_smoothing=1e-9,
     alpha=1.0,
-    fit_prior=True
+    fit_prior=True,
+    **kwargs
 ):
     if X_test is None or y_test is None:
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=split_random_state)

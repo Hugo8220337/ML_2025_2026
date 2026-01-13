@@ -12,7 +12,6 @@ from common.deep_learning import train_dense_autoencoder
 from common.dimensionality_reduction import apply_pca, apply_nmf, apply_lda, apply_lsa
 from common.nlp import preprocessing, tfidf_vectorize, hashing_vectorize
 from common.cache import CacheManager
-from tensorflow.keras.preprocessing.sequence import pad_sequences
 import datetime
 
 warnings.filterwarnings('ignore', category=UserWarning, module='sklearn')
@@ -440,7 +439,7 @@ def preprocess_text(X_train, X_test=None, vectorizer_type='tfidf', **kwargs):
     if not is_text:
         return X_train, X_test, None
     prep_keys = ['to_lower', 'remove_punctuation', 'remove_digits', 'tokenize', 'remove_stopwords', 'lemmatize']
-    vect_keys = ['max_features', 'lowercase', 'stop_words']
+    vect_keys = ['max_features', 'lowercase', 'stop_words', 'ngram_range']
     
     prep_kwargs = {k: v for k, v in kwargs.items() if k in prep_keys}
     vect_kwargs = {k: v for k, v in kwargs.items() if k in vect_keys}
