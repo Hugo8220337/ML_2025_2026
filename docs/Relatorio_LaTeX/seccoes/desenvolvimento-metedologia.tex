@@ -68,36 +68,37 @@ Para a avaliação e otimização final, substituiu-se o critério geométrico (
 \end{figure}
 
 \subsection{Modelo 2: Análise de Anomalias} \label{subsec:anomaly-analysis}
-Para a deteção de anomalias, assumiu-se que notícias falsas divergem estruturalmente das verdadeiras, comportando-se como \textit{outliers}. Utilizou-se o \textit{dataset} ISOT unificado (com coluna de classe adicionada), adotando-se uma estratégia de deteção de novidade com contaminação controlada: os modelos foram treinados maioritariamente com notícias verdadeiras, mas com uma contaminação de 5\% de dados falsos para aumentar a robustez a ruído.
+Para a componente de deteção de anomalias, partiu-se da hipótese inicial de que as notícias falsas (\textit{fake news}) divergiriam linguística e estruturalmente das verdadeiras, podendo ser detetadas como \textit{outliers} sem necessidade de etiquetas explícitas (\textit{Unsupervised Learning}).
 
-Foram comparados dois algoritmos: \textit{Isolation Forest}, pela sua eficiência em isolar anomalias em alta dimensionalidade, e \textit{Dense Autoencoder}, pela capacidade de detetar erros de reconstrução em padrões não aprendidos. Como demonstra a Tabela \ref{tab:anomaly-results}, ambos obtiveram uma performance muito semelhante, com o \textit{Isolation Forest} a apresentar uma vantagem marginal no F1-Score, validando qualquer um dos modelos para a solução.
+Para validar esta hipótese no \textit{dataset} ISOT, testaram-se quatro arquiteturas distintas: abordagem estatística (\textit{Isolation Forest}), geométrica (\textit{One-Class SVM}) e baseada em reconstrução (\textit{Dense Autoencoder} e \textit{Embedding Autoencoder}). Foram aplicadas técnicas de redução de dimensionalidade (LSA) para remoção de ruído e calibração da sensibilidade do modelo.
+
+Contrariando a expectativa inicial, os resultados experimentais comprovaram que a abordagem não supervisionada é ineficaz para este conjunto de dados. Como demonstra a Tabela \ref{tab:anomaly-results}, todos os quatro modelos falharam em atingir um F1-Score (Binary) superior a 0.10. A análise dos erros revelou que os modelos sinalizavam consistentemente notícias verdadeiras como anomalias (Falsos Positivos) ou falhavam na deteção das falsas.
 
 \begin{table}[h]
 	\centering
 	\small
 	\renewcommand{\arraystretch}{1.2}
-	\caption{Comparação do desempenho (F1-Score) entre os modelos de deteção de anomalias.}
+	\caption{Comparação do desempenho (F1-Score Binary) entre os modelos não supervisionados de deteção de anomalias.}
 	\label{tab:anomaly-results}
-	\begin{tabular}{lc}
-		\toprule % Linha grossa no topo
-		\textbf{Modelo} & \textbf{F1-Score (Default - Binary)} \\
-		\midrule % Linha média separando o cabeçalho
-		
-		Isolation Forest & \textbf{0.9226} \\
-		Dense Autoencoder & 0.9175 \\
-		
-		\bottomrule % Linha grossa no final
+	\begin{tabular}{lcccc}
+		\toprule
+		\textbf{Métrica} & \textbf{Isol. Forest} & \textbf{Dense AE} & \textbf{Embed. AE} & \textbf{OC-SVM} \\
+		\midrule
+		F1-Score (Binary) & 0.0417 & 0.0527 & 0.0769 & \textbf{0.0952} \\
+		\bottomrule
 	\end{tabular}
 \end{table}
 
-A análise visual da dispersão (Figura \ref{fig:anomaly-scatter}) revela que ambos os modelos identificam mais anomalias do que a classificação original. No entanto, o \textit{Dense Autoencoder} demonstra um comportamento mais conservador do que o \textit{Isolation Forest}, apresentando uma densidade de pontos anómalos (vermelhos) visualmente mais próxima da distribuição real, sugerindo a existência de padrões latentes no texto que transcendem a rotulagem binária original.
+A análise visual da dispersão (Figura \ref{fig:anomaly-scatter}) confirma as métricas obtidas. Observa-se uma sobreposição significativa entre as distribuições das classes e as fronteiras de decisão dos modelos, evidenciando que o vocabulário e a estrutura das notícias falsas no ISOT são demasiado semelhantes às notícias reais para serem distinguidos por métodos puramente estatísticos ou de reconstrução.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1.0\linewidth]{imagens/anomaly_scatterplot}
-	\caption{Comparação visual da distribuição de anomalias: (Esquerda) Classificação real; (Centro) Predição Isolation Forest; (Direita) Predição Dense Autoencoder.}
+	\caption{Visualização da incapacidade de separação das anomalias: Sobreposição entre a classificação real e as predições dos modelos não supervisionados.}
 	\label{fig:anomaly-scatter}
 \end{figure}
+
+Esta falha experimental constitui um resultado relevante, pois prova que, neste contexto, a desinformação não é uma anomalia estatística detetável. Consequentemente, abandonou-se a via não supervisionada, alterando a estratégia para algoritmos de Aprendizagem Supervisionada (como \textit{Random Forest} e SVM), que demonstraram posteriormente capacidade de generalização ao aprender com as etiquetas explícitas das notícias.
 
 \subsection{Modelo 3: Deteção de Stance (Postura)} \label{subsec:stance-detection}
 
