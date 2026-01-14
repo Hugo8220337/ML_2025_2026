@@ -80,10 +80,10 @@ Foram comparados dois algoritmos: \textit{Isolation Forest}, pela sua eficiênci
 	\label{tab:anomaly-results}
 	\begin{tabular}{lc}
 		\toprule % Linha grossa no topo
-		\textbf{Modelo} & \textbf{F1-Score-Weighted} \\
+		\textbf{Modelo} & \textbf{F1-Score (Default - Binary)} \\
 		\midrule % Linha média separando o cabeçalho
 		
-		Isolation Forest & 0.9226 \\
+		Isolation Forest & \textbf{0.9226} \\
 		Dense Autoencoder & 0.9175 \\
 		
 		\bottomrule % Linha grossa no final
@@ -119,15 +119,40 @@ Contrariamente aos módulos anteriores, não foi aplicada qualquer redução de 
 		\toprule
 		\textbf{Modelo} & \textbf{F1-Score (Macro)} \\
 		\midrule
-		SVM & 0.8430 \\
-		Random Forest & 0.5021 \\
+		SVM & \textbf{0.8464} \\
+		Random Forest & 0.51 \\
 		\bottomrule
 	\end{tabular}
 \end{table}
 
-Os resultados, apresentados na Tabela \ref{tab:stance-results}, revelam uma grande diferença de desempenho. A SVM obteve um F1-Score de 0.8430, demonstrando uma capacidade muito superior para lidar com a alta dimensionalidade dos vetores de texto gerados pelos \textit{n-grams}, enquanto o \textit{Random Forest} revelou-se ineficaz para este nível de complexidade vetorial.
+Os resultados, apresentados na Tabela \ref{tab:stance-results}, revelam uma grande diferença de desempenho. A SVM obteve um F1-Score de 0.8464, demonstrando uma capacidade muito superior para lidar com a alta dimensionalidade dos vetores de texto gerados pelos \textit{n-grams}, enquanto o \textit{Random Forest} revelou-se ineficaz para este nível de complexidade vetorial.
 
 \subsection{Modelo 4: Deteção de Clickbait} \label{subsec:clickbait-detection}
+A última componente foca-se na análise dos títulos das notícias, com o objetivo de identificar o uso de técnicas de sensacionalismo, exagero ou omissão deliberada de informação (\textit{clickbait}) para atrair a atenção do leitor.
+
+O conjunto de dados utilizado para o treino foi o \textit{ClickbaitDataset}. Considerando a natureza deste problema (classificação binária baseada em títulos curtos) e a especificidade do vocabulário tipicamente utilizado neste tipo de chamadas, optou-se por não aplicar técnicas de redução de dimensionalidade. As experiências preliminares indicaram que a compressão do espaço vetorial tendia a eliminar nuances linguísticas e palavras-chave determinantes, não justificando o ganho computacional face à relativa simplicidade do \textit{dataset}.
+
+Para esta tarefa de classificação, foram selecionadas e comparados dois algoritmos distintos: \textit{XGBoost} (\textit{Extreme Gradient Boosting}) e \textit{CNN} (\textit{Convolutional Neural Network}). O \textit{XGBoost} foi escolhido por ser robusto e eficiente, servindo como uma linha de base sólida baseada em árvores de decisão. Por outro lado, a \textit{CNN} foi selecionada por ser capaz de detetar padrões locais e sequenciais (como \textit{n-grams} ou expressões específicas bastante utilizadas por títulos sensacionalistas) independentemente da sua posição na frase, uma característica teórica vantajosa para análise de texto curto.
+
+Os resultados quantitativos, apresentados na Tabela \ref{tab:clickbait-results}, validam a hipótese inicial sobre a superioridade das redes neuronais para este contexto específico.
+
+\begin{table}[h]
+	\centering
+	\small
+	\renewcommand{\arraystretch}{1.2}
+	\caption{Comparação do desempenho (F1-Score Binary) para a deteção de Clickbait.}
+	\label{tab:clickbait-results}
+	\begin{tabular}{lc}
+		\toprule
+		\textbf{Modelo} & \textbf{F1-Score (Default - Binary)} \\
+		\midrule
+		XGBoost & 0.8462 \\
+		CNN & \textbf{0.9509} \\ 
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+A CNN apresentou um desempenho significativamente superior ao XGBoost (F1-Score de 0.9509 contra 0.8462). Este resultado demonstra que a deteção de \textit{clickbait} beneficia consideravelmente da extração de características espaciais e padrões locais que as camadas convolucionais conseguem isolar melhor, superando a abordagem de \textit{gradient boosting} na captura da estrutura sintática e semântica de títulos sensacionalistas.
 
 \subsection{Modelo Final: Fake News Meta-Classifier} \label{subsec:modelo-final}
 % Como as saídas dos modelos anteriores (1, 2 e 3) entram neste modelo.
