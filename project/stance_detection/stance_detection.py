@@ -7,7 +7,7 @@ from common.nlp import tfidf_vectorize
 from common.tools import read_csv
 from evolutionary_model_selection.ems import ems
 from common.cache import CacheManager
-from common.visualizations import plot_model_comparison, plot_stance_confusion_matrix
+from common.visualizations import plot_model_comparison, plot_confusion_matrices
 
 
 def stance_detection(models=['logistic_regression'], target_metric='accuracy', reduction=None, options='quick', vectorizer_type='tfidf', visualizations=False):
@@ -67,22 +67,7 @@ def stance_detection(models=['logistic_regression'], target_metric='accuracy', r
 
         plot_model_comparison(result, save_path=os.path.join(viz_dir, 'model_comparison.png'))
         
-        _, X_test, _, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
-
-        best_model = result['model']
-        best_name = result['info']['model_name']
-        pipeline = result['pipeline']
-        
-        X_test_vec = pipeline['vectorizer'].transform(X_test)
-        
-        if pipeline.get('reduction_model'):
-            X_test_vec = pipeline['reduction_model'].transform(X_test_vec)
-            
-        y_pred = best_model.predict(X_test_vec)
-        
-        plot_stance_confusion_matrix(
-            y_test, 
-            y_pred, 
-            model_name=best_name, 
-            save_path=os.path.join(viz_dir, f'confusion_matrix_{best_name}.png')
+        plot_confusion_matrices(
+            result, 
+            save_path=os.path.join(viz_dir, 'confusion_matrices.png')
         )

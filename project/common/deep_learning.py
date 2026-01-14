@@ -1,13 +1,12 @@
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler, LabelEncoder
+from sklearn.preprocessing import MaxAbsScaler, StandardScaler, LabelEncoder
 import tensorflow as tf
 from tensorflow.keras.models import Sequential, Model
-from tensorflow.keras.layers import Dense, Conv1D, Embedding, GlobalMaxPooling1D, Input, Dropout
+from tensorflow.keras.layers import Dense, Conv1D, Embedding, GlobalMaxPooling1D, Input, Dropout, GlobalAveragePooling1D
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
-from tensorflow.keras.utils import to_categorical
 from .metrics import get_classification_metrics 
 
 def train_dense_network(
@@ -204,6 +203,13 @@ def train_dense_autoencoder(X, y, X_test=None, y_test=None, test_size=0.2, rando
 
     input_dim = X_train_clean.shape[1]
 
+    scaler = MaxAbsScaler()
+    X_train_clean = scaler.fit_transform(X_train_clean) 
+    if hasattr(X_test_dense, 'toarray'): 
+         X_test_dense = scaler.transform(X_test_dense)
+    else:
+         X_test_dense = scaler.transform(X_test_dense)
+
     model = Sequential([
         Input(shape=(input_dim,)),
         Dense(128, activation='relu'),
@@ -225,7 +231,7 @@ def train_dense_autoencoder(X, y, X_test=None, y_test=None, test_size=0.2, rando
     train_preds = model.predict(X_train_clean, verbose=0)
     train_mse = np.mean(np.power(X_train_clean - train_preds, 2), axis=1)
     
-    threshold = np.mean(train_mse) + (threshold_sigma * np.std(train_mse))
+    threshold = np.percentile(train_mse, 95)
     
     model.threshold_ = threshold
 
@@ -241,4 +247,91 @@ def train_dense_autoencoder(X, y, X_test=None, y_test=None, test_size=0.2, rando
         "metrics": metrics,
         "test_data": {"y_test": y_test, "predictions": y_pred_binary},
         "threshold": threshold
+    }
+
+
+def train_embedding_autoencoder(
+    X, 
+    y, 
+    X_test=None, 
+    y_test=None, 
+    texts=None,
+    texts_test=None, 
+    test_size=0.2, 
+    random_state=42, 
+    vocab_size=5000, 
+    embedding_dim=50, 
+    max_length=100,
+    encoding_dim=32,
+    batch_size=64,
+    epochs=10,
+    **kwargs
+):
+    if texts is None:
+        print("Error: Embedding Autoencoder requires 'texts' (raw tokens).")
+        return None
+
+    if texts_test is None or len(texts_test) == 0:
+        if len(texts) == len(y):
+             pass 
+        else:
+             print("Warning: Length mismatch between X and texts")
+    
+    real_indices = [i for i, label in enumerate(y) if label == 0]
+    real_texts = [texts[i] for i in real_indices]
+
+    train_strs = [" ".join(t) if isinstance(t, list) else str(t) for t in real_texts]
+    test_strs = [" ".join(t) if isinstance(t, list) else str(t) for t in (texts_test if texts_test else [])]
+    
+    tokenizer = Tokenizer(num_words=vocab_size, oov_token="<OOV>")
+    tokenizer.fit_on_texts(train_strs)
+    
+    X_train_seq = pad_sequences(tokenizer.texts_to_sequences(train_strs), maxlen=max_length, padding='post', truncating='post')
+    X_test_seq = pad_sequences(tokenizer.texts_to_sequences(test_strs), maxlen=max_length, padding='post', truncating='post')
+
+    X_train_target = tokenizer.sequences_to_matrix(tokenizer.texts_to_sequences(train_strs), mode='binary')
+    X_test_target = tokenizer.sequences_to_matrix(tokenizer.texts_to_sequences(test_strs), mode='binary')
+
+    inputs = Input(shape=(max_length,))
+    
+    x = Embedding(vocab_size, embedding_dim)(inputs)
+    x = GlobalAveragePooling1D()(x)
+    encoded = Dense(encoding_dim, activation='relu')(x)
+    
+    decoded = Dense(vocab_size, activation='sigmoid')(encoded)
+    
+    model = Model(inputs, decoded)
+    model.compile(optimizer='adam', loss='binary_crossentropy')
+
+    try:
+        model.fit(X_train_seq, X_train_target, epochs=epochs, batch_size=batch_size, verbose=0)
+    except Exception as e:
+        print(f"Error training Emb AE: {e}")
+        return None
+
+    def calculate_error(model, sequences, targets):
+        preds = model.predict(sequences, verbose=0)
+        epsilon = 1e-7
+        preds = np.clip(preds, epsilon, 1. - epsilon)
+        bce = - (targets * np.log(preds) + (1 - targets) * np.log(1 - preds))
+        return np.mean(bce, axis=1)
+
+    train_loss = calculate_error(model, X_train_seq, X_train_target)
+    
+    threshold = np.percentile(train_loss, 95)
+    model.threshold_ = threshold
+    model.tokenizer_ = tokenizer
+
+
+    test_loss = calculate_error(model, X_test_seq, X_test_target)
+    y_pred_binary = (test_loss > threshold).astype(int)
+
+    metrics = get_classification_metrics(y_test, y_pred_binary)
+
+    return {
+        "model": model,
+        "metrics": metrics,
+        "test_data": {"y_test": y_test, "predictions": y_pred_binary},
+        "threshold": threshold,
+        "tokenizer": tokenizer
     }

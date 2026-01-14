@@ -6,7 +6,7 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import IsolationForest, RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.svm import SVC
+from sklearn.svm import SVC, OneClassSVM
 from sklearn.naive_bayes import GaussianNB, MultinomialNB
 from .metrics import evaluate_model, get_classification_metrics
 from xgboost import XGBClassifier
@@ -441,7 +441,7 @@ def train_isolation_forest(
 
     model = IsolationForest(
         n_estimators=n_estimators,
-        contamination=contamination,
+        contamination=0.05,
         max_features=max_features,
         bootstrap=bootstrap,
         n_jobs=n_jobs,
@@ -518,4 +518,33 @@ def train_xgboost(
         "metrics": evaluation['metrics'],
         "test_data": {"y_test": y_test, "predictions": predictions},
         "feature_importances": model.feature_importances_
+    }
+
+def train_one_class_svm(X, y, X_test=None, y_test=None, test_size=0.2, random_state=42, nu=0.05, kernel='rbf', gamma='scale', **kwargs):
+    if X_test is None or y_test is None:
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
+    else:
+        X_train, y_train = X, y
+
+    if hasattr(X_train, 'toarray'):
+        X_train_clean = X_train[y_train == 0]
+    else:
+        X_train_clean = X_train[y_train == 0]
+
+    model = OneClassSVM(nu=nu, kernel='linear', gamma=gamma)
+    model.fit(X_train_clean)
+
+    metrics = {}
+    preds_mapped = None
+    
+    if X_test is not None:
+        raw_preds = model.predict(X_test)
+        preds_mapped = np.where(raw_preds == -1, 1, 0)
+        
+        metrics = get_classification_metrics(y_test, preds_mapped)
+
+    return {
+        "model": model,
+        "metrics": metrics,
+        "test_data": {"y_test": y_test, "predictions": preds_mapped}
     }

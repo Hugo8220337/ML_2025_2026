@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 from evolutionary_model_selection.genetic_algorithm import run_genetic_algorithm
 from common.supervised_models import *
 from common.unsupervised_models import *
-from common.deep_learning import train_dense_autoencoder, train_cnn
+from common.deep_learning import *
 from common.dimensionality_reduction import apply_pca, apply_nmf, apply_lda, apply_lsa
 from common.nlp import preprocessing, tfidf_vectorize, hashing_vectorize
 from common.cache import CacheManager
@@ -29,9 +29,11 @@ SUPERVISED_MODELS = {
     'svm',
     'naive_bayes',
     'isolation_forest',
+    'one_class_svm',
     'xgboost',
     'dense_autoencoder',
     'cnn'
+    'embedding_autoencoder'
 }
 
 UNSUPERVISED_MODELS = {
@@ -61,9 +63,11 @@ MODEL_REGISTRY = {
     'svm': train_svm,
     'naive_bayes': train_naive_bayes,
     'isolation_forest': train_isolation_forest,
+    'one_class_svm': train_one_class_svm,
     'xgboost': train_xgboost,
     'dense_autoencoder': train_dense_autoencoder,
     'cnn': train_cnn,
+    'embedding_autoencoder': train_embedding_autoencoder,
     # Unsupervised
     'kmeans': train_kmeans,
     'dbscan': train_dbscan,
@@ -137,6 +141,11 @@ MODEL_BOUNDS = {
         (0, 2),        # max_features: 0=1.0, 1=0.8, 2=0.5
         (0, 2),        # bootstrap: 0=False, 1=True
     ],
+    'one_class_svm': [
+        (0.01, 0.1),   # nu (contamination)
+        (0, 2),        # kernel: 0=rbf, 1=linear
+        (-4.0, 1.0),   # gamma
+    ],
     'xgboost': [
         (50, 300),     # 0: n_estimators
         (3, 10),       # 1: max_depth
@@ -158,6 +167,12 @@ MODEL_BOUNDS = {
         (-4.0, -2.0),  # learning_rate: 1e-4 to 1e-2
         (0.0, 0.5),    # dropout
         (0, 2),        # batch_size: 0=32, 1=64, 2=128
+    ],
+    'embedding_autoencoder': [
+        (32, 128),     # encoding_dim
+        (16, 100),     # embedding_dim (Size of word vectors)
+        (50, 150),     # max_length (Sequence length)
+        (0, 2),        # batch_size
     ],
     # Unsupervised models
     'kmeans': [
@@ -230,6 +245,10 @@ def get_default_genes(model_name):
         # n_estimators=100, contamination=0.1, max_features=sqrt(0), bootstrap=False(0),
         defaults['genes'] = [100.0, 0.1, 0.0, 0.0]
 
+    elif model_name == 'one_class_svm':
+        # nu=0.05 (matches fake news rate), kernel=rbf(0), gamma=scale(-1.0)
+        defaults['genes'] = [0.05, 0.0, -1.0]
+
     elif model_name == 'xgboost':
         # n_est=100, depth=3, lr=0.1 (-1.0), sub=1.0, col=1.0, gamma=0
         defaults['genes'] = [100.0, 3.0, -1.0, 1.0, 1.0, 0.0]
@@ -241,6 +260,10 @@ def get_default_genes(model_name):
     elif model_name == 'cnn':
         # filters=64, kernel=3, embed=50, dense=32, drop=0.2, lr=0.001(-3.0)
         defaults['genes'] = [64.0, 3.0, 50.0, 32.0, 0.2, -3.0]
+
+    elif model_name == 'embedding_autoencoder':
+        # encoding_dim=32, embedding_dim=50, max_len=100, batch_size=64(1)
+        defaults['genes'] = [32.0, 50.0, 100.0, 1.0]
 
     # Unsupervised models
     elif model_name == 'kmeans':
@@ -384,6 +407,12 @@ def decode_params(model_name, genes):
         params['bootstrap'] = True if int(genes[3]) == 1 else False
         params['n_jobs'] = -1
 
+    elif model_name == 'one_class_svm':
+        params['nu'] = 0.05
+        k_map = {0: 'rbf', 1: 'linear'}
+        params['kernel'] = k_map.get(int(genes[1]), 'rbf')
+        params['gamma'] = 'scale'
+
     elif model_name == 'xgboost':
         params['n_estimators'] = int(genes[0])
         params['max_depth'] = int(genes[1])
@@ -409,6 +438,15 @@ def decode_params(model_name, genes):
         params['dropout'] = float(genes[4])
         params['learning_rate'] = float(10 ** genes[5])
         params['epochs'] = 5
+
+    elif model_name == 'embedding_autoencoder':
+        params['encoding_dim'] = int(genes[0])
+        params['embedding_dim'] = int(genes[1])
+        params['max_length'] = int(genes[2])
+        
+        batch_map = {0: 32, 1: 64, 2: 128}
+        params['batch_size'] = batch_map.get(int(genes[3]), 64)
+        params['epochs'] = 10
 
     # Unsupervised models
     elif model_name == 'kmeans':
@@ -900,11 +938,21 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
                 partial_model = partial_result.get('model')
                 partial_score = partial_result['metrics'].get(target_metric, best_run_score)
                 
+                shared_reduction_model = None
+                if reduction is not None and 'reduction_result' in locals():
+                    shared_reduction_model = reduction_result.get('model')
+
+                partial_pipeline = {
+                    'vectorizer': vectorizer,
+                    'reduction_model': shared_reduction_model,
+                    'classifier': partial_model
+            }
+                
                 all_models_results[model_name] = {
                     'model': partial_model,
                     'score': partial_score,
                     'info': {'model_name': model_name, 'score': partial_score, 'params': final_train_params},
-                    'pipeline': {},
+                    'pipeline': partial_pipeline,
                     'metrics': partial_result.get('metrics', {})
                 }
             except Exception as e:
@@ -937,12 +985,22 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
                     'params': {},
                     'is_cached': False
                 })
+
+                shared_reduction_model = None
+                if reduction is not None and 'reduction_result' in locals():
+                    shared_reduction_model = reduction_result.get('model')
+
+                default_pipeline = {
+                    'vectorizer': vectorizer,
+                    'reduction_model': shared_reduction_model,
+                    'classifier': result.get('model')
+                }
                 
                 all_models_results[model_name] = {
                     'model': result.get('model'),
                     'score': score,
                     'info': {'model_name': model_name, 'score': score, 'params': {}},
-                    'pipeline': {},
+                    'pipeline': default_pipeline,
                     'metrics': result.get('metrics', {})
                 }
             except Exception as e:

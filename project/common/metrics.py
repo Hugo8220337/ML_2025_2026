@@ -24,6 +24,7 @@ def get_classification_metrics(y_true, y_pred, y_prob=None):
         'accuracy': round(accuracy_score(y_true, y_pred), 4),
         'precision_weighted': round(precision_score(y_true, y_pred, average='weighted', zero_division=0), 4),
         'recall_weighted': round(recall_score(y_true, y_pred, average='weighted', zero_division=0), 4),
+        'f1_score': round(f1_score(y_true, y_pred, average='binary', zero_division=0), 4),
         'f1_weighted': round(f1_score(y_true, y_pred, average='weighted', zero_division=0), 4),
         'f1_macro': round(f1_score(y_true, y_pred, average='macro', zero_division=0), 4),
         'confusion_matrix': confusion_matrix(y_true, y_pred).tolist(),

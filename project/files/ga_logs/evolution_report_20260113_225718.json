@@ -1,0 +1,5483 @@
+[
+  {
+    "model": "isolation_forest",
+    "generation": 0,
+    "stats": {
+      "best_score": 0.9152,
+      "avg_score": 0.8883733333333333,
+      "min_score": 0.8562,
+      "max_score": 0.9152,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 10,
+      "score": 0.9152,
+      "parameters": {
+        "n_estimators": 149,
+        "contamination": 0.021214323950824024,
+        "max_features": 0.8,
+        "bootstrap": false,
+        "n_jobs": -1
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.8735,
+        "parameters": {
+          "n_estimators": 100,
+          "contamination": 0.1,
+          "max_features": 1.0,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.8787,
+        "parameters": {
+          "n_estimators": 50,
+          "contamination": 0.09252871598795935,
+          "max_features": 1.0,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.8748,
+        "parameters": {
+          "n_estimators": 153,
+          "contamination": 0.09039699653654461,
+          "max_features": 1.0,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.8876,
+        "parameters": {
+          "n_estimators": 63,
+          "contamination": 0.06213916082856721,
+          "max_features": 0.8,
+          "bootstrap": true,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.8922,
+        "parameters": {
+          "n_estimators": 286,
+          "contamination": 0.07821592450433164,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.9054,
+        "parameters": {
+          "n_estimators": 199,
+          "contamination": 0.022579774418285382,
+          "max_features": 1.0,
+          "bootstrap": true,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.8897,
+        "parameters": {
+          "n_estimators": 230,
+          "contamination": 0.09523738690718098,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.9103,
+        "parameters": {
+          "n_estimators": 153,
+          "contamination": 0.030915995139011693,
+          "max_features": 0.8,
+          "bootstrap": true,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.8562,
+        "parameters": {
+          "n_estimators": 216,
+          "contamination": 0.09595563405798493,
+          "max_features": 1.0,
+          "bootstrap": true,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.9103,
+        "parameters": {
+          "n_estimators": 137,
+          "contamination": 0.03711565238814381,
+          "max_features": 0.8,
+          "bootstrap": true,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.9152,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.021214323950824024,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.8674,
+        "parameters": {
+          "n_estimators": 204,
+          "contamination": 0.08574564176631465,
+          "max_features": 1.0,
+          "bootstrap": true,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.8926,
+        "parameters": {
+          "n_estimators": 127,
+          "contamination": 0.05315743123658424,
+          "max_features": 1.0,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.8735,
+        "parameters": {
+          "n_estimators": 242,
+          "contamination": 0.0844027926063691,
+          "max_features": 1.0,
+          "bootstrap": true,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.8982,
+        "parameters": {
+          "n_estimators": 110,
+          "contamination": 0.06841379545718229,
+          "max_features": 0.8,
+          "bootstrap": true,
+          "n_jobs": -1
+        }
+      }
+    ]
+  },
+  {
+    "model": "isolation_forest",
+    "generation": 1,
+    "stats": {
+      "best_score": 0.9226,
+      "avg_score": 0.9088666666666665,
+      "min_score": 0.8938,
+      "max_score": 0.9226,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 5,
+      "score": 0.9226,
+      "parameters": {
+        "n_estimators": 149,
+        "contamination": 0.01,
+        "max_features": 0.8,
+        "bootstrap": false,
+        "n_jobs": -1
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.9152,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.021214323950824024,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.9201,
+        "parameters": {
+          "n_estimators": 240,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.9103,
+        "parameters": {
+          "n_estimators": 137,
+          "contamination": 0.03711565238814381,
+          "max_features": 0.8,
+          "bootstrap": true,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.8982,
+        "parameters": {
+          "n_estimators": 110,
+          "contamination": 0.06841379545718229,
+          "max_features": 0.8,
+          "bootstrap": true,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.8938,
+        "parameters": {
+          "n_estimators": 199,
+          "contamination": 0.036694656322260544,
+          "max_features": 1.0,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.9067,
+        "parameters": {
+          "n_estimators": 199,
+          "contamination": 0.030915995139011693,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.9042,
+        "parameters": {
+          "n_estimators": 153,
+          "contamination": 0.022579774418285382,
+          "max_features": 1.0,
+          "bootstrap": true,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.9133,
+        "parameters": {
+          "n_estimators": 137,
+          "contamination": 0.01,
+          "max_features": 1.0,
+          "bootstrap": true,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.9103,
+        "parameters": {
+          "n_estimators": 199,
+          "contamination": 0.03711565238814381,
+          "max_features": 0.8,
+          "bootstrap": true,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.9042,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.026959899759730347,
+          "max_features": 1.0,
+          "bootstrap": true,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.914,
+        "parameters": {
+          "n_estimators": 127,
+          "contamination": 0.021214323950824024,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.8958,
+        "parameters": {
+          "n_estimators": 153,
+          "contamination": 0.06841379545718229,
+          "max_features": 0.8,
+          "bootstrap": true,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.9103,
+        "parameters": {
+          "n_estimators": 110,
+          "contamination": 0.030915995139011693,
+          "max_features": 0.8,
+          "bootstrap": true,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.914,
+        "parameters": {
+          "n_estimators": 127,
+          "contamination": 0.021214323950824024,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      }
+    ]
+  },
+  {
+    "model": "isolation_forest",
+    "generation": 2,
+    "stats": {
+      "best_score": 0.9226,
+      "avg_score": 0.9130199999999999,
+      "min_score": 0.8958,
+      "max_score": 0.9226,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 0,
+      "score": 0.9226,
+      "parameters": {
+        "n_estimators": 149,
+        "contamination": 0.01,
+        "max_features": 0.8,
+        "bootstrap": false,
+        "n_jobs": -1
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.9155,
+        "parameters": {
+          "n_estimators": 137,
+          "contamination": 0.01,
+          "max_features": 1.0,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.9079,
+        "parameters": {
+          "n_estimators": 263,
+          "contamination": 0.03711565238814381,
+          "max_features": 0.8,
+          "bootstrap": true,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.9213,
+        "parameters": {
+          "n_estimators": 129,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.8958,
+        "parameters": {
+          "n_estimators": 115,
+          "contamination": 0.07066118040203528,
+          "max_features": 0.8,
+          "bootstrap": true,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.9166,
+        "parameters": {
+          "n_estimators": 110,
+          "contamination": 0.01,
+          "max_features": 1.0,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.9115,
+        "parameters": {
+          "n_estimators": 110,
+          "contamination": 0.021214323950824024,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.9133,
+        "parameters": {
+          "n_estimators": 127,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": true,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.9201,
+        "parameters": {
+          "n_estimators": 230,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.9103,
+        "parameters": {
+          "n_estimators": 221,
+          "contamination": 0.03711565238814381,
+          "max_features": 0.8,
+          "bootstrap": true,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.9152,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.021214323950824024,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.9031,
+        "parameters": {
+          "n_estimators": 110,
+          "contamination": 0.030915995139011693,
+          "max_features": 1.0,
+          "bootstrap": true,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.914,
+        "parameters": {
+          "n_estimators": 157,
+          "contamination": 0.021214323950824024,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.9178,
+        "parameters": {
+          "n_estimators": 278,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": true,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.9103,
+        "parameters": {
+          "n_estimators": 110,
+          "contamination": 0.030915995139011693,
+          "max_features": 0.8,
+          "bootstrap": true,
+          "n_jobs": -1
+        }
+      }
+    ]
+  },
+  {
+    "model": "isolation_forest",
+    "generation": 3,
+    "stats": {
+      "best_score": 0.9226,
+      "avg_score": 0.9146533333333333,
+      "min_score": 0.8687,
+      "max_score": 0.9226,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 0,
+      "score": 0.9226,
+      "parameters": {
+        "n_estimators": 149,
+        "contamination": 0.01,
+        "max_features": 0.8,
+        "bootstrap": false,
+        "n_jobs": -1
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.9201,
+        "parameters": {
+          "n_estimators": 278,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.9133,
+        "parameters": {
+          "n_estimators": 50,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.9213,
+        "parameters": {
+          "n_estimators": 129,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.8687,
+        "parameters": {
+          "n_estimators": 137,
+          "contamination": 0.0935742496887708,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.9115,
+        "parameters": {
+          "n_estimators": 66,
+          "contamination": 0.018813500949169677,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.92,
+        "parameters": {
+          "n_estimators": 300,
+          "contamination": 0.01,
+          "max_features": 1.0,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.9189,
+        "parameters": {
+          "n_estimators": 113,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.9201,
+        "parameters": {
+          "n_estimators": 230,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.9189,
+        "parameters": {
+          "n_estimators": 230,
+          "contamination": 0.01,
+          "max_features": 1.0,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.9201,
+        "parameters": {
+          "n_estimators": 137,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.914,
+        "parameters": {
+          "n_estimators": 157,
+          "contamination": 0.021214323950824024,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.9144,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 1.0,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.9133,
+        "parameters": {
+          "n_estimators": 129,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": true,
+          "n_jobs": -1
+        }
+      }
+    ]
+  },
+  {
+    "model": "isolation_forest",
+    "generation": 4,
+    "stats": {
+      "best_score": 0.9226,
+      "avg_score": 0.9199666666666666,
+      "min_score": 0.9007,
+      "max_score": 0.9226,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 0,
+      "score": 0.9226,
+      "parameters": {
+        "n_estimators": 149,
+        "contamination": 0.01,
+        "max_features": 0.8,
+        "bootstrap": false,
+        "n_jobs": -1
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.9007,
+        "parameters": {
+          "n_estimators": 137,
+          "contamination": 0.043382528410479154,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.9201,
+        "parameters": {
+          "n_estimators": 230,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 196,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.9213,
+        "parameters": {
+          "n_estimators": 126,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.9189,
+        "parameters": {
+          "n_estimators": 129,
+          "contamination": 0.01,
+          "max_features": 0.5,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.9201,
+        "parameters": {
+          "n_estimators": 137,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.9201,
+        "parameters": {
+          "n_estimators": 137,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.9213,
+        "parameters": {
+          "n_estimators": 95,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.9213,
+        "parameters": {
+          "n_estimators": 219,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.9201,
+        "parameters": {
+          "n_estimators": 230,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      }
+    ]
+  },
+  {
+    "model": "isolation_forest",
+    "generation": 5,
+    "stats": {
+      "best_score": 0.9226,
+      "avg_score": 0.92094,
+      "min_score": 0.9166,
+      "max_score": 0.9226,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 0,
+      "score": 0.9226,
+      "parameters": {
+        "n_estimators": 149,
+        "contamination": 0.01,
+        "max_features": 0.8,
+        "bootstrap": false,
+        "n_jobs": -1
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.9189,
+        "parameters": {
+          "n_estimators": 219,
+          "contamination": 0.019554974093238194,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.9166,
+        "parameters": {
+          "n_estimators": 169,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": true,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.9201,
+        "parameters": {
+          "n_estimators": 182,
+          "contamination": 0.011339506645430193,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 196,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.9213,
+        "parameters": {
+          "n_estimators": 129,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.9213,
+        "parameters": {
+          "n_estimators": 126,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.9201,
+        "parameters": {
+          "n_estimators": 118,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.9213,
+        "parameters": {
+          "n_estimators": 219,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.9213,
+        "parameters": {
+          "n_estimators": 95,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.9176,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.018018264902461653,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      }
+    ]
+  },
+  {
+    "model": "isolation_forest",
+    "generation": 6,
+    "stats": {
+      "best_score": 0.9226,
+      "avg_score": 0.9201866666666666,
+      "min_score": 0.9128,
+      "max_score": 0.9226,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 0,
+      "score": 0.9226,
+      "parameters": {
+        "n_estimators": 149,
+        "contamination": 0.01,
+        "max_features": 0.8,
+        "bootstrap": false,
+        "n_jobs": -1
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.9166,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.5,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.9128,
+        "parameters": {
+          "n_estimators": 129,
+          "contamination": 0.022336035702060643,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.9133,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": true,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.9201,
+        "parameters": {
+          "n_estimators": 95,
+          "contamination": 0.01,
+          "max_features": 0.5,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.9213,
+        "parameters": {
+          "n_estimators": 126,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.9166,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.5,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.9213,
+        "parameters": {
+          "n_estimators": 129,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      }
+    ]
+  },
+  {
+    "model": "isolation_forest",
+    "generation": 7,
+    "stats": {
+      "best_score": 0.9226,
+      "avg_score": 0.9186799999999999,
+      "min_score": 0.8897,
+      "max_score": 0.9226,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 0,
+      "score": 0.9226,
+      "parameters": {
+        "n_estimators": 149,
+        "contamination": 0.01,
+        "max_features": 0.8,
+        "bootstrap": false,
+        "n_jobs": -1
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.9091,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.03191380467181656,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.9201,
+        "parameters": {
+          "n_estimators": 127,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.9213,
+        "parameters": {
+          "n_estimators": 213,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.9166,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.5,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 174,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.9213,
+        "parameters": {
+          "n_estimators": 164,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.9213,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01070043925050836,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.8897,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.06875778177528498,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      }
+    ]
+  },
+  {
+    "model": "isolation_forest",
+    "generation": 8,
+    "stats": {
+      "best_score": 0.9226,
+      "avg_score": 0.9209866666666665,
+      "min_score": 0.9144,
+      "max_score": 0.9226,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 0,
+      "score": 0.9226,
+      "parameters": {
+        "n_estimators": 149,
+        "contamination": 0.01,
+        "max_features": 0.8,
+        "bootstrap": false,
+        "n_jobs": -1
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.9213,
+        "parameters": {
+          "n_estimators": 208,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.9213,
+        "parameters": {
+          "n_estimators": 222,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.9213,
+        "parameters": {
+          "n_estimators": 170,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.9155,
+        "parameters": {
+          "n_estimators": 164,
+          "contamination": 0.01,
+          "max_features": 0.5,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.9189,
+        "parameters": {
+          "n_estimators": 238,
+          "contamination": 0.013899754967896982,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.9144,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 1.0,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.9213,
+        "parameters": {
+          "n_estimators": 173,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 174,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      }
+    ]
+  },
+  {
+    "model": "isolation_forest",
+    "generation": 9,
+    "stats": {
+      "best_score": 0.9226,
+      "avg_score": 0.91778,
+      "min_score": 0.8922,
+      "max_score": 0.9226,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 0,
+      "score": 0.9226,
+      "parameters": {
+        "n_estimators": 174,
+        "contamination": 0.01,
+        "max_features": 0.8,
+        "bootstrap": false,
+        "n_jobs": -1
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 174,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.9166,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.5,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.9091,
+        "parameters": {
+          "n_estimators": 52,
+          "contamination": 0.021799724436349012,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.9144,
+        "parameters": {
+          "n_estimators": 206,
+          "contamination": 0.01,
+          "max_features": 1.0,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.9201,
+        "parameters": {
+          "n_estimators": 134,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.9122,
+        "parameters": {
+          "n_estimators": 146,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": true,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.9213,
+        "parameters": {
+          "n_estimators": 300,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.8922,
+        "parameters": {
+          "n_estimators": 184,
+          "contamination": 0.07252245945269509,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      }
+    ]
+  },
+  {
+    "model": "isolation_forest",
+    "generation": 10,
+    "stats": {
+      "best_score": 0.9226,
+      "avg_score": 0.9205399999999998,
+      "min_score": 0.9133,
+      "max_score": 0.9226,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 0,
+      "score": 0.9226,
+      "parameters": {
+        "n_estimators": 149,
+        "contamination": 0.01,
+        "max_features": 0.8,
+        "bootstrap": false,
+        "n_jobs": -1
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.9201,
+        "parameters": {
+          "n_estimators": 282,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 174,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.9133,
+        "parameters": {
+          "n_estimators": 129,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": true,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.9166,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.5,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.9201,
+        "parameters": {
+          "n_estimators": 138,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.9213,
+        "parameters": {
+          "n_estimators": 141,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.9133,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": true,
+          "n_jobs": -1
+        }
+      }
+    ]
+  },
+  {
+    "model": "isolation_forest",
+    "generation": 11,
+    "stats": {
+      "best_score": 0.9226,
+      "avg_score": 0.9195199999999999,
+      "min_score": 0.9103,
+      "max_score": 0.9226,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 0,
+      "score": 0.9226,
+      "parameters": {
+        "n_estimators": 149,
+        "contamination": 0.01,
+        "max_features": 0.8,
+        "bootstrap": false,
+        "n_jobs": -1
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.9166,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.5,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.9144,
+        "parameters": {
+          "n_estimators": 83,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.9213,
+        "parameters": {
+          "n_estimators": 198,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.9103,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.029820623984209718,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.9166,
+        "parameters": {
+          "n_estimators": 61,
+          "contamination": 0.01,
+          "max_features": 1.0,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.914,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.02385814241377807,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.9226,
+        "parameters": {
+          "n_estimators": 149,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.9213,
+        "parameters": {
+          "n_estimators": 169,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.9201,
+        "parameters": {
+          "n_estimators": 59,
+          "contamination": 0.01,
+          "max_features": 0.8,
+          "bootstrap": false,
+          "n_jobs": -1
+        }
+      }
+    ]
+  },
+  {
+    "model": "dense_autoencoder",
+    "generation": 0,
+    "stats": {
+      "best_score": 0.9285,
+      "avg_score": 0.9265133333333332,
+      "min_score": 0.9213,
+      "max_score": 0.9285,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 4,
+      "score": 0.9285,
+      "parameters": {
+        "encoding_dim": 68,
+        "learning_rate": 0.0006920611945280848,
+        "dropout": 0.22522197764000218,
+        "batch_size": 32,
+        "epochs": 5
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 32,
+          "learning_rate": 0.001,
+          "dropout": 0.1,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 21,
+          "learning_rate": 0.002311858548551726,
+          "dropout": 0.18723139193602895,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 44,
+          "learning_rate": 0.0020105133076450685,
+          "dropout": 0.16584204722281048,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 38,
+          "learning_rate": 0.002409414729379704,
+          "dropout": 0.4900316880764323,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 68,
+          "learning_rate": 0.0006920611945280848,
+          "dropout": 0.22522197764000218,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 49,
+          "learning_rate": 0.0007423963834461752,
+          "dropout": 0.24823745764796062,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 63,
+          "learning_rate": 0.006207930420925731,
+          "dropout": 0.3350010277204196,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.9213,
+        "parameters": {
+          "encoding_dim": 43,
+          "learning_rate": 0.002132605128086524,
+          "dropout": 0.26387387293098563,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 86,
+          "learning_rate": 0.0009279762808351471,
+          "dropout": 0.24460129955222393,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 96,
+          "learning_rate": 0.0006610919329329463,
+          "dropout": 0.17646161541225663,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 77,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.1912053559105471,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.0009574741797356815,
+          "dropout": 0.17692178644702494,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 63,
+          "learning_rate": 0.0002504729555022457,
+          "dropout": 0.36393140544182573,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 46,
+          "learning_rate": 0.0007198594306891751,
+          "dropout": 0.00018076941278427627,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.9231,
+        "parameters": {
+          "encoding_dim": 82,
+          "learning_rate": 0.002135678662172591,
+          "dropout": 0.4958511387260984,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      }
+    ]
+  },
+  {
+    "model": "dense_autoencoder",
+    "generation": 1,
+    "stats": {
+      "best_score": 0.9285,
+      "avg_score": 0.9270999999999997,
+      "min_score": 0.9258,
+      "max_score": 0.9285,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 12,
+      "score": 0.9285,
+      "parameters": {
+        "encoding_dim": 68,
+        "learning_rate": 0.001712792448914362,
+        "dropout": 0.1833661636383958,
+        "batch_size": 64,
+        "epochs": 5
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 77,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.1912053559105471,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 68,
+          "learning_rate": 0.0006920611945280848,
+          "dropout": 0.36393140544182573,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 63,
+          "learning_rate": 0.0002504729555022457,
+          "dropout": 0.36393140544182573,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 68,
+          "learning_rate": 0.00039617073892357743,
+          "dropout": 0.22522197764000218,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 44,
+          "learning_rate": 0.0020105133076450685,
+          "dropout": 0.009083612856131712,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 39,
+          "learning_rate": 0.0012367330368895626,
+          "dropout": 0.2562422376288455,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 16,
+          "learning_rate": 0.001,
+          "dropout": 0.1912053559105471,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 77,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.1,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.0009574741797356815,
+          "dropout": 0.22522197764000218,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 78,
+          "learning_rate": 0.0006920611945280848,
+          "dropout": 0.17692178644702494,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 77,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.1912053559105471,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 77,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.1912053559105471,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 68,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.1833661636383958,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 32,
+          "learning_rate": 0.001,
+          "dropout": 0.22522197764000218,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 84,
+          "learning_rate": 0.0002504729555022457,
+          "dropout": 0.36393140544182573,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      }
+    ]
+  },
+  {
+    "model": "dense_autoencoder",
+    "generation": 2,
+    "stats": {
+      "best_score": 0.9285,
+      "avg_score": 0.9265,
+      "min_score": 0.9238,
+      "max_score": 0.9285,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 0,
+      "score": 0.9285,
+      "parameters": {
+        "encoding_dim": 68,
+        "learning_rate": 0.001712792448914362,
+        "dropout": 0.1833661636383958,
+        "batch_size": 64,
+        "epochs": 5
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 68,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.1833661636383958,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 111,
+          "learning_rate": 0.00039617073892357743,
+          "dropout": 0.22522197764000218,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 62,
+          "learning_rate": 0.0012367330368895626,
+          "dropout": 0.43075449846819414,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 77,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.1912053559105471,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 77,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.1912053559105471,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 39,
+          "learning_rate": 0.0012367330368895626,
+          "dropout": 0.039094651628110544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.9238,
+        "parameters": {
+          "encoding_dim": 77,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.1,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 16,
+          "learning_rate": 0.001,
+          "dropout": 0.171473041490187,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 16,
+          "learning_rate": 0.001,
+          "dropout": 0.5,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 32,
+          "learning_rate": 0.0021291575036239884,
+          "dropout": 0.1912053559105471,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 78,
+          "learning_rate": 0.0006920611945280848,
+          "dropout": 0.1912053559105471,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 77,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.17692178644702494,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 68,
+          "learning_rate": 0.0036862658973829746,
+          "dropout": 0.36393140544182573,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 63,
+          "learning_rate": 0.0002504729555022457,
+          "dropout": 0.36393140544182573,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 16,
+          "learning_rate": 0.001,
+          "dropout": 0.1912053559105471,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      }
+    ]
+  },
+  {
+    "model": "dense_autoencoder",
+    "generation": 3,
+    "stats": {
+      "best_score": 0.9285,
+      "avg_score": 0.9264466666666668,
+      "min_score": 0.9245,
+      "max_score": 0.9285,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 0,
+      "score": 0.9285,
+      "parameters": {
+        "encoding_dim": 68,
+        "learning_rate": 0.001712792448914362,
+        "dropout": 0.1833661636383958,
+        "batch_size": 64,
+        "epochs": 5
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 68,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.1833661636383958,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 78,
+          "learning_rate": 0.0062955102109800215,
+          "dropout": 0.00941644415230719,
+          "batch_size": 128,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 77,
+          "learning_rate": 0.001,
+          "dropout": 0.12982030978699885,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 16,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.21299478640306643,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 68,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.1833661636383958,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 63,
+          "learning_rate": 0.00019990616258583425,
+          "dropout": 0.36393140544182573,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 68,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.0,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 39,
+          "learning_rate": 0.0012367330368895626,
+          "dropout": 0.039094651628110544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 77,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.17692178644702494,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 78,
+          "learning_rate": 0.0006920611945280848,
+          "dropout": 0.1912053559105471,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.9245,
+        "parameters": {
+          "encoding_dim": 77,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.1912053559105471,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 105,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.1912053559105471,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 16,
+          "learning_rate": 0.001,
+          "dropout": 0.1912053559105471,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 16,
+          "learning_rate": 0.001,
+          "dropout": 0.0893330621303764,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 68,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.1833661636383958,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      }
+    ]
+  },
+  {
+    "model": "dense_autoencoder",
+    "generation": 4,
+    "stats": {
+      "best_score": 0.9285,
+      "avg_score": 0.9266800000000001,
+      "min_score": 0.9245,
+      "max_score": 0.9285,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 8,
+      "score": 0.9285,
+      "parameters": {
+        "encoding_dim": 77,
+        "learning_rate": 0.00219988511791178,
+        "dropout": 0.21299478640306643,
+        "batch_size": 32,
+        "epochs": 5
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.9245,
+        "parameters": {
+          "encoding_dim": 16,
+          "learning_rate": 0.001,
+          "dropout": 0.1912053559105471,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 16,
+          "learning_rate": 0.0018051280132614935,
+          "dropout": 0.057928791648519634,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 68,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.1925021772364257,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 68,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.1833661636383958,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 77,
+          "learning_rate": 0.0007995852563965703,
+          "dropout": 0.1833661636383958,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 35,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.17692178644702494,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 68,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.1833661636383958,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 68,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.37708969165472017,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 77,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.21299478640306643,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 16,
+          "learning_rate": 0.001,
+          "dropout": 0.1637161106012336,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 67,
+          "learning_rate": 0.0012367330368895626,
+          "dropout": 0.039094651628110544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.9251,
+        "parameters": {
+          "encoding_dim": 39,
+          "learning_rate": 0.0012367330368895626,
+          "dropout": 0.12907770849133499,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 63,
+          "learning_rate": 0.0001,
+          "dropout": 0.10333855098225453,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 77,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.17692178644702494,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 68,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.2305358462946086,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      }
+    ]
+  },
+  {
+    "model": "dense_autoencoder",
+    "generation": 5,
+    "stats": {
+      "best_score": 0.9285,
+      "avg_score": 0.9263733333333335,
+      "min_score": 0.9226,
+      "max_score": 0.9285,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 0,
+      "score": 0.9285,
+      "parameters": {
+        "encoding_dim": 77,
+        "learning_rate": 0.00219988511791178,
+        "dropout": 0.17692178644702494,
+        "batch_size": 32,
+        "epochs": 5
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 77,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.17692178644702494,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.03455854128645541,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.9231,
+        "parameters": {
+          "encoding_dim": 77,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.20578104421191035,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 77,
+          "learning_rate": 0.0006185918365532431,
+          "dropout": 0.17692178644702494,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 83,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.21299478640306643,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 122,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.21299478640306643,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.9226,
+        "parameters": {
+          "encoding_dim": 77,
+          "learning_rate": 0.0018905936464483446,
+          "dropout": 0.17692178644702494,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 34,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.1833661636383958,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 77,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.17692178644702494,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 86,
+          "learning_rate": 0.0007995852563965703,
+          "dropout": 0.1833661636383958,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 77,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.2305358462946086,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.9226,
+        "parameters": {
+          "encoding_dim": 68,
+          "learning_rate": 0.00976896279873005,
+          "dropout": 0.17692178644702494,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.0007995852563965703,
+          "dropout": 0.22969242756091734,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 85,
+          "learning_rate": 0.000893533743794395,
+          "dropout": 0.039094651628110544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 77,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.08347199554608839,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      }
+    ]
+  },
+  {
+    "model": "dense_autoencoder",
+    "generation": 6,
+    "stats": {
+      "best_score": 0.9313,
+      "avg_score": 0.9264800000000001,
+      "min_score": 0.9213,
+      "max_score": 0.9313,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 1,
+      "score": 0.9313,
+      "parameters": {
+        "encoding_dim": 85,
+        "learning_rate": 0.00219988511791178,
+        "dropout": 0.21299478640306643,
+        "batch_size": 32,
+        "epochs": 5
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.9245,
+        "parameters": {
+          "encoding_dim": 77,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.08347199554608839,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.9313,
+        "parameters": {
+          "encoding_dim": 85,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.21299478640306643,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.1833661636383958,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 86,
+          "learning_rate": 0.0007995852563965703,
+          "dropout": 0.3072856488384881,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 83,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 83,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.2116300156900391,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 77,
+          "learning_rate": 0.0001,
+          "dropout": 0.17692178644702494,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 86,
+          "learning_rate": 0.0007995852563965703,
+          "dropout": 0.03455854128645541,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.9299,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.1833661636383958,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.00081630773053981,
+          "dropout": 0.039094651628110544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 114,
+          "learning_rate": 0.0001,
+          "dropout": 0.22969242756091734,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.9226,
+        "parameters": {
+          "encoding_dim": 86,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.17692178644702494,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 77,
+          "learning_rate": 0.0007995852563965703,
+          "dropout": 0.060466848043221236,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.9213,
+        "parameters": {
+          "encoding_dim": 122,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.21299478640306643,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      }
+    ]
+  },
+  {
+    "model": "dense_autoencoder",
+    "generation": 7,
+    "stats": {
+      "best_score": 0.9285,
+      "avg_score": 0.9258933333333333,
+      "min_score": 0.9213,
+      "max_score": 0.9285,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 1,
+      "score": 0.9285,
+      "parameters": {
+        "encoding_dim": 115,
+        "learning_rate": 0.001630584314372426,
+        "dropout": 0.1833661636383958,
+        "batch_size": 32,
+        "epochs": 5
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.9245,
+        "parameters": {
+          "encoding_dim": 85,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.21299478640306643,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.001630584314372426,
+          "dropout": 0.1833661636383958,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 83,
+          "learning_rate": 0.0015019788151413855,
+          "dropout": 0.2116300156900391,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.22237060346718665,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.9213,
+        "parameters": {
+          "encoding_dim": 83,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.21299478640306643,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.9226,
+        "parameters": {
+          "encoding_dim": 85,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.2706117380662638,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 128,
+          "learning_rate": 0.00081630773053981,
+          "dropout": 0.039094651628110544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.1833661636383958,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.00081630773053981,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 90,
+          "learning_rate": 0.00219988511791178,
+          "dropout": 0.4068833928627789,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 77,
+          "learning_rate": 0.0001,
+          "dropout": 0.17692178644702494,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 103,
+          "learning_rate": 0.00081630773053981,
+          "dropout": 0.0014824360789012642,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.00081630773053981,
+          "dropout": 0.039094651628110544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.20515245768161228,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.9238,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      }
+    ]
+  },
+  {
+    "model": "dense_autoencoder",
+    "generation": 8,
+    "stats": {
+      "best_score": 0.9285,
+      "avg_score": 0.9274399999999999,
+      "min_score": 0.9258,
+      "max_score": 0.9285,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 0,
+      "score": 0.9285,
+      "parameters": {
+        "encoding_dim": 115,
+        "learning_rate": 0.00081630773053981,
+        "dropout": 0.039094651628110544,
+        "batch_size": 32,
+        "epochs": 5
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.00081630773053981,
+          "dropout": 0.039094651628110544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.20515245768161228,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 95,
+          "learning_rate": 0.00213911547097863,
+          "dropout": 0.22237060346718665,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.1833661636383958,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.0015019788151413855,
+          "dropout": 0.2116300156900391,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 83,
+          "learning_rate": 0.001630584314372426,
+          "dropout": 0.1833661636383958,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 128,
+          "learning_rate": 0.001630584314372426,
+          "dropout": 0.1833661636383958,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.00081630773053981,
+          "dropout": 0.039094651628110544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 128,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.20515245768161228,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.0020251565451659403,
+          "dropout": 0.21709704907672625,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.00081630773053981,
+          "dropout": 0.2564719842259109,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.039094651628110544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 75,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.38028812225952163,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 83,
+          "learning_rate": 0.0015019788151413855,
+          "dropout": 0.22237060346718665,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.0008723296485396635,
+          "dropout": 0.20515245768161228,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      }
+    ]
+  },
+  {
+    "model": "dense_autoencoder",
+    "generation": 9,
+    "stats": {
+      "best_score": 0.9299,
+      "avg_score": 0.9266999999999999,
+      "min_score": 0.9213,
+      "max_score": 0.9299,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 4,
+      "score": 0.9299,
+      "parameters": {
+        "encoding_dim": 128,
+        "learning_rate": 0.001630584314372426,
+        "dropout": 0.19685122329458574,
+        "batch_size": 32,
+        "epochs": 5
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.9245,
+        "parameters": {
+          "encoding_dim": 83,
+          "learning_rate": 0.0015019788151413855,
+          "dropout": 0.22237060346718665,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.00081630773053981,
+          "dropout": 0.039094651628110544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.9213,
+        "parameters": {
+          "encoding_dim": 83,
+          "learning_rate": 0.001630584314372426,
+          "dropout": 0.29539369893237544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 83,
+          "learning_rate": 0.0015019788151413855,
+          "dropout": 0.31539162009402044,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.9299,
+        "parameters": {
+          "encoding_dim": 128,
+          "learning_rate": 0.001630584314372426,
+          "dropout": 0.19685122329458574,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 86,
+          "learning_rate": 0.007286065049447959,
+          "dropout": 0.23490218343898472,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.000988885410206808,
+          "dropout": 0.039094651628110544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.20515245768161228,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.039094651628110544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.0015019788151413855,
+          "dropout": 0.2116300156900391,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 59,
+          "learning_rate": 0.0015019788151413855,
+          "dropout": 0.22237060346718665,
+          "batch_size": 128,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 83,
+          "learning_rate": 0.001962838342787457,
+          "dropout": 0.046013153207964175,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.0015019788151413855,
+          "dropout": 0.2116300156900391,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.039094651628110544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      }
+    ]
+  },
+  {
+    "model": "dense_autoencoder",
+    "generation": 10,
+    "stats": {
+      "best_score": 0.9299,
+      "avg_score": 0.9272333333333334,
+      "min_score": 0.9226,
+      "max_score": 0.9299,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 7,
+      "score": 0.9299,
+      "parameters": {
+        "encoding_dim": 115,
+        "learning_rate": 0.0028298003455536273,
+        "dropout": 0.039094651628110544,
+        "batch_size": 32,
+        "epochs": 5
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 128,
+          "learning_rate": 0.001630584314372426,
+          "dropout": 0.19685122329458574,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 128,
+          "learning_rate": 0.01,
+          "dropout": 0.19685122329458574,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.001538720565589588,
+          "dropout": 0.038786930575218787,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.039094651628110544,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.039094651628110544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.02983276580314915,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 128,
+          "learning_rate": 0.001630584314372426,
+          "dropout": 0.09971845217671453,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.9299,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.0028298003455536273,
+          "dropout": 0.039094651628110544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.9245,
+        "parameters": {
+          "encoding_dim": 83,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.039094651628110544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 96,
+          "learning_rate": 0.001962838342787457,
+          "dropout": 0.046013153207964175,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.039094651628110544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.039094651628110544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.000988885410206808,
+          "dropout": 0.039094651628110544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.9226,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.00081630773053981,
+          "dropout": 0.039094651628110544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      }
+    ]
+  },
+  {
+    "model": "dense_autoencoder",
+    "generation": 11,
+    "stats": {
+      "best_score": 0.9299,
+      "avg_score": 0.9270066666666665,
+      "min_score": 0.9226,
+      "max_score": 0.9299,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 3,
+      "score": 0.9299,
+      "parameters": {
+        "encoding_dim": 116,
+        "learning_rate": 0.001630584314372426,
+        "dropout": 0.0,
+        "batch_size": 32,
+        "epochs": 5
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.0028298003455536273,
+          "dropout": 0.039094651628110544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.9226,
+        "parameters": {
+          "encoding_dim": 128,
+          "learning_rate": 0.01,
+          "dropout": 0.04082130435390499,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 112,
+          "learning_rate": 0.0028298003455536273,
+          "dropout": 0.039094651628110544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.9299,
+        "parameters": {
+          "encoding_dim": 116,
+          "learning_rate": 0.001630584314372426,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.0019130865580230865,
+          "dropout": 0.04657409013941806,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 128,
+          "learning_rate": 0.001630584314372426,
+          "dropout": 0.0872997870470906,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 96,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.001962838342787457,
+          "dropout": 0.0522931265358981,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 128,
+          "learning_rate": 0.0028298003455536273,
+          "dropout": 0.039094651628110544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 128,
+          "learning_rate": 0.0028298003455536273,
+          "dropout": 0.039094651628110544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.006393983997178466,
+          "dropout": 0.039094651628110544,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.9251,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.007021925324249142,
+          "dropout": 0.15760171516438945,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.0002563329849202907,
+          "dropout": 0.039094651628110544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 128,
+          "learning_rate": 0.009426917409723136,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      }
+    ]
+  },
+  {
+    "model": "dense_autoencoder",
+    "generation": 12,
+    "stats": {
+      "best_score": 0.9313,
+      "avg_score": 0.9270866666666666,
+      "min_score": 0.9245,
+      "max_score": 0.9313,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 11,
+      "score": 0.9313,
+      "parameters": {
+        "encoding_dim": 56,
+        "learning_rate": 0.01,
+        "dropout": 0.039094651628110544,
+        "batch_size": 64,
+        "epochs": 5
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 116,
+          "learning_rate": 0.001630584314372426,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.001630584314372426,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 128,
+          "learning_rate": 0.0028298003455536273,
+          "dropout": 0.0,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 118,
+          "learning_rate": 0.001630584314372426,
+          "dropout": 0.2823480846808095,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.00906632786106263,
+          "dropout": 0.039094651628110544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 98,
+          "learning_rate": 0.0002563329849202907,
+          "dropout": 0.039094651628110544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.9245,
+        "parameters": {
+          "encoding_dim": 100,
+          "learning_rate": 0.0028298003455536273,
+          "dropout": 0.09103753387764343,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 116,
+          "learning_rate": 0.001630584314372426,
+          "dropout": 0.05838997138162121,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 96,
+          "learning_rate": 0.001712792448914362,
+          "dropout": 0.039094651628110544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.9245,
+        "parameters": {
+          "encoding_dim": 88,
+          "learning_rate": 0.0028298003455536273,
+          "dropout": 0.055034189135565195,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.01,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.9313,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.01,
+          "dropout": 0.039094651628110544,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.0028298003455536273,
+          "dropout": 0.039094651628110544,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 128,
+          "learning_rate": 0.009426917409723136,
+          "dropout": 0.07121835940631975,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.0028298003455536273,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      }
+    ]
+  },
+  {
+    "model": "dense_autoencoder",
+    "generation": 13,
+    "stats": {
+      "best_score": 0.9299,
+      "avg_score": 0.9262466666666666,
+      "min_score": 0.9226,
+      "max_score": 0.9299,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 3,
+      "score": 0.9299,
+      "parameters": {
+        "encoding_dim": 116,
+        "learning_rate": 0.003145750960386938,
+        "dropout": 0.0,
+        "batch_size": 32,
+        "epochs": 5
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.01,
+          "dropout": 0.039094651628110544,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 116,
+          "learning_rate": 0.0006546250993843855,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.001630584314372426,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.9299,
+        "parameters": {
+          "encoding_dim": 116,
+          "learning_rate": 0.003145750960386938,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 94,
+          "learning_rate": 0.001630584314372426,
+          "dropout": 0.0,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.01,
+          "dropout": 0.039094651628110544,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.9226,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.01,
+          "dropout": 0.039094651628110544,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.01,
+          "dropout": 0.039094651628110544,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.9226,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.01,
+          "dropout": 0.039094651628110544,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.9245,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.0028298003455536273,
+          "dropout": 0.039094651628110544,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 120,
+          "learning_rate": 0.006996802037020673,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.001630584314372426,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 128,
+          "learning_rate": 0.01,
+          "dropout": 0.07121835940631975,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.9238,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.01,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 128,
+          "learning_rate": 0.0028298003455536273,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      }
+    ]
+  },
+  {
+    "model": "dense_autoencoder",
+    "generation": 14,
+    "stats": {
+      "best_score": 0.9272,
+      "avg_score": 0.92588,
+      "min_score": 0.9226,
+      "max_score": 0.9272,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 0,
+      "score": 0.9272,
+      "parameters": {
+        "encoding_dim": 116,
+        "learning_rate": 0.003145750960386938,
+        "dropout": 0.0,
+        "batch_size": 32,
+        "epochs": 5
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 116,
+          "learning_rate": 0.003145750960386938,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.01,
+          "dropout": 0.039094651628110544,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 128,
+          "learning_rate": 0.003145750960386938,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 116,
+          "learning_rate": 0.004749738202993668,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 116,
+          "learning_rate": 0.003145750960386938,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.0016050802879998462,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.9251,
+        "parameters": {
+          "encoding_dim": 128,
+          "learning_rate": 0.004640184912450819,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 94,
+          "learning_rate": 0.001630584314372426,
+          "dropout": 0.11024598912307876,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.0005712582513681218,
+          "dropout": 0.0,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.9231,
+        "parameters": {
+          "encoding_dim": 128,
+          "learning_rate": 0.01,
+          "dropout": 0.2510157548664762,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.9251,
+        "parameters": {
+          "encoding_dim": 116,
+          "learning_rate": 0.003145750960386938,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.0015121626179572945,
+          "dropout": 0.021703013894218953,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.9226,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.01,
+          "dropout": 0.12632878171463657,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.9231,
+        "parameters": {
+          "encoding_dim": 120,
+          "learning_rate": 0.006996802037020673,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 72,
+          "learning_rate": 0.006996802037020673,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      }
+    ]
+  },
+  {
+    "model": "dense_autoencoder",
+    "generation": 15,
+    "stats": {
+      "best_score": 0.9272,
+      "avg_score": 0.9261066666666667,
+      "min_score": 0.9213,
+      "max_score": 0.9272,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 3,
+      "score": 0.9272,
+      "parameters": {
+        "encoding_dim": 116,
+        "learning_rate": 0.01,
+        "dropout": 0.0,
+        "batch_size": 32,
+        "epochs": 5
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.0015121626179572945,
+          "dropout": 0.021703013894218953,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.9251,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.001630584314372426,
+          "dropout": 0.11024598912307876,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.9213,
+        "parameters": {
+          "encoding_dim": 116,
+          "learning_rate": 0.003145750960386938,
+          "dropout": 0.0,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 116,
+          "learning_rate": 0.01,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 128,
+          "learning_rate": 0.0005712582513681218,
+          "dropout": 0.0,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 73,
+          "learning_rate": 0.001630584314372426,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 128,
+          "learning_rate": 0.003145750960386938,
+          "dropout": 0.053301675378653206,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 128,
+          "learning_rate": 0.0006879262907682237,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 116,
+          "learning_rate": 0.003145750960386938,
+          "dropout": 0.0,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.01,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 116,
+          "learning_rate": 0.000384667423228071,
+          "dropout": 0.06283915299227241,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 128,
+          "learning_rate": 0.001630584314372426,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 116,
+          "learning_rate": 0.0005712582513681218,
+          "dropout": 0.0,
+          "batch_size": 64,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.003145750960386938,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 94,
+          "learning_rate": 0.004580919909826179,
+          "dropout": 0.06241667564764047,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      }
+    ]
+  },
+  {
+    "model": "dense_autoencoder",
+    "generation": 16,
+    "stats": {
+      "best_score": 0.9285,
+      "avg_score": 0.92662,
+      "min_score": 0.9201,
+      "max_score": 0.9285,
+      "failed_evals": 0
+    },
+    "best": {
+      "index": 7,
+      "score": 0.9285,
+      "parameters": {
+        "encoding_dim": 128,
+        "learning_rate": 0.01,
+        "dropout": 0.0,
+        "batch_size": 32,
+        "epochs": 5
+      }
+    },
+    "individuals": [
+      {
+        "index": 0,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 94,
+          "learning_rate": 0.004580919909826179,
+          "dropout": 0.06241667564764047,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 1,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.001630584314372426,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 2,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 41,
+          "learning_rate": 0.01,
+          "dropout": 0.0,
+          "batch_size": 128,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 3,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 116,
+          "learning_rate": 0.0005712582513681218,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 4,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 94,
+          "learning_rate": 0.0026694268189578407,
+          "dropout": 0.06241667564764047,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 5,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 128,
+          "learning_rate": 0.0006879262907682237,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 6,
+        "score": 0.9201,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.01,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 7,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 128,
+          "learning_rate": 0.01,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 8,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 128,
+          "learning_rate": 0.0010348833574958963,
+          "dropout": 0.021703013894218953,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 9,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 115,
+          "learning_rate": 0.004580919909826179,
+          "dropout": 0.06241667564764047,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 10,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 56,
+          "learning_rate": 0.01,
+          "dropout": 0.014388332285579375,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 11,
+        "score": 0.9258,
+        "parameters": {
+          "encoding_dim": 128,
+          "learning_rate": 0.001630584314372426,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 12,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 73,
+          "learning_rate": 0.0018418105537784178,
+          "dropout": 0.09956124626535026,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 13,
+        "score": 0.9272,
+        "parameters": {
+          "encoding_dim": 116,
+          "learning_rate": 0.0004527309227779779,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      },
+      {
+        "index": 14,
+        "score": 0.9285,
+        "parameters": {
+          "encoding_dim": 94,
+          "learning_rate": 0.001630584314372426,
+          "dropout": 0.0,
+          "batch_size": 32,
+          "epochs": 5
+        }
+      }
+    ]
+  }
+]
