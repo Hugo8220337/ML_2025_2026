@@ -70,8 +70,14 @@ Este \textit{dataset}, caracterizado por ter um elevado volume, exigiu estratég
 \end{itemize}
 
 \subsubsection{Análise de Anomalias (ISOT)}
-% TODO: Inserir processo quando estiver concluído.
-% Sugestão: "Para este módulo, focou-se na representação vetorial densa (Embeddings) dos artigos reais..."
+O processamento deste conjunto de dados foi adaptado para suportar duas fases distintas de experimentação. Inicialmente, procedeu-se à fusão dos ficheiros originais (\textit{True.csv} e \textit{Fake.csv}) e à criação de uma coluna alvo (\textit{label}) para identificar a veracidade.
+
+Posteriormente, a amostragem dos dados variou consoante a estratégia de modelação:
+
+\begin{itemize}
+	\item \textbf{Contaminação Controlada (Deteção de Anomalias):} Para os modelos não supervisionados, construiu-se um conjunto de treino composto pela totalidade das notícias verdadeiras, contaminado deliberadamente com apenas 5\% de notícias falsas. O objetivo foi simular se os algoritmos conseguiam isolar a minoria falsa como \textit{outliers};
+	\item \textbf{Classificação Supervisionada:} Para os classificadores supervisionados (implementados após a falha da deteção de anomalias), utilizou-se a união completa de ambos os ficheiros, permitindo aos modelos aprender explicitamente as características distintivas de ambas as classes com a totalidade da informação disponível.
+\end{itemize}
 
 \subsubsection{Análise de Stance (FNC-1)}
 O conjunto de dados FNC-1 apresenta a maior complexidade de pré-processamento, exigindo adaptações para capturar a relação semântica entre duas sequências de texto (Título e Corpo):
