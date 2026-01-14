@@ -9,7 +9,16 @@ from common.cache import CacheManager
 from common.visualizations import plot_anomaly_confusion_matrix, plot_anomaly_scatter, plot_model_comparison
 
 
-def anomaly_detection(models=['random_forest'], target_metric='f1_score', reduction=None, options='default', vectorizer_type='tfidf', visualizations=False, type=None):
+def anomaly_detection(
+    models=['random_forest', 'svm', 'neural_network'],
+    target_metric='f1_score',
+    reduction=None,
+    options='default',
+    vectorizer_type='tfidf',
+    visualizations=False,
+    type=None
+    ):
+
     cache = CacheManager(module_name='anomaly_detection')
     file_path = 'datasets/ISOT/'
 
@@ -154,3 +163,5 @@ def anomaly_detection(models=['random_forest'], target_metric='f1_score', reduct
             save_path=os.path.join(viz_dir, 'model_comparison.png'),
             title="Anomaly Detection Models (F1-Binary)"
         )
+
+    return result

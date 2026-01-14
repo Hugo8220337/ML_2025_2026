@@ -9,8 +9,15 @@ from evolutionary_model_selection.ems import ems
 from common.cache import CacheManager
 from common.visualizations import plot_model_comparison, plot_confusion_matrices
 
+def clickbait_detection(
+    models=['xgboost', 'cnn'],
+    target_metric='f1_score',
+    reduction=None,
+    options='default',
+    vectorizer_type='tfidf',
+    visualizations=False
+    ):
 
-def clickbait_detection(models=['xgboost'], target_metric='f1_weighted', reduction=None, options='default', vectorizer_type='tfidf', visualizations=False):
     cache = CacheManager(module_name='clickbait_detection')
     file_path = 'datasets/clickbait/'
 
@@ -54,4 +61,6 @@ def clickbait_detection(models=['xgboost'], target_metric='f1_weighted', reducti
         plot_model_comparison(result, save_path=os.path.join(viz_dir, 'model_comparison.png'))
 
         plot_confusion_matrices(result, save_path=os.path.join(viz_dir, 'confusion_matrices.png'))
+
+    return result
         

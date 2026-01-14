@@ -10,7 +10,15 @@ from common.cache import CacheManager
 from common.visualizations import plot_model_comparison, plot_confusion_matrices
 
 
-def stance_detection(models=['logistic_regression'], target_metric='accuracy', reduction=None, options='quick', vectorizer_type='tfidf', visualizations=False):
+def stance_detection(
+    models=['svm', 'random_forest'],
+    target_metric='f1_macro',
+    reduction=None,
+    options='default',
+    vectorizer_type='tfidf',
+    visualizations=False
+    ):
+
     cache = CacheManager(module_name='stance_detection')
     file_path = 'datasets/fnc1/'
 
@@ -71,3 +79,5 @@ def stance_detection(models=['logistic_regression'], target_metric='accuracy', r
             result, 
             save_path=os.path.join(viz_dir, 'confusion_matrices.png')
         )
+
+    return result

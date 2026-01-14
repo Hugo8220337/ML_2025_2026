@@ -9,7 +9,15 @@ from evolutionary_model_selection.ems import ems
 from common.cache import CacheManager
 from common.visualizations import plot_model_comparison, plot_clusters
 
-def topic_classification(models=['nmf'], target_metric='coherence', reduction=None, options='default', vectorizer_type='tfidf', visualizations=False):
+def topic_classification(
+    models=['nmf'],
+    target_metric='coherence',
+    reduction=None,
+    options='default',
+    vectorizer_type='tfidf',
+    visualizations=False
+    ):
+    
     cache = CacheManager(module_name='topic_classification')
     file_path = 'datasets/allthenews/all-the-news-2-1.csv'
 
@@ -111,3 +119,4 @@ def topic_classification(models=['nmf'], target_metric='coherence', reduction=No
                                         save_path=os.path.join(viz_dir, f'{model_name}_clusters.png'))
                     except Exception as e:
                         raise Exception(f"Error validating/visualizing model {model_name}: {e}") from e
+    return result
