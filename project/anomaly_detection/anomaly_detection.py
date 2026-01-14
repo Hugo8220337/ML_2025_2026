@@ -66,8 +66,6 @@ def anomaly_detection(models=['random_forest'], target_metric='f1_score', reduct
         X_final_for_scatter = None 
         
         for model_name, model_result in models_data.items():
-            print(f"Processing {model_name}...")
-
             pipeline = model_result.get('pipeline', {})
             vectorizer = pipeline.get('vectorizer')
             reduction_model = pipeline.get('reduction_model')
