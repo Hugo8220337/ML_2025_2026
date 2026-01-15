@@ -42,7 +42,7 @@ def _predict_with_pipeline(df, result, text_col, model_name_hint='model'):
 
     try:
         if hasattr(model, 'predict'):
-            predictions = model.predict(X_final, verbose=0)
+            predictions = model.predict(X_final)
             if len(predictions.shape) > 1 and predictions.shape[1] == 1:
                 predictions = (predictions > 0.5).astype(int).flatten()
         elif hasattr(model, 'transform'): 
