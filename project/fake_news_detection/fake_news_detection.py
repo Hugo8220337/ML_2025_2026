@@ -94,3 +94,5 @@ def fake_news_detection(
             result, 
             save_path=os.path.join(viz_dir, 'confusion_matrices.png')
         )
+
+    return result, preprocessor
