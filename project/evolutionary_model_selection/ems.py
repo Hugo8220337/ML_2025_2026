@@ -522,7 +522,13 @@ def preprocess_text(X_train, X_test=None, vectorizer_type='tfidf', **kwargs):
         is_text = True
     
     if not is_text:
-        return X_train, X_test, None
+        return {
+            'X_train_vec': X_train, 
+            'X_test_vec': X_test, 
+            'vectorizer': None, 
+            'tokens_train': None, 
+            'tokens_test': None
+        }
     prep_keys = ['to_lower', 'remove_punctuation', 'remove_digits', 'tokenize', 'remove_stopwords', 'lemmatize']
     vect_keys = ['max_features', 'lowercase', 'stop_words', 'ngram_range']
     
@@ -666,7 +672,7 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
         report_data = []
 
     n_samples = X.shape[0]
-    max_fitness_samples = min(5000, int(n_samples * 0.1))
+    max_fitness_samples = min(5000, n_samples)
     
     if is_unsupervised:
         if n_samples > max_fitness_samples:
@@ -681,6 +687,7 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
         X_train_processed = preproc_result['X_train_vec']
         vectorizer = preproc_result['vectorizer']
         tokens_train = preproc_result['tokens_train']
+        tokens_test = None
         
         if reduction is not None:
             print(f"-> Applying dimensionality reduction: {reduction}")
@@ -945,7 +952,8 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
                 partial_pipeline = {
                     'vectorizer': vectorizer,
                     'reduction_model': shared_reduction_model,
-                    'classifier': partial_model
+                    'classifier': partial_model,
+                    'tokenizer': partial_result.get('tokenizer')
             }
                 
                 all_models_results[model_name] = {
@@ -1077,7 +1085,8 @@ def ems(X, y=None, models=None, reduction=None, target_metric=None, report=False
             pipeline_dict = {
                 'vectorizer': final_vectorizer,
                 'reduction_model': final_reduction_model,
-                'classifier': final_run['model']
+                'classifier': final_run['model'],
+                'tokenizer': final_run.get('tokenizer')
             }
             
             cache_result = {

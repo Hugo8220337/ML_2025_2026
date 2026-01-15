@@ -8,7 +8,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Dictionary mapping specific Folder Names (from your image) to Kaggle IDs
 KAGGLE_DATASETS = {
-    "FakeNewsNet": "mdepak/fakenewsnet",
+    "WELFake": "saurabhshahane/fake-news-classification",
     "clickbait": "amananandrai/clickbait-dataset",
     "allthenews": "davidmckinley/all-the-news-dataset",
     "ISOT": "csmalarkodi/isot-fake-news-dataset"
