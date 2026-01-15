@@ -68,37 +68,41 @@ Para a avaliação e otimização final, substituiu-se o critério geométrico (
 \end{figure}
 
 \subsection{Modelo 2: Análise de Anomalias} \label{subsec:anomaly-analysis}
-Para a componente de deteção de anomalias, partiu-se da hipótese inicial de que as notícias falsas (\textit{fake news}) divergiriam linguística e estruturalmente das verdadeiras, podendo ser detetadas como \textit{outliers} sem necessidade de etiquetas explícitas (\textit{Unsupervised Learning}).
+Para esta componente, formulou-se inicialmente a hipótese de que as notícias falsas constituiriam "anomalias" estatísticas, divergindo significativamente das notícias verdadeiras sem a necessidade de etiquetas explícitas (\textit{Unsupervised Learning}).
 
-Para validar esta hipótese no \textit{dataset} ISOT, testaram-se quatro arquiteturas distintas: abordagem estatística (\textit{Isolation Forest}), geométrica (\textit{One-Class SVM}) e baseada em reconstrução (\textit{Dense Autoencoder} e \textit{Embedding Autoencoder}). Foram aplicadas técnicas de redução de dimensionalidade (LSA) para remoção de ruído e calibração da sensibilidade do modelo.
+Numa primeira fase experimental, foram aplicados algoritmos de deteção de anomalias (incluindo \textit{Isolation Forest}, \textit{One-Class SVM} e \textit{Autoencoders}) no \textit{dataset} ISOT. Contudo, os resultados refutaram a hipótese inicial: as notícias falsas partilhavam demasiadas semelhanças estruturais e vocabulares com as verdadeiras, resultando numa incapacidade dos modelos em separar as classes (F1-Scores inferiores a 0.10). Concluiu-se que, neste contexto, as notícias desinformativas não são tão diferentes das verdadeiras.
 
-Contrariando a expectativa inicial, os resultados experimentais comprovaram que a abordagem não supervisionada é ineficaz para este conjunto de dados. Como demonstra a Tabela \ref{tab:anomaly-results}, todos os quatro modelos falharam em atingir um F1-Score (Binary) superior a 0.10. A análise dos erros revelou que os modelos sinalizavam consistentemente notícias verdadeiras como anomalias (Falsos Positivos) ou falhavam na deteção das falsas.
+Face a esta limitação, alterou-se a estratégia para uma abordagem de \textbf{Aprendizagem Supervisionada}. O problema foi reestruturado utilizando um \textit{dataset} equilibrado (50\% notícias reais, 50\% falsas), permitindo aos algoritmos aprenderem as características discriminatórias de cada classe. Foram treinados três modelos distintos: \textit{Random Forest}, \textit{Support Vector Machine} (SVM) e uma \textit{Neural Network}.
+
+Ao contrário da tentativa não supervisionada, esta abordagem obteve resultados satisfatórios, conforme demonstrado na Tabela \ref{tab:supervised-results}.
 
 \begin{table}[h]
 	\centering
 	\small
 	\renewcommand{\arraystretch}{1.2}
-	\caption{Comparação do desempenho (F1-Score Binary) entre os modelos não supervisionados de deteção de anomalias.}
-	\label{tab:anomaly-results}
-	\begin{tabular}{lcccc}
+	\caption{Comparação de desempenho (F1-Score) após a transição para Aprendizagem Supervisionada (Dataset Equilibrado).}
+	\label{tab:supervised-results}
+	\begin{tabular}{lc}
 		\toprule
-		\textbf{Métrica} & \textbf{Isol. Forest} & \textbf{Dense AE} & \textbf{Embed. AE} & \textbf{OC-SVM} \\
+		\textbf{Modelo} & \textbf{F1-Score} \\
 		\midrule
-		F1-Score (Binary) & 0.0417 & 0.0527 & 0.0769 & \textbf{0.0952} \\
+		Random Forest & 0.9720 \\
+		SVM & 0.9774 \\
+		Neural Network & \textbf{0.9896} \\
 		\bottomrule
 	\end{tabular}
 \end{table}
 
-A análise visual da dispersão (Figura \ref{fig:anomaly-scatter}) confirma as métricas obtidas. Observa-se uma sobreposição significativa entre as distribuições das classes e as fronteiras de decisão dos modelos, evidenciando que o vocabulário e a estrutura das notícias falsas no ISOT são demasiado semelhantes às notícias reais para serem distinguidos por métodos puramente estatísticos ou de reconstrução.
+A eficiência desta nova estratégia é demonstrada na Figura \ref{fig:supervised-scatter}. Enquanto a abordagem anterior apresentava uma sobreposição total, os novos modelos supervisionados conseguiram criar fronteiras de decisão claras, separando eficazmente as notícias verdadeiras das falsas.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1.0\linewidth]{imagens/anomaly_scatterplot}
-	\caption{Visualização da incapacidade de separação das anomalias: Sobreposição entre a classificação real e as predições dos modelos não supervisionados.}
-	\label{fig:anomaly-scatter}
+	\includegraphics[width=1.0\linewidth]{imagens/supervised_scatterplot_results}
+	\caption{Visualização dos resultados da abordagem supervisionada}
+	\label{fig:supervised-scatter}
 \end{figure}
 
-Esta falha experimental constitui um resultado relevante, pois prova que, neste contexto, a desinformação não é uma anomalia estatística detetável. Consequentemente, abandonou-se a via não supervisionada, alterando a estratégia para algoritmos de Aprendizagem Supervisionada (como \textit{Random Forest} e SVM), que demonstraram posteriormente capacidade de generalização ao aprender com as etiquetas explícitas das notícias.
+Desta análise comparativa, selecionou-se a Rede Neuronal (F1: 0.9896) como o modelo final, por ter uma capacidade maior de generalização na distinção de padrões complexos em notícias.
 
 \subsection{Modelo 3: Deteção de Stance (Postura)} \label{subsec:stance-detection}
 
