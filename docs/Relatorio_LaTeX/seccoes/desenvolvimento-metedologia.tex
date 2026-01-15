@@ -160,4 +160,37 @@ Os resultados quantitativos, apresentados na Tabela \ref{tab:clickbait-results},
 A CNN apresentou um desempenho significativamente superior ao XGBoost (F1-Score de 0.9509 contra 0.8462). Este resultado demonstra que a deteção de \textit{clickbait} beneficia consideravelmente da extração de características espaciais e padrões locais que as camadas convolucionais conseguem isolar melhor, superando a abordagem de \textit{gradient boosting} na captura da estrutura sintática e semântica de títulos sensacionalistas.
 
 \subsection{Modelo Final: Fake News Meta-Classifier} \label{subsec:modelo-final}
-% Como as saídas dos modelos anteriores (1, 2 e 3) entram neste modelo.
+O último componente da arquitetura é o Meta-Classificador. Ao contrário dos modelos anteriores, este modelo não analisa o texto da notícia diretamente. Ele simplesmente recebe as opiniões (previsões) de todos os modelos especialistas e toma a decisão final.
+
+Para treinar este modelo, foi necessário construir um novo conjunto de dados a partir do \textit{dataset} WELFake. O processo foi o seguinte:
+
+\begin{enumerate}
+	\item Cada notícia do WELFake passou pelos quatro modelos anteriores (Tópicos, Anomalias, Stance e Clickbait);
+	\item As previsões de cada modelo foram guardadas como novas colunas (features);
+	\item Criou-se sim uma tabela onde as colunas representam a "opinião" de cada especialista e a variável alvo é a veracidade da notícia (Real ou Fake).
+\end{enumerate}
+
+Com este novo \textit{dataset}, foram testados cinco algoritmos de classificação para encontrar o que melhor conseguia combinar estas informações. Os resultados de desempenho (F1-Score) encontram-se na Tabela \ref{tab:meta-results}.
+
+\begin{table}[h]
+	\centering
+	\small
+	\renewcommand{\arraystretch}{1.2}
+	\caption{Comparação de desempenho dos algoritmos para o Meta-Classificador.}
+	\label{tab:meta-results}
+	\begin{tabular}{lc}
+		\toprule
+		\textbf{Algoritmo} & \textbf{F1-Score} \\
+		\midrule
+		Logistic Regression & 0.8770 \\
+		Neural Network & 0.8404 \\
+		SVM & 0.8604 \\
+		Random Forest & 0.8790 \\
+		\textbf{XGBoost} & \textbf{0.8794} \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+A análise dos resultados mostra que os modelos baseados em árvores de decisão (\textit{Random Forest} e \textit{XGBoost}) obtiveram os melhores desempenhos, superando a rede neuronal e o SVM neste tipo de dados tabulares.
+
+O \textbf{XGBoost} foi o algoritmo selecionado como Modelo Final, pois apresentou o F1-Score mais alto (0.8794). Embora a diferença para o \textit{Random Forest} seja pequena, o XGBoost demonstrou ser ligeiramente mais eficaz a combinar as diferentes saídas dos modelos especialistas para distinguir notícias falsas de verdadeiras.
