@@ -31,9 +31,13 @@ def fake_news_detection(
     }
 
     def preprocessing(file_path):
-        df = read_csv(file_path+'WELFake_Dataset.csv')
-        df.drop(columns=['Unnamed: 0'], inplace=True)
-        return df
+        try:
+            df = read_csv(file_path+'WELFake_Dataset.csv')
+            df.drop(columns=['Unnamed: 0'], inplace=True)
+            return df
+        except Exception:
+            return
+
 
 
 

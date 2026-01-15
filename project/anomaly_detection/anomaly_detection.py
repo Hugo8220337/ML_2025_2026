@@ -23,19 +23,22 @@ def anomaly_detection(
     file_path = 'datasets/ISOT/'
 
     def preprocessing(file_path):
-        true_df = read_csv(file_path+'True.csv')
-        fake_df = read_csv(file_path+'Fake.csv')
-        true_df['label'] = 0
-        fake_df['label'] = 1
-        true_df['text'] = true_df['text'].str.replace(r'^.*?\(Reuters\) - ', '', regex=True)
-        if type == 'anomaly':
-            fake_sample = fake_df.sample(frac=0.05, random_state=42)
-            df = pd.concat([true_df, fake_sample], ignore_index=True)
-        else:
-            df = pd.concat([true_df, fake_df], ignore_index=True)
-        df = df.sample(frac=1, random_state=42).reset_index(drop=True)
+        try:
+            true_df = read_csv(file_path+'True.csv')
+            fake_df = read_csv(file_path+'Fake.csv')
+            true_df['label'] = 0
+            fake_df['label'] = 1
+            true_df['text'] = true_df['text'].str.replace(r'^.*?\(Reuters\) - ', '', regex=True)
+            if type == 'anomaly':
+                fake_sample = fake_df.sample(frac=0.05, random_state=42)
+                df = pd.concat([true_df, fake_sample], ignore_index=True)
+            else:
+                df = pd.concat([true_df, fake_df], ignore_index=True)
+            df = df.sample(frac=1, random_state=42).reset_index(drop=True)
+            return df
+        except Exception:
+            return
 
-        return df
 
 
 

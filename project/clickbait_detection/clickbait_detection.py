@@ -24,8 +24,12 @@ def clickbait_detection(
     
 
     def preprocessing(file_path):
-        df = read_csv(file_path+'clickbait_data.csv')
-        return df
+        try:
+            df = read_csv(file_path+'clickbait_data.csv')
+            return df
+        except Exception:
+            return
+
 
 
 
@@ -50,8 +54,6 @@ def clickbait_detection(
                            inputs=[X, y],
                            params={'models': models, 'options': options, 'reduction': reduction, 'vectorizer_type': vectorizer_type})
 
-    with open('output.txt', 'w') as f:
-        print(result, file=f)
 
 
     if visualizations:

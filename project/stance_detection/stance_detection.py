@@ -25,20 +25,21 @@ def stance_detection(
     
 
     def preprocessing(file_path):
-        stances_df = read_csv(file_path+'fnc1_train_stances.csv')
-        body_df = read_csv(file_path+'fnc1_train_bodies.csv')
-        df = pd.merge(stances_df, body_df, on='Body ID')
-        df = df.drop(columns=['Body ID'])
-        df['data'] = df['Headline'] + ' ' + df['articleBody']
-        df = df.drop(columns=['Headline', 'articleBody'])
-        df_unrelated = df[df['Stance'] == 'unrelated']
-        df_others = df[df['Stance'] != 'unrelated']
-        df_downsample = df_unrelated.sample(n=12000, random_state=42)
-        df_balanced = pd.concat([df_downsample, df_others])
-        df_balanced = df_balanced.sample(frac=1, random_state=42)
-
-
-        return df_balanced
+        try:
+            stances_df = read_csv(file_path+'fnc1_train_stances.csv')
+            body_df = read_csv(file_path+'fnc1_train_bodies.csv')
+            df = pd.merge(stances_df, body_df, on='Body ID')
+            df = df.drop(columns=['Body ID'])
+            df['data'] = df['Headline'] + ' ' + df['articleBody']
+            df = df.drop(columns=['Headline', 'articleBody'])
+            df_unrelated = df[df['Stance'] == 'unrelated']
+            df_others = df[df['Stance'] != 'unrelated']
+            df_downsample = df_unrelated.sample(n=12000, random_state=42)
+            df_balanced = pd.concat([df_downsample, df_others])
+            df_balanced = df_balanced.sample(frac=1, random_state=42)
+            return df_balanced
+        except Exception:
+            return
 
 
 

@@ -22,12 +22,16 @@ def topic_classification(
     file_path = 'datasets/allthenews/all-the-news-2-1.csv'
 
     def preprocessing(file_path):
-        df = read_csv(file_path, usecols=['title', 'article'])
-        df = df.dropna()
-        df = df.sample(n=100000, random_state=42)
-        df['data'] = df['title'] + ' ' + df['article']
-        df = df.drop(columns=['title', 'article'])
-        return df
+        try:
+            df = read_csv(file_path, usecols=['title', 'article'])
+            df = df.dropna()
+            df = df.sample(n=100000, random_state=42)
+            df['data'] = df['title'] + ' ' + df['article']
+            df = df.drop(columns=['title', 'article'])
+            return df
+        except Exception:
+            return
+
 
 
 

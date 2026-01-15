@@ -1,4 +1,4 @@
-FakeNewsNet: https://www.kaggle.com/datasets/mdepak/fakenewsnet/data
+WELFake Dataset: https://www.kaggle.com/datasets/saurabhshahane/fake-news-classification
 clickbait: https://www.kaggle.com/datasets/amananandrai/clickbait-dataset
 FNC1: https://github.com/FakeNewsChallenge/fnc-1
 AlltheNewsDataset: https://www.kaggle.com/datasets/davidmckinley/all-the-news-dataset

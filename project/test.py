@@ -15,11 +15,11 @@ new_list = [
 
 ]
 
-for n in new_list:
-    n = get_article(n)
+for new in new_list:
+    n = get_article(new)
 
     result = predict(n['title'], n['text'])
-    with open('output.txt', 'w') as f:
+    with open('output.txt', 'a+') as f:
         print(result['final_prediction'].iloc[0], file=f)
         print(result['confidence'].iloc[0], file=f)
 

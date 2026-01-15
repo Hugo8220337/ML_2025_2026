@@ -34,4 +34,4 @@ if __name__ == "__main__":
     # ad(models=['random_forest', 'svm', 'neural_network'], target_metric='f1_score', reduction=None, options='default', vectorizer_type='tfidf', visualizations=True)
     # sd(models=['svm', 'random_forest'], target_metric='f1_macro', reduction=None, options='default', vectorizer_type='tfidf', visualizations=True)
     # cd(models=['xgboost', 'cnn'], target_metric='f1_score', reduction=None, options='default', vectorizer_type='tfidf', visualizations=True)
-    fn()
+    # fn()
