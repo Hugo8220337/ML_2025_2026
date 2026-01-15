@@ -28,6 +28,6 @@ Nesta camada, quatro modelos independentes analisam características distintas d
 \end{itemize}
 
 \paragraph{3. Nível 2: Meta-Classificador:}
-As saídas dos quatro modelos especialistas (probabilidades, classes e \textit{scores}) são concatenadas num vetor de \textit{meta-features}. Este vetor serve de entrada para o Meta-Classificador (treinado no \textit{dataset} FakeNewsNet). 
+As saídas dos quatro modelos especialistas (probabilidades, classes e \textit{scores}) são concatenadas num vetor de \textit{meta-features}. Este vetor serve de entrada para o Meta-Classificador (treinado no \textit{dataset} WELFake). 
 
 Este modelo final aprende a ponderar a importância de cada especialista. Por exemplo, pode aprender que uma notícia com alto \textit{score} de \textit{clickbait} (M4) e inconsistência título-corpo (M3) tem uma probabilidade quase total de ser falsa, independentemente do tópico (M1). A saída final é a classificação binária: Real ou \textit{Fake}.

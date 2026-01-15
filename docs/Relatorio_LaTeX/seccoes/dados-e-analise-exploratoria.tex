@@ -35,11 +35,11 @@ Abaixo apresenta-se a lista dos datasets escolhidos e a respetiva justificação
 		\item \textit{Justificação:} Escolhido devido à qualidade da secção de notícias verdadeiras, provenientes da agência Reuters. Por serem textos com um padrão jornalístico rigoroso e consistente, constituem a base ideal para definir o que é uma notícia legítima e fiável.
 	\end{itemize}
 	
-	\item \textbf{FakeNewsNet (Para o Modelo Final):}
+	\item \textbf{WELFake (Para o Modelo Final):}
 	\begin{itemize}
-		\item \textit{Origem:} Repositório GitHub (Shu et al.) / Arizona State University.
-		\item \textit{Conteúdo:} Um repositório abrangente que inclui dados do \textit{PolitiFact} e \textit{GossipCop}, contendo conteúdo noticioso e metadados.
-		\item \textit{Justificação:} Como é um dataset de referência na literatura para validação de modelos de \textit{Fake News}, oferece a robustez necessária para testar a eficácia da agregação de todas as \textit{features} extraídas pelos modelos anteriores.
+		\item \textit{Origem:} IEEE Transactions on Computational Social Systems (Verma et al., 2021).
+		\item \textit{Conteúdo:} Uma agregação de quatro \textit{datasets} (Kaggle, McIntire, Reuters e BuzzFeed Political), totalizando mais de 72.000 notícias com uma distribuição equilibrada entre reais e falsas.
+		\item \textit{Justificação:} Foi selecionado por ser um dos maiores e mais diversos conjuntos de dados públicos. Ao combinar quatro fontes diferentes, evita o enviesamento típico de \textit{datasets} singulares e previne o \textit{overfitting}, garantindo que o Modelo Final é testado num cenário mais realista e genérico.
 	\end{itemize}
 \end{itemize}
 
