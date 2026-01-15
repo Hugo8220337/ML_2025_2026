@@ -5,6 +5,8 @@
 # Docker
 Dockerfile
 docker-compose.yml
+.dockerignore
+.env
 
 # Project
 .venv/
@@ -19,3 +21,6 @@ __pycache__/
 # IDE
 .idea/
 .vscode/
+
+datasets/
+files/
