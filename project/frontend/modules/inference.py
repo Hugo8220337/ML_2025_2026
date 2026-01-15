@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import numpy as np
 from tensorflow.keras.preprocessing.sequence import pad_sequences
@@ -8,6 +9,9 @@ from clickbait_detection.clickbait_detection import clickbait_detection
 from fake_news_detection.fake_news_detection import fake_news_detection 
 from common.nlp import preprocessing as nlp_preprocess
 
+
+os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 def _predict_with_pipeline(df, result, text_col, model_name_hint='model'):
     pipeline_data = result.get('pipeline', {})
@@ -137,7 +141,7 @@ def get_fake_news_prediction(df):
         probs = model.predict_proba(X_final)[0]
         confidence = probs[0] if pred == 0 else probs[1]
 
-    label = "Fake" if pred == 0 else "Real"
+    label = "Fake" if pred == 1 else "Real"
     
     df['final_prediction'] = label
     df['confidence'] = confidence

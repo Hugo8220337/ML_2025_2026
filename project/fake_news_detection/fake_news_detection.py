@@ -25,15 +25,12 @@ def fake_news_detection(
     cache = CacheManager(module_name='fake_news_detection')
     file_path = 'datasets/WELFake/'
 
-    labels = {
-        'fake': 0,
-        'real': 1
-    }
-
     def preprocessing(file_path):
         try:
             df = read_csv(file_path+'WELFake_Dataset.csv')
             df.drop(columns=['Unnamed: 0'], inplace=True)
+            df['text'] = df['text'].astype(str).str.replace(r'^.*?\(Reuters\) -', '', regex=True)
+            df['text'] = df['text'].str.replace('Reuters', '', case=False)
             return df
         except Exception:
             return
