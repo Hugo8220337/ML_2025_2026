@@ -15,7 +15,17 @@ new_list = [
 
 ]
 
-for new in new_list:
+new_list2 = [
+    'https://www.bbc.com/news/articles/cd0ydjvxpejo',
+    'https://www.theguardian.com/us-news/2026/jan/13/upenn-trump-jews-list',
+    'https://edition.cnn.com/2026/01/15/politics/trump-health-care-plan',
+    'https://www.nbcnews.com/business/consumer/saks-bankruptcy-luxury-retail-rcna254193',
+
+    
+
+]
+
+for new in new_list2:
     n = get_article(new)
 
     result = predict(n['title'], n['text'])
