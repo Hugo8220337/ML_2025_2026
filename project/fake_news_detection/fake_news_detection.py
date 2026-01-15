@@ -80,7 +80,7 @@ def fake_news_detection(
                             ),
                            inputs=[X, y],
                            params={'models': models, 'options': options, 'reduction': reduction, 'vectorizer_type': vectorizer_type}
-                           )
+                        )
 
 
 

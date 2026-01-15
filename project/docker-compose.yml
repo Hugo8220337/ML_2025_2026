@@ -4,4 +4,5 @@ services:
     ports:
       - "8501:8501"
     volumes:
-      - ./files/cache:/app/files/cache
+      - ./files:/app/files
+      - ./datasets:/app/datasets
