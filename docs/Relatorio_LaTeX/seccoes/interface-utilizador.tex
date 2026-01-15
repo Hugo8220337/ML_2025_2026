@@ -1,22 +1,39 @@
 \section{Interface de Utilização} \label{sec:interface-utilizador}
 
-De forma a cumprir o requisito de desenvolver uma aplicação que permita a interação com o modelo treinado, foi criada uma interface gráfica \textit{web} simples e intuitiva. O objetivo principal desta interface é abstrair a complexidade técnica dos algoritmos, permitindo que qualquer utilizador, mesmo sem conhecimentos de programação, possa verificar a veracidade de uma notícia.
+De forma a cumprir o requisito de desenvolver uma aplicação que permita a interação com o modelo treinado, foi criada uma interface \textit{web}, com o objetivo de permitir que qualquer utilizador verifique a veracidade de uma notícia e, simultaneamente, oferecer uma visão transparente sobre a performance dos modelos desenvolvidos.
 
-A aplicação foi desenvolvida em linguagem Python (utilizando a biblioteca \textit{Streamlit} \footnote{https://streamlit.io}), servindo como uma camada visual que comunica diretamente com a \textit{pipeline} de modelos de Machine Learning descrito nos capítulos anteriores.
+A aplicação foi desenvolvida na linguagem Python (biblioteca \textit{Streamlit}\footnote{https://streamlit.io}) e encontra-se dividida em dois módulos principais.
 
-O fluxo de utilização, ilustrado na Figura \ref{fig:interface-exemplo}, resume-se a três passos:
+\subsection{Deteção em Tempo Real} \label{subsec:detecao-tempo-real}
+
+Este é o módulo principal, onde o utilizador interage com o sistema final. O fluxo de utilização resume-se a três passos:
 
 \begin{enumerate}
 	\item \textbf{Inserção do URL:} O utilizador introduz o \textit{link} da notícia que deseja verificar;
-	\item \textbf{Extração Automática:} Ao clicar no botão "Analyze Veracity", o sistema executa um algoritmo de \textit{web scraping} que acede à página, e extrai automaticamente o título e o corpo da notícia, apresentando-os no ecrã;
-	\item \textbf{Classificação:} O texto extraído é enviado para os modelos especialistas e para o Meta-Classificador. O resultado final é apresentado de forma visual (Verde para Verdadeiro, Vermelho para Falso), acompanhado pelo nível de confiança da previsão.
+	\item \textbf{Extração Automática:} O sistema executa um algoritmo de \textit{web scraping} que acede à página e extrai automaticamente o título e o corpo da notícia;
+	\item \textbf{Classificação:} O texto extraído é processado pelos modelos especializados e pelo Meta-Classificador, devolvendo o resultado final (Verdadeiro/Falso) e o nível de confiança.
 \end{enumerate}
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1.0\linewidth]{imagens/user_interface_main}
+	\includegraphics[width=0.7\linewidth]{imagens/user_interface_main}
 	\caption{Interface de deteção de \textit{Fake News}}
 	\label{fig:interface-exemplo}
 \end{figure}
 
-Como se observa na figura, a interface apresenta o resultado "REAL NEWS" com uma confiança de 54.1\%, demonstrando a capacidade do sistema em processar dados reais da internet e fornecer uma resposta quase imediata.
+\subsection{Painel de Visualizações e Métricas} \label{subsec:visualizacao-metricas}
+
+Para garantir que os resultados do projeto são transparentes e fáceis de analisar, foi adicionado um separador dedicado a "Visualizações". Nesta área, o utilizador pode consultar graficamente o desempenho de todos os modelos criados durante o projeto.
+
+O painel inclui:
+\begin{itemize}
+	\item \textbf{Comparação de Modelos:} Gráficos de barras que mostram os F1-Scores de todos os algoritmos testados, permitindo perceber rapidamente qual foi o "vencedor" em cada categoria;
+	\item \textbf{Distribuição de Dados:} Gráficos de dispersão (\textit{scatterplots}) que ilustram como os modelos separam as notícias verdadeiras das falsas.
+\end{itemize}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{imagens/user_interface_visualizations}
+	\caption{Painel de métricas da aplicação: Comparação do desempenho dos modelos (F1-Score) e visualização da distribuição das classes.}
+	\label{fig:dashboard-visualizacoes}
+\end{figure}
