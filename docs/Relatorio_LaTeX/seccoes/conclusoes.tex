@@ -2,4 +2,20 @@
 
 \subsection{Reflexão Crítica dos Resultados} \label{subsec:reflexao-critica-resultados}
 
+Este projeto serviu para provar que usar vários modelos a trabalhar em equipa funciona melhor do que tentar resolver tudo com um só modelo. A divisão do problema em várias partes, como analisar o tópico, o clickbait ou a coerência, permitiu olhar para as notícias falsas de várias formas diferentes.
+
+Os resultados mostraram que o Modelo Final (baseado em XGBoost) conseguiu juntar as opiniões de todos os outros modelos e ter um bom desempenho, com uma precisão a rondar os 88\% no conjunto de dados WELFake. Isto confirma que quando juntamos várias especialidades, a decisão final é mais acertada.
+
+Uma lição importante que se tirou deste trabalho foi sobre a deteção de anomalias. Inicialmente, pensou-se que seria possível apanhar notícias falsas apenas por serem diferentes das reais. No entanto, os testes mostraram que isso não funciona, porque as notícias falsas são escritas para parecerem verdadeiras e imitam muito bem o estilo das notícias reais. Por isso, a abordagem teve de mudar para um método supervisionado (Rede Neuronal), onde se ensinou ao computador exemplos concretos do que é verdade e mentira, para poder obter resultados acima dos 98\%.
+
 \subsection{Conclusões e Trabalho Futuro} \label{subsec:conclusoes-trabalho-futuro}
+
+Pode-se concluir que os objetivos do trabalho foram cumpridos. Criou-se um sistema completo que consegue receber uma notícia e dizer se é verdadeira ou falsa com base em factos e análises concretas. A criação da interface gráfica foi o passo final que permitiu tornar este sistema matemático numa ferramenta que qualquer pessoa consegue utilizar.
+
+Para o futuro, e para melhorar este sistema, sugerem-se os seguintes passos:
+
+\begin{itemize}
+	\item \textbf{Usar Modelos de Linguagem Modernos (LLMs):} Em vez de usar métodos simples de contagem de palavras, integrar modelos mais avançados como o BERT, que conseguem perceber o contexto e o significado das frases muito melhor.
+	\item \textbf{Suporte para Português:} Atualmente o sistema só funciona em inglês. Seria importante treinar os modelos com notícias em português ou adicionar um tradutor automático para que possa ser usado em Portugal.
+	\item \textbf{Explicação da Decisão:} Adicionar na interface uma explicação para o utilizador perceber o motivo da classificação. Por exemplo, dizer "Esta notícia parece falsa porque o título diz o contrário do texto".
+\end{itemize}
