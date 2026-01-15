@@ -1,81 +1,101 @@
+from pathlib import Path
+import sys
 import streamlit as st
-import time
 import pandas as pd
-import random
-from modules.news import get_article
+
+# Add project root to sys.path to ensure imports work
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from frontend.modules.news import get_article
+from frontend.modules.inference import predict
 
 
-st.set_page_config(page_title="Live Detection", page_icon="🔮")
+def initialize_page():
+    """Sets up the Streamlit page configuration and header."""
+    st.set_page_config(page_title="Live Detection", page_icon="🔮")
+    st.markdown("# Live Detection Interface")
+    st.markdown("Insert a news article below to submit to the classification models.")
 
-st.markdown("# 🔮 Live Detection Interface")
-st.markdown("Insert a news article below to submit to the classification models.")
 
-# Input Area
-news_text = st.text_input("News URL", 
-                        placeholder="Paste the news URL here...")
+def handle_input():
+    """Handles user input and returns the URL and button state."""
+    news_url = st.text_input("News URL", placeholder="Paste the news URL here...")
+    analyze_clicked = st.button("🔍 Analyze Veracity", type="primary")
+    return news_url, analyze_clicked
 
-# Action Button
-if st.button("🔍 Analyze Veracity", type="primary"):
-    if not news_text:
-        st.warning("Please enter text to analyze.")
-    else:
-        # Try to fetch article
+
+def display_article(article):
+    """Displays the fetched article details in the UI."""
+    if not article:
+        return
+    st.divider()
+    st.subheader("📚 Article Fetched")
+    st.markdown(f"**Title:** {article.get('title', '(no title)')}")
+    st.text_area("News Body", value=article.get('text', ''), height=200)
+
+
+def run_pipeline(title, text):
+    """Executes the prediction pipeline with a status spinner and error handling."""
+    with st.status("Running classification pipeline...", expanded=True) as status:
+        st.write("🚀 Initializing pipeline...")
         try:
-            article = get_article(news_text)
-        except Exception as e:
-            st.error(f"Erro ao obter artigo: {e}")
-            article = None
-        
-        if article:
-            st.divider()
-            st.subheader("📚 Artigo obtido")
-            st.markdown(f"**Título:** {article.get('title','(sem título)')}")
-            st.text_area("Corpo da notícia", value=article.get('text',''), height=300)
+            # Make a prediction
+            df_result = predict(title, text)
             
-        # PROCESSING SIMULATION (Loading)
-        with st.status("Processing news...", expanded=True) as status:
-            st.write("📝 Tokenization and Lemmatization...")
-            time.sleep(1)
-            st.write("🤖 Querying Model 1 (TTopics)...")
-            time.sleep(0.8)
-            st.write("⚖️ Verifying Stance (Headline vs Body)...")
-            time.sleep(0.8)
-            st.write("🧠 Aggregating results in Meta-Classifier...")
-            time.sleep(0.5)
+            # Extract the first (and only) row of results
+            result_row = df_result.iloc[0]
+            
             status.update(label="Analysis Complete!", state="complete", expanded=False)
+            return result_row
 
-        # RANDOM RESULT GENERATION (MOCKUP)
-        # For demonstration, let's pretend the result depends on the text length
-        is_fake = random.choice([True, False])
-        fake_prob = random.uniform(0.75, 0.99) if is_fake else random.uniform(0.05, 0.30)
-        
-        # Results Layout
-        st.divider()
-        st.subheader("📊 Analysis Results")
+        except Exception as e:
+            status.update(label="Analysis Failed", state="error", expanded=False)
+            st.error(f"Pipeline Error: {e}")
+            st.stop()
 
-        col1, col2, col3 = st.columns(3)
 
-        # Main Card
-        with col1:
-            if fake_prob > 0.5:
-                st.error(f"## FAKE NEWS\nProbability: {fake_prob:.1%}")
-            else:
-                st.success(f"## REAL NEWS\nProbability: {(1-fake_prob):.1%}")
+def display_results(result_row):
+    """Displays the analysis results in a three-column layout."""
+    st.divider()
+    st.subheader("📊 Analysis Results")
 
-        # Intermediate Models Details
-        with col2:
-            st.markdown("**Detailed Analysis:**")
-            st.progress(random.uniform(0.6, 0.9), text="Semantic Consistency")
-            st.progress(random.uniform(0.4, 0.8), text="Headline-Body Agreement (Stance)")
+
+    # Main Veracity Card
+    is_fake = result_row['final_prediction'] == "Fake"
+    confidence = result_row['confidence']
+    
+    if is_fake:
+        st.error(f"## FAKE NEWS\nConfidence: {confidence:.1%}")
+    else:
+        st.success(f"## REAL NEWS\nConfidence: {confidence:.1%}")
+
+
+def main():
+    """Main execution flow."""
+    initialize_page()
+    news_url, analyze_clicked = handle_input()
+
+    if analyze_clicked:
+        if not news_url:
+            st.warning("Please enter a URL to analyze.")
+            return
+
+        # Fetch Article
+        try:
+            article = get_article(news_url)
+        except Exception as e:
+            st.error(f"Error fetching article: {e}")
+            return
+
+        if article:
+            display_article(article)
             
-        with col3:
-            topic = random.choice(["Politics", "Economy", "Health", "Sports"])
-            st.metric(label="Classified Topic", value=topic)
-            st.metric(label="Clickbait Score", value=f"{random.randint(10, 90)}/100")
+            # Run Inference
+            result_row = run_pipeline(article['title'], article['text'])
+            
+            # Show Results
+            display_results(result_row)
 
-        # Explanation (Simulated)
-        st.info(f"""
-        **Model Justification:** The system detected {random.randint(2, 5)} semantic inconsistencies and 
-        a significant divergence between the tone of the headline and the body content. 
-        The topic was correctly identified as **{topic}**.
-        """)
+
+if __name__ == "__main__":
+    main()
