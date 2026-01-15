@@ -1,6 +1,22 @@
 \section{Interface de Utilização} \label{sec:interface-utilizador}
 
-\subsection{Descrição da Aplicação} \label{subsec:descricao-aplicacao}
-% Breve explicação da interface desenvolvida para o utilizador final.
+De forma a cumprir o requisito de desenvolver uma aplicação que permita a interação com o modelo treinado, foi criada uma interface gráfica \textit{web} simples e intuitiva. O objetivo principal desta interface é abstrair a complexidade técnica dos algoritmos, permitindo que qualquer utilizador, mesmo sem conhecimentos de programação, possa verificar a veracidade de uma notícia.
 
-\subsection{Exemplo de Utilização} \label{subsec:exemplo-utilizacao}
+A aplicação foi desenvolvida em linguagem Python (utilizando a biblioteca \textit{Streamlit} \footnote{https://streamlit.io}), servindo como uma camada visual que comunica diretamente com a \textit{pipeline} de modelos de Machine Learning descrito nos capítulos anteriores.
+
+O fluxo de utilização, ilustrado na Figura \ref{fig:interface-exemplo}, resume-se a três passos:
+
+\begin{enumerate}
+	\item \textbf{Inserção do URL:} O utilizador introduz o \textit{link} da notícia que deseja verificar;
+	\item \textbf{Extração Automática:} Ao clicar no botão "Analyze Veracity", o sistema executa um algoritmo de \textit{web scraping} que acede à página, e extrai automaticamente o título e o corpo da notícia, apresentando-os no ecrã;
+	\item \textbf{Classificação:} O texto extraído é enviado para os modelos especialistas e para o Meta-Classificador. O resultado final é apresentado de forma visual (Verde para Verdadeiro, Vermelho para Falso), acompanhado pelo nível de confiança da previsão.
+\end{enumerate}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.0\linewidth]{imagens/user_interface_main}
+	\caption{Interface de deteção de \textit{Fake News}}
+	\label{fig:interface-exemplo}
+\end{figure}
+
+Como se observa na figura, a interface apresenta o resultado "REAL NEWS" com uma confiança de 54.1\%, demonstrando a capacidade do sistema em processar dados reais da internet e fornecer uma resposta quase imediata.
