@@ -1,6 +1,8 @@
 services:
   ml-app:
     build: .
+    ports:
+      - "8501:8501"
     container_name: ml-app
     volumes:
       - ./files:/app/files
