@@ -28,7 +28,7 @@ def display_images(images: list, columns: int = 2):
     cols = st.columns(columns)
     for idx, img_path in enumerate(images):
         with cols[idx % columns]:
-            st.image(str(img_path), caption=img_path.stem.replace("_", " ").title(), use_container_width=True)
+            st.image(str(img_path), caption=img_path.stem.replace("_", " ").title(), width='content')
 
 
 def display_topic_classification():

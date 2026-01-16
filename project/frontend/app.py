@@ -7,7 +7,6 @@ import os
 os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-# Add project root to sys.path to ensure imports work
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from frontend.modules.news import get_article
