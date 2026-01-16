@@ -116,11 +116,11 @@ def plot_confusion_matrices(results, save_path=None):
         return
 
     n_models = len(models_data)
-    cols = 3
+    cols = min(n_models, 3)
     rows = math.ceil(n_models / cols)
     
-    fig, axes = plt.subplots(rows, cols, figsize=(cols * 5, rows * 4))
-    axes = axes.flatten() if n_models > 1 else [axes]
+    fig, axes = plt.subplots(rows, cols, figsize=(cols * 5, rows * 4), squeeze=False)
+    axes = axes.flatten()
 
     for i, (model_name, data) in enumerate(models_data.items()):
         ax = axes[i]
