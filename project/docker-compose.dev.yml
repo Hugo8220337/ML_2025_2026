@@ -1,0 +1,10 @@
+services:
+  ml-app-dev:
+    build:
+      context: .
+      dockerfile: dockerfile.dev
+    container_name: ml-app-dev
+    volumes:
+      - .:/app
+      - ./files:/app/files
+      - ./datasets:/app/datasets
